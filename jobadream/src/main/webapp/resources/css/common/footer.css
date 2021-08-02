@@ -1,0 +1,22 @@
+@charset "UTF-8";
+ /* footer 시작 */
+ .footer {
+   width: 100%;
+   height: 60px;
+   line-height: 60px;
+   margin: auto;
+   margin-top : 3%;
+   margin-bottom : 1%;
+   background-color: #4d61c4;
+   text-align: center;
+ }
+
+ .footer-text {
+   text-align: center;
+   color: white;
+   font-size: 20px;
+   line-height : 20px;
+   border-style: none;
+   text-decoration: none;
+   margin-right: 1.5%;
+ }
