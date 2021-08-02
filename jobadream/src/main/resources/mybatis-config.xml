@@ -7,10 +7,16 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 	
+	<!-- 별칭 -->
 	<typeAliases>
+	<typeAlias type="edu.kh.job.member.model.vo.Member" alias="Member" />
+	
 
 	</typeAliases>
 	
+	<!-- mapper -->
 	<mappers>
+	<mapper resource="/mappers/member-mapper.xml" />
+	
 	</mappers>
 </configuration>

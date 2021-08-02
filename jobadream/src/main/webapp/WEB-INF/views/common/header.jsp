@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:set var="contextPath" scope="application" value="${pageContext.servletContext.contextPath}" />
+<c:set var="contextPath" scope="application"
+	value="${pageContext.servletContext.contextPath}" />
 
 <!DOCTYPE html>
 <html>
@@ -28,14 +29,22 @@
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 
-<link rel="stylesheet" href="${contextPath}/resources/css/common/header.css" type="text/css" />
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/common/header.css" type="text/css" />
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style type="text/css">
+@font-face {
+    font-family: 'Cafe24SsurroundAir';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 /* 로그인 모달  */
 .text1 {
 	font-weight: bold;
 }
+
 .text2 {
 	font-size: 20px;
 }
@@ -45,11 +54,21 @@
 	color: white;
 	font-weight: bold;
 }
-a, a:hover{
-text-decoration: none; 
+
+a, a:hover {
+	text-decoration: none;
 }
 
-input[type=password]{ font-family:"굴림"; }
+.pdd {
+	padding: 0px;
+}
+
+input[type=password] {
+	font-family: 'Cafe24SsurroundAir';
+}
+ input[type=text] {
+	font-family: 'Cafe24SsurroundAir';
+}
 /* 로그인 모달 */
 </style>
 
@@ -85,18 +104,24 @@ input[type=password]{ font-family:"굴림"; }
 							<a href="#"><img
 								src="${contextPath}/resources/images/main/sc.png"></a>
 						</div>
+
 					</div>
 				</div>
 				<div class="col-sm-3 btn-box">
-                    <c:if test="${ !empty loginMember }">
-                    	<button type="button" class="btn-location" id="btd-2"><strong>1:1채팅</strong></button>
-                    </c:if>
-                    <button type="button" class="btn-location" id="btd-2"><strong>내주변 job</strong></button>
-                </div>
+					<c:if test="${ !empty loginMember }">
+						<button type="button" class="btn-location" id="btd-2">
+							<strong>1:1채팅</strong>
+						</button>
+					</c:if>
+					<button type="button" class="btn-location" id="btd-2">
+						<strong>내주변 job</strong>
+					</button>
+				</div>
 			</div>
 
 			<!-- 로그인 모달 -->
-			<div class="modal fade" id="jobLogin" role="dialog"aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="jobLogin" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog " role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -109,35 +134,47 @@ input[type=password]{ font-family:"굴림"; }
 						</div>
 						<br>
 						<div class="modal-body">
-							<form class="form-signin" method="POST" action="${contextPath}/member/login" onsubmit="return loginValidate();">
+							<form class="form-signin" method="POST"
+								action="${contextPath}/member/login"
+								onsubmit="return loginValidate();">
 								<div class="row">
 									<div class="col-md-1"></div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<label class=" text1 text2"> 아이디 </label>
 									</div>
-									<div class="col-md-6">
-										<input type="text" class="form-control" id="memberId"
-											name="memberId" maxlength="12" placeholder="아이디를 입력하세요" value="${cookie.saveId.value}">
+									<div class="col-md-6 pdd">
+										<input type="text" class="form-control " name="memberId"
+											id="id cssid" maxlength="12" placeholder="아이디를 입력하세요"
+											autocomplete="off" required>
 									</div>
+									<div class="col-md-2"></div>
 								</div>
 								<br>
 								<br>
 								<div class="row">
 									<div class="col-md-1"></div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<label class=" text1 text2"> 비밀번호 </label>
 									</div>
-									<div class="col-md-6">
-										<input type="password" class="form-control" id="memberPw"
-											name="memberPw" maxlength="20" placeholder="비밀번호를 입력하세요">
+									<div class="col-md-6 pdd">
+										<input type="password" class="form-control " id="pwd"
+											name="memberPw" maxlength="20" placeholder="비밀번호를 입력하세요"
+											required>
 									</div>
+									<div class="col-md-1 pdd">
+										<button type="button"
+											class="btn btn-outline-secondary btn-md " id="eye">show
+										</button>
+									</div>
+									<div class="col-md-1"></div>
 								</div>
 								<br>
 								<div class="modal-footer">
 									<div class="container-fluid">
 										<div class="row">
 											<div class="col-md-12">
-												<button type="submit" class="btn btn-block" id="btn-color1"> 로그인</button>
+												<button type="submit" class="btn btn-block" id="btn-color1">
+													로그인</button>
 											</div>
 										</div>
 										<br>
@@ -146,13 +183,15 @@ input[type=password]{ font-family:"굴림"; }
 												<c:set var="ch" value="checked" />
 											</c:if>
 											<div class="col-md-4">
-												<label> 
-													<input type="checkbox" name="save" id="save" ${ch}> 아이디 저장
+												<label> <input type="checkbox" name="save" id="save"
+													${ch}> 아이디 저장
 												</label>
 											</div>
 											<div class="col-md-2"></div>
 											<div class="col-md-6 text-right">
-												<label> <a href="${contextPath}/member/findIdPw">아이디/비밀번호 찾기</a> </label>
+												<label> <a href="${contextPath}/member/findIdPw">아이디/비밀번호
+														찾기</a>
+												</label>
 											</div>
 										</div>
 										<br>
@@ -176,33 +215,42 @@ input[type=password]{ font-family:"굴림"; }
 		</script>
 
 	</c:if>
-	
+
 	<script>
 		// 로그인 수행 시 아이디/비밀번호가 작성 되었는지 확인하는 유효성 검사
-		function loginValidate(){
-			
-			if(  $("#memberId").val().trim().length == 0  ){
+		function loginValidate() {
+
+			if ($("#memberId").val().trim().length == 0) {
 				swal({
 					"icon" : "warning",
 					"title" : "아이디를 입력해주세요"
-				}).then(function(){
+				}).then(function() {
 					$("#memberId").focus();
 				});
-				return false;  
+				return false;
 			}
-			
-			if(  $("#memberPw").val().trim().length == 0  ){
-				
+
+			if ($("#memberPw").val().trim().length == 0) {
+
 				swal({
 					"icon" : "warning",
 					"title" : "비밀번호를 입력해주세요"
-				}).then(function(){
+				}).then(function() {
 					$("#memberPw").focus();
 				});
-				
-				return false;  
+
+				return false;
 			}
 		}
 	</script>
+	
+	<script>
+        // mouseenter(hover) mousedown(action)
+      $('#eye').on("mousedown", function(){
+            $('#pwd').attr('type',"text");
+        }).on('mouseup mouseleave', function() {
+            $('#pwd').attr('type',"password");
+        });
+    </script>
 </body>
 </html>
