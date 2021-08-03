@@ -49,37 +49,37 @@
        <div class="category-list">
            <div class="row">
                <div class="col-xs-6 col-sm-6 col-md-4">
-                   <a href="" class="category-list">
+                   <a href="${contextPath}/board/0/list"" class="category-list">
                        <img src="${contextPath}/resources/images/main/all.png">
                    </a>
                </div>
 
                <div class="col-xs-6 col-sm-6 col-md-4">
-                   <a href="" class="category-list">
+                   <a href="${contextPath}/board/1/list" class="category-list">
                        <img src="${contextPath}/resources/images/main/home.png">
                    </a>
                </div>
 
                <div class="col-xs-6 col-sm-6 col-md-4">
-                   <a href="" class="category-list">
+                   <a href="${contextPath}/board/2/list" class="category-list">
                        <img src="${contextPath}/resources/images/main/catdog.png">
                    </a>
                </div>
 
                <div class="col-xs-6 col-sm-6 col-md-4">
-                   <a href="" class="category-list">
+                   <a href="${contextPath}/board/3/list" class="category-list">
                        <img src="${contextPath}/resources/images/main/errand.png">
                    </a>
                </div>
 
                <div class="col-xs-6 col-sm-6 col-md-4">
-                   <a href="" class="category-list">
+                   <a href="${contextPath}/board/4/list" class="category-list">
                        <img src="${contextPath}/resources/images/main/delivery.png">
                    </a>
                </div>
 
                <div class="col-xs-6 col-sm-6 col-md-4">
-                   <a href="" class="category-list">
+                   <a href="${contextPath}/board/5/list" class="category-list">
                        <img src="${contextPath}/resources/images/main/etc.png">
                    </a>
                </div>
