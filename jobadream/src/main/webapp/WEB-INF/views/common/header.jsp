@@ -35,9 +35,9 @@
 
 <style type="text/css">
 @font-face {
-    font-family: 'Cafe24SsurroundAir';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
-    font-weight: normal;
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
     font-style: normal;
 }
 /* 로그인 모달  */
@@ -64,10 +64,13 @@ a, a:hover {
 }
 
 input[type=password] {
-	font-family: 'Cafe24SsurroundAir';
+	font-family: 'Pretendard-Regular';
 }
- input[type=text] {
-	font-family: 'Cafe24SsurroundAir';
+input[type=text] {
+	font-family: 'Pretendard-Regular';;
+}
+textarea {
+	font-family: 'Pretendard-Regular';
 }
 /* 로그인 모달 */
 </style>
@@ -85,7 +88,7 @@ input[type=password] {
 						<a href="#jobLogin" data-toggle="modal">로그인</a>
 					</c:when>
 					<c:otherwise>
-						<a href="#">마이페이지</a>
+						<a href="${contextPath}/member/myPage">마이페이지</a>
 						<a href="${contextPath}/member/logout">로그아웃</a>
 					</c:otherwise>
 				</c:choose>
@@ -143,31 +146,29 @@ input[type=password] {
 										<label class=" text1 text2"> 아이디 </label>
 									</div>
 									<div class="col-md-6 pdd">
-										<input type="text" class="form-control " name="memberId"
-											id="id cssid" maxlength="12" placeholder="아이디를 입력하세요"
-											autocomplete="off" required>
+										<input type="text" class="form-control " name="memberId" id="id cssid" maxlength="12" 
+										placeholder="아이디를 입력하세요" value="${cookie.saveId.value}" autocomplete="off" >
 									</div>
 									<div class="col-md-2"></div>
 								</div>
 								<br>
 								<br>
 								<div class="row">
-									<div class="col-md-1"></div>
-									<div class="col-md-3">
-										<label class=" text1 text2"> 비밀번호 </label>
-									</div>
-									<div class="col-md-6 pdd">
-										<input type="password" class="form-control " id="pwd"
-											name="memberPw" maxlength="20" placeholder="비밀번호를 입력하세요"
-											required>
-									</div>
-									<div class="col-md-1 pdd">
-										<button type="button"
-											class="btn btn-outline-secondary btn-md " id="eye">show
-										</button>
-									</div>
-									<div class="col-md-1"></div>
-								</div>
+                                     <div class="col-md-1">
+                                     </div>
+                                     <div class="col-md-3">
+                                         <label class=" text1 text2"> 비밀번호 </label>
+                                     </div>
+                                     <div class="col-md-6 pdd">
+                                         <input type="password" class="form-control " id="memberPw" name="memberPw"
+                                             maxlength="20" placeholder="비밀번호를 입력하세요" required>
+                                     </div>
+                                     <div class="col-md-1 pdd">
+                                         <button type="button" class="btn btn-outline-secondary btn-md " id="eye">show </button>
+                                     </div>
+                                     <div class="col-md-1">
+                                     </div>
+                                 </div>
 								<br>
 								<div class="modal-footer">
 									<div class="container-fluid">
@@ -183,8 +184,7 @@ input[type=password] {
 												<c:set var="ch" value="checked" />
 											</c:if>
 											<div class="col-md-4">
-												<label> <input type="checkbox" name="save" id="save"
-													${ch}> 아이디 저장
+												<label> <input type="checkbox" name="save" id="save" ${ch}> 아이디 저장
 												</label>
 											</div>
 											<div class="col-md-2"></div>
@@ -215,7 +215,6 @@ input[type=password] {
 		</script>
 
 	</c:if>
-
 	<script>
 		// 로그인 수행 시 아이디/비밀번호가 작성 되었는지 확인하는 유효성 검사
 		function loginValidate() {
@@ -247,9 +246,9 @@ input[type=password] {
 	<script>
         // mouseenter(hover) mousedown(action)
       $('#eye').on("mousedown", function(){
-            $('#pwd').attr('type',"text");
+            $('#memberPw').attr('type',"text");
         }).on('mouseup mouseleave', function() {
-            $('#pwd').attr('type',"password");
+            $('#memberPw').attr('type',"password");
         });
     </script>
 </body>

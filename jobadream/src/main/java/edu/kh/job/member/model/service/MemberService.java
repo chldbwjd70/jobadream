@@ -1,5 +1,7 @@
 package edu.kh.job.member.model.service;
 
+import javax.servlet.http.HttpServletResponse;
+
 import edu.kh.job.member.model.vo.Member;
 
 public interface MemberService {
@@ -12,5 +14,11 @@ public interface MemberService {
 
 	// 아이디 중복 검사
 	int idDupCheck(String id);
+
+	// 회원 정보 수정
+	int updateMember(Member inputMember);
+
+
+	// 아이디 찾기
 
 }

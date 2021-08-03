@@ -59,4 +59,27 @@ public class MemberServiceImpl implements MemberService{
 		return dao.idDupCheck(id);
 	}
 
+	// 회원 정보 수정
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateMember(Member inputMember) {
+		return dao.updateMember(inputMember);
+	}
+
+	// 아이디 찾기
+	
+	
+	// 크로스 사이트 스크립트 방지 처리 메소드
+	public static String replaceParameter(String param) {
+		String result = param;
+		if(param != null) {
+			result = result.replaceAll("&", "&amp;");
+			result = result.replaceAll("<", "&lt;");
+			result = result.replaceAll(">", "&gt;");
+			result = result.replaceAll("\"", "&quot;");
+		}
+		
+		return result;
+	}
+
 }

@@ -27,4 +27,12 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.idDupCheck", id);
 	}
 
+	// 회원 정보 수정
+	public int updateMember(Member inputMember) {
+		return sqlSession.update("memberMapper.updateMember", inputMember);
+	}
+
+
+	// 아이디 찾기
+
 }

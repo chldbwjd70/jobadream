@@ -55,7 +55,7 @@
 
 ④ 약관 내용 4
 </textarea>
-                             <form role="form" action="${contextPath}/member/terms" >
+                             <form role="form" action="terms" >
                            <%--  <form role="form" method="POST" action="${contextPath}/member/terms" onsubmit="return button1_click();"> --%>
                                 <label for="terms">
                                     <input type="checkbox" id="terms" /> 약관에 동의합니다
