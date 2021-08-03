@@ -39,7 +39,7 @@
                     <br>
                 </div>
             </div>
-           <form role="form" method="POST" action="${contextPath}/member/signUp" class="needs-validation" name="signUpForm" onsubmit="return validate();">
+           <form role="form" method="POST" action="signUp" class="needs-validation" name="signUpForm" onsubmit="return validate();">
 
                 <div class="row">
                     <div class="col-md-2">

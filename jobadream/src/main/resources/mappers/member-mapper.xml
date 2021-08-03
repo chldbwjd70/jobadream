@@ -39,6 +39,37 @@
 		WHERE MEMBER_STATUS = 'Y'
 		AND MEMBER_ID = #{id}
   	</select>
+  	
+  	<!-- 아이디 찾기 -->
+  	<select id="findId" parameterType="string"  resultType="_int" >>
+  		SELECT COUNT(*) FROM MEMBER
+		WHERE MEMBER_STATUS = 'Y'
+        AND MEMBER_NM = #{memberName}
+		AND MEMBER_EMAIL = #{memberEmail}
+  	</select>
+  	
+  	<!-- 회원 정보 수정 -->
+  	<update id="updateMember"  parameterType="Member">
+  		UPDATE MEMBER SET
+  		MEMBER_EMAIL = #{memberEmail},
+  		MEMBER_PHONE = #{memberPhone},
+  		MEMBER_ADDR = #{memberAddress}
+  		WHERE MEMBER_NO = #{memberNo}
+  	</update>
+  	
+  	 <!-- 소개 작성 및 수정 -->
+	 <update id="updateIntroduce" parameterType="Member">
+		UPDATE MEMBER SET
+		MEMBER_INTRODUCE = #{memberIntroduce}
+		WHERE MEMBER_NO = #{memberNo}      
+	 </update>
+	 
+	 <!-- 소개 삭제 -->
+	 <update id="deleteIntroduce" parameterType="_int">
+		UPDATE MEMBER SET
+		MEMBER_INTRODUCE = NULL
+		WHERE MEMBER_NO = #{memberNo} 
+	 </update>
 
 
 </mapper>

@@ -118,7 +118,58 @@ public class MemberController {
 		return "member/findIdPw"; 
 	}
 	
+	// 아이디 찾기 
+	@RequestMapping(value="findIdPw", method=RequestMethod.POST)  
+	public String findId(Member member, RedirectAttributes ra) {
+		
+		return  "redirect:/"; 
+	}
 	
+	
+	// 마이페이지 전환
+	@RequestMapping(value="myPage", method=RequestMethod.GET)  
+	public String myPage() { 
+		return "member/myPage"; 
+	}
+	
+	// 회원 정보 수정 전환
+	@RequestMapping(value="myInformation", method=RequestMethod.GET)
+	public String myInformation() {
+		return "member/myInformation";
+	}
+	
+	// 회원 정보 수정 Controller
+	@RequestMapping(value="update", method=RequestMethod.POST)
+	public String updateMember( @ModelAttribute("loginMember") Member loginMember,
+								String inputEmail, String inputPhone, String inputAddress,
+								Member inputMember, RedirectAttributes ra) {
+		
+		inputMember.setMemberNo(loginMember.getMemberNo());
+		inputMember.setMemberEmail(inputEmail);
+		inputMember.setMemberPhone(inputPhone);
+		inputMember.setMemberAddress(inputAddress);
+		
+		// 회원 정보 수정 Service
+		int result = service.updateMember(inputMember);
+		
+		if( result > 0 ) { 
+			swalSetMessage(ra, "success", "회원 정보 수정 성공", null);
+			
+			loginMember.setMemberEmail(inputEmail);
+			loginMember.setMemberPhone(inputPhone);
+			loginMember.setMemberAddress(inputAddress);
+			
+		}else { 
+			swalSetMessage(ra, "error", "회원 정보 수정 실패", null);
+		}
+		return "redirect:/member/myInformation";
+	}
+	
+	// 내소개 전환
+	@RequestMapping(value="myIntroduce", method=RequestMethod.GET)
+	public String myIntroduce() {
+		return "member/myIntroduce";
+	}
 	// SweetAlert를 이용한 메세지 전달용 메소드
 	public static void swalSetMessage(RedirectAttributes ra, String icon, String title, String text) {
 
