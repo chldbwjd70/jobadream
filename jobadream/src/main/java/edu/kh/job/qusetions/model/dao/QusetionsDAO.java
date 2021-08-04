@@ -1,4 +1,4 @@
-package edu.kh.job.notice.model.dao;
+package edu.kh.job.qusetions.model.dao;
 
 import java.util.List;
 
@@ -7,12 +7,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import edu.kh.job.notice.model.vo.Notice;
-import edu.kh.job.notice.model.vo.Pagination;
+import edu.kh.job.qusetions.model.vo.Pagination;
+import edu.kh.job.qusetions.model.vo.Qusetions;
 
 @Repository
-public class NoticeDAO {
-	
+public class QusetionsDAO {
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
@@ -20,19 +20,19 @@ public class NoticeDAO {
 	 * @return selectPg
 	 */
 	public Pagination getListCount() {
-		return sqlSession.selectOne("noticeMapper.getListCount");
+		return sqlSession.selectOne("qusetionsMapper.getListCount");
 	}
 
+	
 	/** 게시글목록조회
 	 * @param pagination
-	 * @return noticeList
+	 * @return qusetionsList
 	 */
-	public List<Notice> selectNoticeList(Pagination pagination) {
+	public List<Qusetions> selectQusetionList(Pagination pagination) {
 		
 		// RowBounds사용
 		int offset = (pagination.getCurrentPage() - 1)*pagination.getLimit();
 		RowBounds rowBouns = new RowBounds(offset, pagination.getLimit());
-		return sqlSession.selectList("noticeMapper.selectNoticeList", pagination, rowBouns);
+		return sqlSession.selectList("qusetionsMapper.selectQusetionList", pagination, rowBouns);
 	}
-
 }

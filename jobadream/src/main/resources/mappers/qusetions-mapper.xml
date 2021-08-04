@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="qusetionsMapper">
+<!-- Pagination ResultMap -->
+  <resultMap type="QusetionsPagination" id="qpg_rm">
+  	<result property="listCount" column="CNT"/>
+  </resultMap>
+
+<!-- join용  -->
+ <resultMap type="Member" id="member_rm">
+	<id property="memberNo" column="MEMBER_NO"/>
+	<result property="memberId" column="MEMBER_ID"/>
+	<result property="memberPw" column="MEMBER_PW"/>
+ 	<result property="memberName" column="MEMBER_NM"/>
+ 	<result property="memberPhone" column="MEMBER_PHONE"/>
+ 	<result property="memberEmail" column="MEMBER_EMAIL"/>
+ 	<result property="memberAddress" column="MEMBER_ADDR"/>
+ 	<result property="enrollDate" column="ENROLL_DATE"/>
+ 	<result property="memberStatus" column="MEMBER_STATUS"/>
+ 	<result property="memberGrade" column="MEMBER_GRADE"/>	 
+ 	<result property="memberPoint" column="MEMBER_POINT"/>	 
+ 	<result property="memberIntroduce" column="MEMBER_INTRODUCE"/>	 
+ </resultMap>
+
+<!-- Qusetions 목록조회, 상세조회용 ResultMap -->
+  <resultMap type="Qusetions" id="qus_rm">
+  	<id property="qusetionsNo" column="QUSETIONS_NO"/>
+  	<result property="qusetionsTitle" column="QUSETIONS_TITLE"/>
+  	<result property="qusetionsContent" column="QUSETIONS_CONTENT"/>
+  	<result property="qusetionsDt" column="QUSETIONS_DT"/>
+  	<result property="qusetionsStatus" column="QUSETIONS_STATUS"/>
+  	<result property="qusetionsReplyStatus" column="QUSETIONS_REPLY_STATUS"/>
+  	<result property="qusetionsReply" column="QUSETIONS_REPLY"/>
+  	<result property="memberNo" column="MEMBER_NO"/>
+  	<collection property="mem" resultMap="member_rm"/>
+  </resultMap>
+  
+  <!-- 전체게시글수 조회  -->
+  <select id="getListCount" resultMap="qpg_rm">
+  	SELECT COUNT(*) CNT
+  	FROM QUSETIONS_LIST
+  	WHERE QUSETIONS_STATUS = 'Y'
+  </select>
+  
+  <select id="selectQusetionList" parameterType="QusetionsPagination" resultMap="qus_rm">
+	SELECT QUSETIONS_NO, QUSETIONS_TITLE, QUSETIONS_CONTENT, QUSETIONS_DT, QUSETIONS_STATUS,
+	QUSETIONS_REPLY_STATUS,QUSETIONS_REPLY,MEMBER_NO, MEMBER_ID
+	FROM QUSETIONS
+	JOIN MEMBER USING(MEMBER_NO)
+	ORDER BY QUSETIONS_NO DESC
+  </select>
+</mapper>
