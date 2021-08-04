@@ -17,7 +17,7 @@
 	<typeAlias type="edu.kh.job.qusetions.model.vo.Qusetions" alias="Qusetions" />
 	<typeAlias type="edu.kh.job.qusetions.model.vo.Pagination" alias="QusetionsPagination" />
 
-
+	<typeAlias type="edu.kh.job.board.model.vo.Pagination" alias="Pagination" />
 	
 
 
