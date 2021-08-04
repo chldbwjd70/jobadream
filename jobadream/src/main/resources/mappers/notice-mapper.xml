@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+<!-- Pagination ResultMap -->
+  <resultMap type="NoticePagination" id="npg_rm">
+  	<result property="listCount" column="CNT"/>
+  </resultMap>
+  
+ <resultMap type="Member" id="member_rm">
+	<id property="memberNo" column="MEMBER_NO"/>
+	<result property="memberId" column="MEMBER_ID"/>
+	<result property="memberPw" column="MEMBER_PW"/>
+ 	<result property="memberName" column="MEMBER_NM"/>
+ 	<result property="memberPhone" column="MEMBER_PHONE"/>
+ 	<result property="memberEmail" column="MEMBER_EMAIL"/>
+ 	<result property="memberAddress" column="MEMBER_ADDR"/>
+ 	<result property="enrollDate" column="ENROLL_DATE"/>
+ 	<result property="memberStatus" column="MEMBER_STATUS"/>
+ 	<result property="memberGrade" column="MEMBER_GRADE"/>	 
+ 	<result property="memberPoint" column="MEMBER_POINT"/>	 
+ 	<result property="memberIntroduce" column="MEMBER_INTRODUCE"/>	 
+ </resultMap>
+
+<!-- Notice 목록조회, 상세조회용 ResultMap -->
+  <resultMap type="Notice" id="notice_rm">
+  	<id property="noticeNo" column="NOTICE_NO"/>
+  	<result property="noticeTitle" column="NOTICE_TITLE"/>
+  	<result property="noticeContent" column="NOTICE_CONTENT"/>
+  	<result property="noticeStatus" column="NOTICE_STATUS"/>
+  	<result property="createDt" column="CREATE_DT"/>
+  	<result property="memberNo" column="MEMBER_NO"/>
+  	<collection property="mem" resultMap="member_rm"/>
+  </resultMap>
+  
+  <!-- 전체게시글수 조회  -->
+  <select id="getListCount" resultMap="npg_rm">
+  	SELECT COUNT(*) CNT
+  	FROM NOTICE_LIST
+  	WHERE NOTICE_STATUS = 'Y'
+  </select>
+  
+  <select id="selectNoticeList" parameterType="NoticePagination" resultMap="notice_rm">
+  	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_STATUS, CREATE_DT,
+		MEMBER_NO, MEMBER_ID
+		FROM NOTICE
+	JOIN MEMBER USING(MEMBER_NO)
+	ORDER BY NOTICE_NO DESC
+  </select>
+</mapper>
