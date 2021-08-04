@@ -40,7 +40,7 @@
 <body>
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<div class="container">
-		<h2 class="list-title" style="font-weight: bold;">공지사항</h2>
+		<h2 class="list-title" style="font-weight: bold;">1:1 문의</h2>
 		<div class="list-detaiil shadow p-3 mb-5 bg-white rounded p-5">
 			<div class="row">
 				<div class="col-md-12">
@@ -58,36 +58,36 @@
 						<tbody>
 							<c:choose>
 								<%-- 조회된 게시글 목록이 없는 경우 --%>
-								<c:when test="${empty noticeList}">
+								<c:when test="${empty qusetionsList}">
 									<tr>
 										<td colspan="6">게시글이 존재하지 않습니다.</td>
 									</tr>
 								</c:when>
 								<%-- 조회된 게시글 목록이 있을 경우 --%>
 								<c:otherwise>
-									<c:forEach items="${noticeList}" var="notice">
+									<c:forEach items="${qusetionsList}" var="qu">
 										<tr>
 											<%-- 글 번호 --%>
-											<td>${notice.noticeNo }</td>
+											<td>${qu.qusetionsNo }</td>
 											<%-- 글제목 --%>
 											<td class="boardTitle"><a
-												href="${notice.noticeNo}?cp=${pagination.currentPage}${searchStr}">
-													${notice.noticeTitle} </a></td>
+												href="${qu.qusetionsNo}?cp=${pagination.currentPage}${searchStr}">
+													${qu.qusetionsTitle} </a></td>
 											<%-- 작성자 --%>
-											<td>${notice.mem.memberId}</td>
+											<td>${qu.mem.memberId}</td>
 											<%-- 작성일 --%>
-											<td><fmt:formatDate var="createDate"
-													value="${notice.createDt}" pattern="yyyy-MM-dd" /> <fmt:formatDate
+											<td><fmt:formatDate var="qusetionsDt"
+													value="${qu.qusetionsDt}" pattern="yyyy-MM-dd" /> <fmt:formatDate
 													var="today" value="<%=new java.util.Date()%>"
 													pattern="yyyy-MM-dd" /> <c:choose>
 													<%-- 글 작성일이 오늘이 아닐 경우 --%>
-													<c:when test="${createDt != today}">
-													${createDate}
+													<c:when test="${qusetionsDt != today}">
+													${qusetionsDt}
 												</c:when>
 
 													<%-- 글 작성일이 오늘일 경우 --%>
 													<c:otherwise>
-														<fmt:formatDate value="${notice.createDt}" pattern="HH:mm" />
+														<fmt:formatDate value="${qu.qusetionsDt}" pattern="HH:mm" />
 													</c:otherwise>
 												</c:choose></td>
 										</tr>
@@ -100,8 +100,8 @@
 			</div>
 
 			<br>
-			<%-- 관리자일 경우에만 글쓰기 버튼 노출 --%>
-			<c:if test="${loginMember.memberGrade == 'A' }">
+			<%-- 회원일경우에만 글쓰기 버튼 노출 --%>
+			<c:if test="${!empty loginMember}">
 				<a class="btn btn-primary float-right" id="request-table-btn"
 					href='insert'>글쓰기</a>
 			</c:if>
@@ -109,7 +109,7 @@
 			<%---------------------- Pagination start----------------------%>
 			<%-- 페이징 처리 시 주소를 쉽게 작성할 수 있도록 필요한 변수를 미리 선언 --%>
 
-			<c:set var="pageURL" value="noticeList" />
+			<c:set var="pageURL" value="qusetionsList" />
 
 			<c:set var="prev"
 				value="${pageURL}?cp=${pagination.prevPage}${searchStr}" />
