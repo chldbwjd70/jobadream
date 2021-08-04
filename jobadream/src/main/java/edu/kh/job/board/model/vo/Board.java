@@ -10,6 +10,7 @@ public class Board {
 	private int memberNo;
 	private String memberName;
 	private int categoryCode;
+	private String categoryTitle;
 	private String boardTime;
 	private String boardPlace;
 	private int boardPay;
@@ -107,13 +108,21 @@ public class Board {
 		this.boardContent = boardContent;
 	}
 
+	public String getCategoryTitle() {
+		return categoryTitle;
+	}
+
+	public void setCategoryTitle(String categoryTitle) {
+		this.categoryTitle = categoryTitle;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", readCount=" + readCount + ", createDate="
 				+ createDate + ", memberNo=" + memberNo + ", memberName=" + memberName + ", categoryCode="
-				+ categoryCode + ", boardTime=" + boardTime + ", boardPlace=" + boardPlace + ", boardPay=" + boardPay
-				+ ", boardContent=" + boardContent + "]";
+				+ categoryCode + ", categoryTitle=" + categoryTitle + ", boardTime=" + boardTime + ", boardPlace="
+				+ boardPlace + ", boardPay=" + boardPay + ", boardContent=" + boardContent + "]";
 	}
-	
+
 	
 }
