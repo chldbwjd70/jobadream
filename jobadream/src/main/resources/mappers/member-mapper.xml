@@ -57,19 +57,25 @@
   		WHERE MEMBER_NO = #{memberNo}
   	</update>
   	
-  	 <!-- 소개 작성 및 수정 -->
-	 <update id="updateIntroduce" parameterType="Member">
-		UPDATE MEMBER SET
-		MEMBER_INTRODUCE = #{memberIntroduce}
-		WHERE MEMBER_NO = #{memberNo}      
-	 </update>
-	 
-	 <!-- 소개 삭제 -->
-	 <update id="deleteIntroduce" parameterType="_int">
-		UPDATE MEMBER SET
-		MEMBER_INTRODUCE = NULL
-		WHERE MEMBER_NO = #{memberNo} 
-	 </update>
+  	<!-- 비밀번호 조회 -->
+  <select id="selectPassword" parameterType="_int" resultType="string">
+  	SELECT MEMBER_PW FROM MEMBER
+  	WHERE MEMBER_NO = #{memberNo}
+  </select>
+  
+  <!-- 비밀번호 변경 -->
+  <update id="changPwd" parameterType="Member">
+  	UPDATE MEMBER SET
+  	MEMBER_PW = #{memberPw}
+  	WHERE MEMBER_NO = #{memberNo}
+  </update>
+  	
+  <!-- 회원 탈퇴 -->
+  <update id="secession" parameterType="_int">
+  	UPDATE MEMBER SET
+  	MEMBER_STATUS = 'N'
+  	WHERE MEMBER_NO = #{memberNo}
+  </update>
 
 
 </mapper>

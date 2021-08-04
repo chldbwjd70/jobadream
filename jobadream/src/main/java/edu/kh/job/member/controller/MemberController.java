@@ -83,7 +83,7 @@ public class MemberController {
 		return "member/signUp"; 
 	}
 	
-	// 회원 가입 Controller
+	// 회원 가입 
 	@RequestMapping(value="signUp", method=RequestMethod.POST )
 	public String signUp( @ModelAttribute Member inputMember , RedirectAttributes ra   ) {
 
@@ -170,6 +170,67 @@ public class MemberController {
 	public String myIntroduce() {
 		return "member/myIntroduce";
 	}
+	
+	
+	// 비밀번호 수정 전환
+	@RequestMapping(value="changPwd", method=RequestMethod.GET)
+	public String changPwd() {
+		return "member/changPwd";
+	}
+	
+	// 비밀번호 수정
+	@RequestMapping(value="changPwd", method=RequestMethod.POST)
+	public String changPwd(@RequestParam("currentPwd") String currentPwd,
+						   @RequestParam("newPwd1") String newPwd,
+						   @ModelAttribute("loginMember") Member loginMember,
+						   RedirectAttributes ra) {
+		
+		int result = service.changPwd(currentPwd, newPwd, loginMember);
+		
+		String path = "redirect:";
+		
+		if(result > 0) { // 비밀번호 변경 성공
+			swalSetMessage(ra, "success", "비밀번호 변경이 완료되었습니다.", null);
+			path += "myPage";
+			
+		}else { // 실패
+			swalSetMessage(ra, "error", "기존 비밀번호가 일치 하지 않습니다.", null);
+			path += "changPwd";
+			
+		}
+		
+		return path;
+	}
+	
+	// 탈퇴 전환
+	@RequestMapping(value="secession", method=RequestMethod.GET)
+	public String secession() {
+		return "member/secession";
+	}
+	
+	// 탈퇴 
+	@RequestMapping(value="secession", method=RequestMethod.POST)
+	public String secession(@RequestParam("currentPwd") String currentPwd, 
+							@ModelAttribute("loginMember") Member loginMember, 
+							RedirectAttributes ra,  
+							SessionStatus status) { 
+		
+		int result = service.secession(currentPwd, loginMember.getMemberNo());
+		
+		String path = "redirect:";
+		
+		if(result > 0) {
+			path += "/"; 
+			swalSetMessage(ra, "success", "회원 탈퇴 성공", "이용해 주셔서 감사합니다.");
+			status.setComplete(); 
+			
+		}else {
+			path += "secession"; 
+			swalSetMessage(ra, "error", "회원 탈퇴 실패", "비밀번호가 일치하지 않습니다.");
+		}
+		return path;
+	}
+
 	// SweetAlert를 이용한 메세지 전달용 메소드
 	public static void swalSetMessage(RedirectAttributes ra, String icon, String title, String text) {
 

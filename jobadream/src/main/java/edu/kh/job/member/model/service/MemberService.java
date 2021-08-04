@@ -18,7 +18,15 @@ public interface MemberService {
 	// 회원 정보 수정
 	int updateMember(Member inputMember);
 
+	// 비밀 번호 수정
+	int changPwd(String currentPwd, String newPwd, Member loginMember);
 
-	// 아이디 찾기
+	// 회원 탈퇴
+	int secession(String currentPwd, int memberNo);
+
+
+	
+
+
 
 }

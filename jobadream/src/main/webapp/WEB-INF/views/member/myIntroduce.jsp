@@ -42,7 +42,6 @@
     </style>
 </head>
 <body>
-${loginMember }
     <div class="container">
         <div class="container-fluid">
             <div class="row">
@@ -84,7 +83,8 @@ ${loginMember }
                                 <div class="col-md-2">
                                 </div>
                                 <div class="col-md-8">
-                                    <textarea class="col-sm text4 text2" id="input-introduce" rows="10" style="resize:none;">${loginMember.memberIntroduce}</textarea>
+                                    <textarea class="col-sm text4 text2" id="memberIntroduce" name="memberIntroduce" 
+                                    rows="10" style="resize:none;">${loginMember.memberIntroduce}</textarea>
                                     
                                 </div>
                                 <div class="col-md-2">
@@ -114,7 +114,7 @@ ${loginMember }
 		                                <button type="button" class="btn float-right btn-lg btn-color1  " onclick="updateIntroduce(${loginMember.memberNo}, this);"> 수정 </button>
 		                            </div>
 		                            <div class="col-md-1 pdd">
-		                                <button type="submit" class="btn float-right btn-lg btn-color1  " onclick="deleteIntroduce(${loginMember.memberNo})"> 삭제 </button>
+		                            	<button type="button" class="btn float-right btn-lg btn-color1 "  id="delete-btn" onclick="deleteIntroduce(${member.memberNo})">삭제</button>
 		                            </div>
 	                            </c:otherwise>
                             </c:choose>
