@@ -65,9 +65,46 @@ public class MemberServiceImpl implements MemberService{
 	public int updateMember(Member inputMember) {
 		return dao.updateMember(inputMember);
 	}
-
-	// 아이디 찾기
 	
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int changPwd(String currentPwd, String newPwd, Member loginMember) {
+		
+		// DB에 저장되어 있는 현재 회원의 비밀번호 조회
+		String savePwd = dao.selectPassword(loginMember.getMemberNo());
+		
+		int result = 0; 
+		
+		// 조회한 비밀번호와 입력 받은 현재 비밀번호가 일치하는지 확인
+		if( bCryptPasswordEncoder.matches(currentPwd, savePwd)  ) {
+
+			String encPwd = bCryptPasswordEncoder.encode(newPwd);
+			
+			loginMember.setMemberPw(encPwd);
+			
+			result = dao.changPwd(loginMember);
+			
+			loginMember.setMemberPw(null);
+		}
+		
+		return result;
+	}
+
+	// 회원 탈퇴
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int secession(String currentPwd, int memberNo) {
+		
+		// 저장된 비밀번호를 얻어와 비교
+		String savePwd = dao.selectPassword(memberNo);
+		
+		int result = 0;
+		if( bCryptPasswordEncoder.matches(currentPwd, savePwd)  ) {
+			
+			result = dao.secession(memberNo);
+		}
+		return result;
+	}
 	
 	// 크로스 사이트 스크립트 방지 처리 메소드
 	public static String replaceParameter(String param) {
@@ -81,5 +118,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+
+	
 
 }

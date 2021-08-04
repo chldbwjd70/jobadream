@@ -8,7 +8,13 @@
 <title>내 정보</title>
 <jsp:include page="../common/header.jsp" />
 <style>
-#title1 { color: #3eafe6; }
+#title1 {
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
+}   
+
 .text1 { font-weight: bold; }
 .text2 { font-size: 20px; }
 .text3 { color: white; }
@@ -16,7 +22,6 @@
 	color: white;
 	text-decoration: none;
 }
-
 .btn-color1 {
 	background-color: #4161c8;
 	color: white;
@@ -43,6 +48,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	{
 	-webkit-appearance: none;
 	margin: 0;
+}
+input, select{
+	font-family: 'Pretendard-Regular';
 }
 </style>
 </head>
@@ -222,7 +230,6 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 		</div>
 	</div>
 	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-	<script src="../js/singUp.js"></script>
 	<script>
 		// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
 		$(function() {
@@ -230,57 +237,41 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 		});
 	</script>
 	<script>
-	
-		//  (function(){  })()
-		// 즉시 실행 함수 : 함수가 정의 되자 마자 실행되는 함수.
-		// 변수명 중복 해결 + 속도적 측면에서 우위를 가짐.
-		
 		// 전화번호 첫 번째 자리 지정하기
 		(function(){
-			// 전화번호 앞자리가 적힌 option 요소를 배열로 얻어옴
-			// each( function(index, item){ }  : 배열을 반복 접근하는 jQuery 메소드
-			// index : 현재 접근한 인덱스 번호
-			// item : 현재 접근한 요소
+
 			$("#phone1 > option").each( function(index, item){ 
-				//console.log( $(item).text()  );
-				
-				// 요소에 작성된 내용이 phone[0]의 값과 같다면
+
 				if( $(item).text() == "${phone[0]}"){
 					
-					// 현재 요소에 seleted 속성을 추가
 					$(item).prop("selected", true);
 				}
 				
 			});
-			//console.log("${phone[0]}");
 		})();
 	
 	
 			
 		// 회원 정보 수정 시 유효성 검사
 		function memberUpdateValidate(){
-		    const regExp1 = /^[0-9]{3,4}$/; // 숫자 3~4글자
-		    const regExp2 = /^[0-9]{4}$/; // 숫자 4글자
-
+		    const regExp1 = /^[0-9]{4}$/; 
+		    const regExp2 = /^[0-9]{4}$/; 
 		    const ph2 = $("#phone2").val();
 		    const ph3 = $("#phone3").val();
-
 		    if( !regExp1.test(ph2)  || !regExp2.test(ph3)  ){
 		    	swal({ "icon"  : "warning",
-		    		   "title" : "전화번호가 유효하지 않습니다."  ,
-		    		   "text"  : "중간 자리는 3~4, 마지막 자리는 4글자로 작성해주세요." });
+		    		   "title" : "전화번호가 올바르지 않습니다."  ,
+		    		   "text"  : "올바른 전화번호를 작성해주세요." });
 		    	
 		    	return false;
 		    }
 		    
 		    // 이메일 유효성 검사
 		    const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
-
 		    const inputEmail = $("#email").val().trim();
-
 		    if( !regExp.test(inputEmail) ){
 		    	swal({ "icon"  : "warning",
-		    		   "title" : "이메일이 유효하지 않습니다."  ,
+		    		   "title" : "이메일이 올바르지 않습니다."  ,
 		    		   "text"  : "아이디 4글자 이상의 이메일 형식으로 작성해주세요." });
 		    	
 		    	return false;
@@ -289,9 +280,6 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 			const phone = $("[name='phone']");
 			const address = $("[name='address']");
 	
-	
-			// 입력된 전화번호, 주소 조합하여 form태그에 hidden으로 추가 하기
-			// 왜? ->  파라미터를 쉽게 받게 하기 위하여
 			const memberPhone = $("<input>", {
 				type: "hidden", name: "inputPhone",
 				value: $(phone[0]).val() + "-" + $(phone[1]).val() + "-" + $(phone[2]).val()

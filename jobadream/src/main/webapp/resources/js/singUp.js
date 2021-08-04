@@ -123,7 +123,7 @@ $(".phone").on("input", function(){
 		$(this).val( $(this).val().slice(0, 4));
 	}
 
-    const regExp1 = /^[0-9]{3,4}$/; 
+    const regExp1 = /^[0-9]{4}$/; 
     const regExp2 = /^[0-9]{4}$/; 
 
     const ph2 = $("#phone2").val();

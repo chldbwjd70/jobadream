@@ -31,8 +31,19 @@ public class MemberDAO {
 	public int updateMember(Member inputMember) {
 		return sqlSession.update("memberMapper.updateMember", inputMember);
 	}
+	
+	// 회원 비밀번호 조회
+	public String selectPassword(int memberNo) {
+		return sqlSession.selectOne("memberMapper.selectPassword", memberNo);
+	}
 
+	// 회원 비밀번호 수정
+	public int changPwd(Member loginMember) {
+		return sqlSession.update("memberMapper.changPwd", loginMember);
+	}
 
-	// 아이디 찾기
-
+	// 회원 탈퇴
+	public int secession(int memberNo) {
+		return sqlSession.update("memberMapper.secession", memberNo);
+	}
 }
