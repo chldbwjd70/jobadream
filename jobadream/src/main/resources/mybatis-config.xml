@@ -11,10 +11,15 @@
 	<typeAliases>
 	<typeAlias type="edu.kh.job.member.model.vo.Member" alias="Member" />
 	<typeAlias type="edu.kh.job.board.model.vo.Board" alias="Board" />
+
 	<typeAlias type="edu.kh.job.notice.model.vo.Notice" alias="Notice" />
 	<typeAlias type="edu.kh.job.notice.model.vo.Pagination" alias="NoticePagination" />
 	<typeAlias type="edu.kh.job.qusetions.model.vo.Qusetions" alias="Qusetions" />
 	<typeAlias type="edu.kh.job.qusetions.model.vo.Pagination" alias="QusetionsPagination" />
+
+
+	
+
 
 	</typeAliases>
 	

@@ -2,7 +2,7 @@ package edu.kh.job.board.model.vo;
 
 public class Category {
 	private int categoryCode;
-	private String categoryName;
+	private String categoryTitle;
 	
 	public Category() {
 		// TODO Auto-generated constructor stub
@@ -21,22 +21,21 @@ public class Category {
 	}
 
 
-
-	public String getCategoryName() {
-		return categoryName;
+	public String getCategoryTitle() {
+		return categoryTitle;
 	}
 
 
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public void setCategoryTitle(String categoryTitle) {
+		this.categoryTitle = categoryTitle;
 	}
 
 
 
 	@Override
 	public String toString() {
-		return "Category [categoryCode=" + categoryCode + ", categoryName=" + categoryName + "]";
+		return "Category [categoryCode=" + categoryCode + ", categoryTitle=" + categoryTitle + "]";
 	}
 
 }
