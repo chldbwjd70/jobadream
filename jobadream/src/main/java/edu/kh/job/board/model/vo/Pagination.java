@@ -15,19 +15,26 @@ public class Pagination {
 	private int prevPage;			// 이전 페이지 번호 목록 중 끝 번호
 	private int nextPage;			// 다음 페이지 번호 목록 중 시작 번호
 	
-	private int boardType;			// 게시판 타입 번호
-	private String boardName;		// 게시판 이름
+	private int categoryCode;			// 카테고리 타입 번호
+	private String categoryTitle;		// 카테고리 이름
 	
 	public Pagination() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	public Pagination(int currentPage, int listCount, int boardType, String boardName) {
+	public Pagination(int currentPage, int listCount) {
+		super();
 		this.currentPage = currentPage;
 		this.listCount = listCount;
-		this.boardType = boardType;
-		this.boardName = boardName;
+		
+		makePagination();
+	}
+
+	public Pagination(int currentPage, int listCount, int categoryCode, String categoryTitle) {
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+		this.categoryCode = categoryCode;
+		this.categoryTitle = categoryTitle;
 		
 		makePagination();
 	}
@@ -146,40 +153,37 @@ public class Pagination {
 	}
 
 
-
-	public int getBoardType() {
-		return boardType;
+	public int getCategoryCode() {
+		return categoryCode;
 	}
 
 
-
-	public void setBoardType(int boardType) {
-		this.boardType = boardType;
+	public void setCategoryCode(int categoryCode) {
+		this.categoryCode = categoryCode;
 	}
 
 
+	
 
-	public String getBoardName() {
-		return boardName;
+	public String getCategoryTitle() {
+		return categoryTitle;
 	}
 
 
-
-	public void setBoardName(String boardName) {
-		this.boardName = boardName;
+	public void setCategoryTitle(String categoryTitle) {
+		this.categoryTitle = categoryTitle;
 	}
 
-
-
+	
 	@Override
 	public String toString() {
 		return "Pagination [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit
 				+ ", pageSize=" + pageSize + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
-				+ endPage + ", prevPage=" + prevPage + ", nextPage=" + nextPage + ", boardType=" + boardType
-				+ ", boardName=" + boardName + "]";
+				+ endPage + ", prevPage=" + prevPage + ", nextPage=" + nextPage + ", categoryCode=" + categoryCode
+				+ ", categoryTitle=" + categoryTitle + "]";
 	}
-	
-	
+
+
 	// 페이징 처리에 필요한 값을 계산하는 메소드
 	private void makePagination() {
 		

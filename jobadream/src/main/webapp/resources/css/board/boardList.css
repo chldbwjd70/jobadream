@@ -1,0 +1,44 @@
+@charset "UTF-8";
+ .content{
+     width: 100%;
+ }
+ .category-item{
+     font-size: 23px;
+     font-weight: 600;
+     color: #4d61c4;
+ }
+ #all-tab:hover, #store-tab:hover, #care-tab:hover, #clean-tab:hover, #delivery-tab:hover, #remain-tab:hover, #etc-tab:hover{
+     background-color: #EDF3FD;
+ }
+ tr > th, tr > td{
+     text-align: center;
+ }
+ #myTabContent{
+     margin-top: 3%;
+ }
+ .pagination {
+ 	margin-top:2%;
+	justify-content: center;
+}
+.title{
+	width : 100%;
+     background-color: #4d61c4;
+     color: white;
+     margin: auto;
+     text-align: center;
+     font-size: 30px;
+     margin-top:1%;
+}
+.btn-box{
+	margin-top:1%;
+    float: right;
+}
+#register{
+    background-color: #FC8934;
+    color: white;
+}
+.page-item.active .page-link{
+	background-color: #4d61c4;
+     color: white;
+     border : none;
+}
