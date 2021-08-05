@@ -66,6 +66,7 @@ public class MemberServiceImpl implements MemberService{
 		return dao.updateMember(inputMember);
 	}
 	
+	
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int changPwd(String currentPwd, String newPwd, Member loginMember) {
@@ -106,6 +107,13 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 	
+	// 내 소개 삭제
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteMy(Member inputMember) {
+		return dao.deleteMy(inputMember);
+	}
+
 	// 크로스 사이트 스크립트 방지 처리 메소드
 	public static String replaceParameter(String param) {
 		String result = param;
@@ -118,6 +126,10 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+
+	
+
+	
 
 	
 

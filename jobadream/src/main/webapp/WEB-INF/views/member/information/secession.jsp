@@ -6,9 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 탈퇴</title>
-<jsp:include page="../common/header.jsp" />
+<jsp:include page="../../common/header.jsp" />
 <style>
-        #title1 { color: #3eafe6; }     
+     #title1 {
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
+}
         .text1 { font-weight: bold; }
         .text2 { font-size: 20px; }
         .text3 { color: white; }
@@ -38,7 +43,7 @@
         .nav-item a{ color: black !important; }
         .nav-item .active{ color: #4161c8 !important;}
         
-        .pss{
+        #pss{
 		background-color: rgba(62, 175, 230, 0.1);
 		}
     </style>
@@ -72,7 +77,7 @@
                                 <div class="col-md-10">
                                     <h4 class="text1">*약관</h4>
                             <!-- <p style="border: 1px solid gray;"> -->
-                            <textarea class=" pss" readonly rows="10" cols="107" style="resize: none;">
+                             <textarea class="form-control "  id="pss"  rows="10" cols="107" style="resize: none;">
 제1조
 이 약관은 샘플 약관입니다.
 
@@ -174,6 +179,6 @@
 			}
 		}
 	</script>
-	<jsp:include page="../common/footer.jsp" />
+	<jsp:include page="../../common/footer.jsp" />
 </body>
 </html>

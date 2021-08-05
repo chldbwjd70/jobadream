@@ -6,14 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>내 정보</title>
-<jsp:include page="../common/header.jsp" />
+<jsp:include page="../..//common/header.jsp" />
 <style>
 #title1 {
 	font-family: 'Pretendard-Regular';
 	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
 	color: transparent;
 	-webkit-background-clip: text;
-}   
+} 
 
 .text1 { font-weight: bold; }
 .text2 { font-size: 20px; }
@@ -295,6 +295,6 @@ input, select{
 		}
 			
 	</script>
-	<jsp:include page="../common/footer.jsp" />
+	<jsp:include page="../../common/footer.jsp" />
 </body>
 </html>

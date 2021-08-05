@@ -7,7 +7,12 @@
 <jsp:include page="../common/header.jsp"/>
 </head>
     <style>
-        #title1 { color: #3eafe6;}
+       #title1 {
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
+}
         .text1 { font-weight: bold;}
         .text2 { font-size: 30px;}
         #btn-color1 {

@@ -76,6 +76,13 @@
   	MEMBER_STATUS = 'N'
   	WHERE MEMBER_NO = #{memberNo}
   </update>
+  
+  <!-- 내소개 수정 -->
+  	<update id="deleteMy"  parameterType="Member">
+  		UPDATE MEMBER SET
+		MEMBER_INTRODUCE = NULL
+		WHERE MEMBER_NO = #{memberNo}
+  	</update>
 
 
 </mapper>
