@@ -22,6 +22,8 @@
 		<result property="boardContent" column="BOARD_CONTENT"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="memberName" column="MEMBER_NM"/>
+		<result property="memberScore" column="MEMBER_SCORE"/>
+		<result property="memberIntroduce" column="MEMBER_INTRODUCE"/>
 	</resultMap>
 	
 	
@@ -50,5 +52,10 @@
 		SELECT * FROM BOARD_LIST
 		WHERE BOARD_STATUS = 'Y'
 		ORDER BY BOARD_NO DESC
+	</select>
+	
+	<select id="selectBoard" parameterType="_int" resultMap="board_rm">
+		SELECT * FROM BOARD_LIST
+		WHERE BOARD_NO = #{boardNo}
 	</select>
 </mapper>

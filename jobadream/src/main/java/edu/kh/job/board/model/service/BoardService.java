@@ -35,5 +35,12 @@ public interface BoardService {
 	List<Board> selectAllBoardList(Pagination pagination);
 
 
+	/** 게시글 상세조회
+	 * @param boardNo
+	 * @return
+	 */
+	Board selectBoard(int boardNo);
+
+
 
 }

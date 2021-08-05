@@ -59,4 +59,12 @@ public class BoardDAO {
 		//return sqlSession.selectList("boardMapper.selectAllBoardList", pagination);
 	}
 
+	/** 게시글 상세조회
+	 * @param boardNo
+	 * @return
+	 */
+	public Board selectBoard(int boardNo) {
+		return sqlSession.selectOne("boardMapper.selectBoard",boardNo);
+	}
+
 }
