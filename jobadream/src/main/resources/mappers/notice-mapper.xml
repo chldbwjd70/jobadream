@@ -39,6 +39,7 @@
   	WHERE NOTICE_STATUS = 'Y'
   </select>
   
+  <!-- 전체게시글 목록 -->
   <select id="selectNoticeList" parameterType="NoticePagination" resultMap="notice_rm">
   	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_STATUS, CREATE_DT,
 		MEMBER_NO, MEMBER_ID
@@ -46,4 +47,25 @@
 	JOIN MEMBER USING(MEMBER_NO)
 	ORDER BY NOTICE_NO DESC
   </select>
+  
+  <!-- 게시글상세조회 -->
+  <select id="selectNotice" parameterType="_int" resultMap="notice_rm">
+  	SELECT NOTICE_TITLE, NOTICE_CONTENT, NOTICE_STATUS,
+         	CREATE_DT, MEMBER_NO, MEMBER_ID
+	FROM NOTICE
+	JOIN MEMBER USING(MEMBER_NO)
+	WHERE NOTICE_NO = #{noticeNo}
+	AND NOTICE_STATUS = 'Y'
+  </select>
+  
+  <!-- 게시글 삽입 -->
+  <insert id="insertNotice" parameterType="Notice" useGeneratedKeys="true">
+	<selectKey keyProperty="noticeNo" resultType="_int" order="BEFORE" >
+		SELECT SEQ_TNO.NEXTVAL FROM DUAL
+	</selectKey>
+		
+	INSERT INTO NOTICE VALUES 
+	(#{noticeNo}, #{noticeTitle},#{noticeContent},DEFAULT, DEFAULT,#{memberNo})
+	</insert>
+  
 </mapper>

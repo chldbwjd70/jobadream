@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.job.qusetions.model.dao.QusetionsDAO;
 import edu.kh.job.qusetions.model.vo.Pagination;
@@ -28,6 +29,47 @@ public class QusetionsServiceImpl implements QusetionsService{
 	public List<Qusetions> selectQusetionsList(Pagination pagination) {
 		return dao.selectQusetionList(pagination);
 	}
+
+	
+	// 게시글 상세조회
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Qusetions selectQusetions(int qusetionsNo) {
+		
+		return dao.selectQusetions(qusetionsNo);
+	}
+
+	// 게시글 삽입
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertQu(Qusetions qusetions) {
+		
+		// 크로스사이트스크립트방지+ 개행문자
+		qusetions.setQusetionsTitle( replaceParameter(  qusetions.getQusetionsTitle()  )  );
+		qusetions.setQusetionsContent( replaceParameter(  qusetions.getQusetionsContent()  )  );
+				
+		qusetions.setQusetionsContent(  qusetions.getQusetionsContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>")  );
+		
+		// 게시글삽입
+		int qusetionsNo = dao.insertQu(qusetions);
+		return qusetionsNo;
+	}
+	
+	// 크로스 사이트 스크립트 방지 처리 메소드
+			public static String replaceParameter(String param) {
+				String result = param;
+				if(param != null) {
+					result = result.replaceAll("&", "&amp;");
+					result = result.replaceAll("<", "&lt;");
+					result = result.replaceAll(">", "&gt;");
+					result = result.replaceAll("\"", "&quot;");
+				}
+				
+				return result;
+			}
+	
+	
+	
 	
 	
 	
