@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.job.board.model.service.BoardService;
 import edu.kh.job.board.model.vo.Board;
@@ -59,6 +60,26 @@ public class boardController {
 		
 		
 		return "board/boardList";
+	}
+	
+	@RequestMapping("/{categoryCode}/{boardNo}")
+	public String boardDetail(@PathVariable("categoryCode") int categoryCode,
+			@PathVariable("boardNo") int boardNo,
+			@RequestParam(value = "cp" ,required = false, defaultValue = "1" ) int cp,
+			Model model,
+			RedirectAttributes ra) {
+		
+		Board board = service.selectBoard(boardNo);
+		System.out.println(board);
+		
+		if(board != null) { // 상세 조회 성공 시
+			
+			model.addAttribute("board", board);
+			return "board/boardDetail";
+		}else { 
+			
+			return "redirect:list";
+		}
 	}
 	
 	

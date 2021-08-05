@@ -45,4 +45,10 @@ public class BoardServiceImpl implements BoardService {
 		return dao.selectAllBoardList(pagination);
 	}
 
+	// 게시글 상세조회
+	@Override
+	public Board selectBoard(int boardNo) {
+		return dao.selectBoard(boardNo);
+	}
+
 }

@@ -7,14 +7,20 @@ public class Board {
 	private String boardTitle;
 	private int readCount;
 	private Timestamp createDate;
-	private int memberNo;
-	private String memberName;
-	private int categoryCode;
-	private String categoryTitle;
 	private String boardTime;
 	private String boardPlace;
 	private int boardPay;
 	private String boardContent;
+	
+	private int memberNo;
+	private String memberName;
+	
+	private int categoryCode;
+	private String categoryTitle;
+	
+	private int memberScore;
+	private String memberIntroduce;
+	
 	
 	public Board() {
 		
@@ -115,14 +121,34 @@ public class Board {
 	public void setCategoryTitle(String categoryTitle) {
 		this.categoryTitle = categoryTitle;
 	}
+	
+	
+
+	public int getMemberScore() {
+		return memberScore;
+	}
+
+	public void setMemberScore(int memberScore) {
+		this.memberScore = memberScore;
+	}
+
+	public String getMemberIntroduce() {
+		return memberIntroduce;
+	}
+
+	public void setMemberIntroduce(String memberIntroduce) {
+		this.memberIntroduce = memberIntroduce;
+	}
 
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", readCount=" + readCount + ", createDate="
-				+ createDate + ", memberNo=" + memberNo + ", memberName=" + memberName + ", categoryCode="
-				+ categoryCode + ", categoryTitle=" + categoryTitle + ", boardTime=" + boardTime + ", boardPlace="
-				+ boardPlace + ", boardPay=" + boardPay + ", boardContent=" + boardContent + "]";
+				+ createDate + ", boardTime=" + boardTime + ", boardPlace=" + boardPlace + ", boardPay=" + boardPay
+				+ ", boardContent=" + boardContent + ", memberNo=" + memberNo + ", memberName=" + memberName
+				+ ", categoryCode=" + categoryCode + ", categoryTitle=" + categoryTitle + ", memberScore=" + memberScore
+				+ ", memberIntroduce=" + memberIntroduce + "]";
 	}
+
 
 	
 }

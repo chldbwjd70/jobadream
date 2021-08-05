@@ -15,7 +15,7 @@
         <div class="content">
             <ul class="nav justify-content-center nav-pills nav-fill" id="category">
                 <li class="nav-item">
-                    <a class="nav-link category-item" id="all-tab" href="${contextPath}/board/list" ">전체보기</a>
+                    <a class="nav-link category-item" id="all-tab" href="${contextPath}/board/list" >전체보기</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link category-item" id="store-tab" href="${contextPath}/board/1/list" >가게알바</a>
@@ -68,7 +68,11 @@
 			                        <th class="tb-num">${board.boardNo}</th>
 			                        <td class="tb-title">${board.categoryTitle}</td>
 			                        <td class="tb-parti">${board.memberName}</td>
-			                        <td>${board.boardTitle}</td>
+			                        <td>
+			                        	<a id="title" href="${contextPath}/board/${board.categoryCode}/${board.boardNo}?cp=${pagination.currentPage}${searchStr}">  
+			                        		${board.boardTitle}
+			                        	</a>
+			                        </td>
 			                        <td>${guPlace[1]}</td>
 			                        <td>${board.boardPay}</td>
 		                        	<td> 
