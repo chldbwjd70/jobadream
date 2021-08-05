@@ -35,4 +35,28 @@ public class QusetionsDAO {
 		RowBounds rowBouns = new RowBounds(offset, pagination.getLimit());
 		return sqlSession.selectList("qusetionsMapper.selectQusetionList", pagination, rowBouns);
 	}
+
+
+	/** 게시글 상세조회
+	 * @param qusetionsNo
+	 * @return qusetions
+	 */
+	public Qusetions selectQusetions(int qusetionsNo) {
+		return sqlSession.selectOne("qusetionsMapper.selectQusetions", qusetionsNo);
+	}
+
+
+	/** 게시글 삽입
+	 * @param qusetions
+	 * @return qusetionsNo
+	 */
+	public int insertQu(Qusetions qusetions) {
+		int result = sqlSession.insert("qusetionsMapper.insertQu", qusetions);
+		
+		if(result>0) {
+			return qusetions.getQusetionsNo();
+		}else {
+			return 0;
+		}
+	}
 }

@@ -19,4 +19,22 @@ public interface NoticeService {
 	 */
 	List<Notice> selectNoticeList(Pagination pagination);
 
+	/** 게시글 상세조회
+	 * @param noticeNo
+	 * @return notice
+	 */
+	Notice selectNotice(int noticeNo);
+
+	/** 게시글 삽입
+	 * @param notice
+	 * @return noticeNo
+	 */
+	int insertNotice(Notice notice);
+
+	/** 게시글 수정
+	 * @param noticeNo
+	 * @return notice
+	 */
+	Notice selectUpdateNotice(int noticeNo);
+
 }

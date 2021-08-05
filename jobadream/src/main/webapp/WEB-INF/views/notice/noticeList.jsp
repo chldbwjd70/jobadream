@@ -77,8 +77,8 @@
 											<td>${notice.mem.memberId}</td>
 											<%-- 작성일 --%>
 											<td><fmt:formatDate var="createDate"
-													value="${notice.createDt}" pattern="yyyy-MM-dd" /> <fmt:formatDate
-													var="today" value="<%=new java.util.Date()%>"
+													value="${notice.createDt}" pattern="yyyy-MM-dd" /> 
+													<fmt:formatDate var="today" value="<%=new java.util.Date()%>"
 													pattern="yyyy-MM-dd" /> <c:choose>
 													<%-- 글 작성일이 오늘이 아닐 경우 --%>
 													<c:when test="${createDt != today}">

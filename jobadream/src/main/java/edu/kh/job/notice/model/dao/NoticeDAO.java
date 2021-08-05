@@ -35,4 +35,29 @@ public class NoticeDAO {
 		return sqlSession.selectList("noticeMapper.selectNoticeList", pagination, rowBouns);
 	}
 
+	/** 게시글 상세조회
+	 * @param noticeNo
+	 * @return notice
+	 */
+	public Notice selectNotice(int noticeNo) {
+		return sqlSession.selectOne("noticeMapper.selectNotice", noticeNo);
+	}
+
+	/** 게시글 삽입
+	 * @param notice
+	 * @return noticeNo
+	 */
+	public int insertNotice(Notice notice) {
+		int result = sqlSession.insert("noticeMapper.insertNotice", notice);
+		
+		if(result>0) {
+			return notice.getNoticeNo();
+		}else {
+			return 0;
+		}
+		
+		
+	}
+
+	
 }

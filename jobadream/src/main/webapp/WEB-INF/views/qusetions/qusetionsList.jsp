@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Notice</title>
+<title>1:1 문의</title>
 <style>
 .list-title {
 	color: #3eafe6;

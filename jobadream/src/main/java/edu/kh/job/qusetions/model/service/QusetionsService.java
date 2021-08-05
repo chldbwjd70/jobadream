@@ -19,4 +19,16 @@ public interface QusetionsService {
 	 */
 	List<Qusetions> selectQusetionsList(Pagination pagination);
 
+	/** 게시글 상세조회
+	 * @param qusetionsNo
+	 * @return qusetions 
+	 */
+	Qusetions selectQusetions(int qusetionsNo);
+
+	/** 게시글 삽입
+	 * @param qusetions
+	 * @return qusetionsNo
+	 */
+	int insertQu(Qusetions qusetions);
+
 }
