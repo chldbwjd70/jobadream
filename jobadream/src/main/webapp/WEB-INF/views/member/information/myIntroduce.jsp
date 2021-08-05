@@ -6,9 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>내 소개</title>
-<jsp:include page="../common/header.jsp" />
+<jsp:include page="../../common/header.jsp" />
 <style>
-        #title1 { color: #3eafe6; }     
+       #title1 {
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
+}
         .text1 { font-weight: bold; }
         .text2 { font-size: 20px; }
         .text3 { color: white; }
@@ -62,7 +67,7 @@
 			</ul>
               <div class="tab-content">
                 <div class="tab-pane fade show active ">
-                    <form >
+                    <form method="POST"  action="deleteForm"  name="deleteForm"  onsubmit="return fnRequest();" class="form-horizontal" role="form">
                         <div class="style1">
                             <br><br><br><br>
                             <div class="row">
@@ -74,7 +79,7 @@
                                     <h5 > (<span id="introduce">
                                     <!-- 길이 구하기 -->
                                     	 ${fn:length(loginMember.memberIntroduce)}
-                                    </span> / 100) </h5>
+                                    </span> / 50) </h5>
                                 </div>
                                 <div class="col-md-8">
                                 </div>
@@ -83,8 +88,8 @@
                                 <div class="col-md-2">
                                 </div>
                                 <div class="col-md-8">
-                                    <textarea class="col-sm text4 text2" id="memberIntroduce" name="memberIntroduce" 
-                                    rows="10" style="resize:none;">${loginMember.memberIntroduce}</textarea>
+                                    <input type="text" class="col-sm text4 text2" id="memberIntroduce" 
+                                    name="memberIntroduce" style="height: 100px;" value="${loginMember.memberIntroduce}" ></input>
                                     
                                 </div>
                                 <div class="col-md-2">
@@ -106,15 +111,15 @@
 		                            <div class="col-md-1 pdd">
 		                            </div>
 		                            <div class="col-md-1 pdd">
-		                                <button type="button" class="btn float-right btn-lg btn-color1  " onclick="this.form.action='updateIntroduce';">작성</button>
+		                                <button type="submit"  id="updateBtn" class="btn float-right btn-lg btn-color1" >작성</button> 
 		                            </div>
                             	</c:when>
 	                            <c:otherwise>
 		                            <div class="col-md-1 pdd">
-		                                <button type="button" class="btn float-right btn-lg btn-color1  " onclick="updateIntroduce(${loginMember.memberNo}, this);"> 수정 </button>
+		                                 <button type="button"  id="updateBtn"class="btn float-right btn-lg btn-color1" onclick="fnRequest('updateForm');">수정</button> 
 		                            </div>
 		                            <div class="col-md-1 pdd">
-		                            	<button type="button" class="btn float-right btn-lg btn-color1 "  id="delete-btn" onclick="deleteIntroduce(${member.memberNo})">삭제</button>
+		                            	<button type="button" class="btn float-right btn-lg btn-color1 "  id="deleteBtn"  onclick="btnDeletion('deleteBtn');" >삭제</button>
 		                            </div>
 	                            </c:otherwise>
                             </c:choose>
@@ -136,7 +141,29 @@
             }
             $('#introduce').text($(this).val().length);    // 글자 수 세기
         });
+        
+        
+        function btnDeletion(addr){
+        	swal({
+      		  title: "삭제하시겠습니까?",
+      		  icon: "warning",
+      		  buttons: true,
+      		  dangerMode: true
+      		})
+  			.then((willDelete) => {
+  	      		  if (willDelete) {
+  	      			  
+  	      			document.requestForm.action = "${contextPath}/member/" + addr;
+  			      	document.requestForm.submit();
+  			      	
+  	      		  }else{
+  	      		    swal("삭제를 취소 하였습니다.");
+  	      		  }
+  	      });
+        }
+        
+        
     </script>
-	<jsp:include page="../common/footer.jsp" />
+	<jsp:include page="../../common/footer.jsp" />
 </body>
 </html>

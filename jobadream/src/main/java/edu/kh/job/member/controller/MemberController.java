@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,8 +62,7 @@ public class MemberController {
 	
 	// 로그아웃
 	@RequestMapping(value="logout", method=RequestMethod.GET)
-	public String logout(SessionStatus status, @RequestHeader("referer") String referer,
-						RedirectAttributes ra) {
+	public String logout(SessionStatus status, RedirectAttributes ra) {
 		status.setComplete();
 		
 		ra.addFlashAttribute("title", "로그아웃");
@@ -125,17 +125,17 @@ public class MemberController {
 		return  "redirect:/"; 
 	}
 	
-	
 	// 마이페이지 전환
 	@RequestMapping(value="myPage", method=RequestMethod.GET)  
 	public String myPage() { 
 		return "member/myPage"; 
 	}
 	
-	// 회원 정보 수정 전환
+	// 마이페이지 - 내정보 -------------------------------------------------------------------------------
+	
 	@RequestMapping(value="myInformation", method=RequestMethod.GET)
 	public String myInformation() {
-		return "member/myInformation";
+		return "member/information/myInformation";
 	}
 	
 	// 회원 정보 수정 Controller
@@ -162,20 +162,39 @@ public class MemberController {
 		}else { 
 			swalSetMessage(ra, "error", "회원 정보 수정 실패", null);
 		}
-		return "redirect:/member/myInformation";
+		return "redirect:/member/information/myInformation";
 	}
 	
 	// 내소개 전환
 	@RequestMapping(value="myIntroduce", method=RequestMethod.GET)
 	public String myIntroduce() {
-		return "member/myIntroduce";
+		return "member/information/myIntroduce";
 	}
-	
+
+	// 내소개 삭제
+	@RequestMapping(value="deleteBtn")
+	public String deleteMy(@ModelAttribute("loginMember") Member loginMember,
+							Member inputMember, RedirectAttributes ra ) {
+		
+		inputMember.setMemberNo(loginMember.getMemberNo());
+		
+		int result = service.deleteMy(inputMember);
+		
+		if( result > 0 ) { 
+			swalSetMessage(ra, "success", "내 소개 삭제 성공", null);
+			loginMember.setMemberIntroduce(null);
+			
+		}else { 
+			swalSetMessage(ra, "error", "내 소개 삭제  실패", null);
+		}
+		
+		return  "redirect:/member/information/myIntroduce";
+	}
 	
 	// 비밀번호 수정 전환
 	@RequestMapping(value="changPwd", method=RequestMethod.GET)
 	public String changPwd() {
-		return "member/changPwd";
+		return "member/information/changPwd";
 	}
 	
 	// 비밀번호 수정
@@ -195,7 +214,7 @@ public class MemberController {
 			
 		}else { // 실패
 			swalSetMessage(ra, "error", "기존 비밀번호가 일치 하지 않습니다.", null);
-			path += "changPwd";
+			path += "information/changPwd";
 			
 		}
 		
@@ -205,7 +224,7 @@ public class MemberController {
 	// 탈퇴 전환
 	@RequestMapping(value="secession", method=RequestMethod.GET)
 	public String secession() {
-		return "member/secession";
+		return "member/information/secession";
 	}
 	
 	// 탈퇴 
@@ -225,12 +244,32 @@ public class MemberController {
 			status.setComplete(); 
 			
 		}else {
-			path += "secession"; 
+			path += "information/secession"; 
 			swalSetMessage(ra, "error", "회원 탈퇴 실패", "비밀번호가 일치하지 않습니다.");
 		}
 		return path;
 	}
-
+	
+	// 마이페이지 -- 결제 ---------------------------------------------------------------------------------------------------
+	
+	// 탈퇴 전환
+	@RequestMapping(value="pointSell", method=RequestMethod.GET)
+	public String pointSell() {
+		return "member/sell/pointSell";
+	}
+	
+	// 이용 내역 전환
+	@RequestMapping(value="usageHistory", method=RequestMethod.GET)
+	public String usageHistory() {
+		return "member/sell/usageHistory";
+	}
+	
+	// 결제 내역전환
+	@RequestMapping(value="sellHistory", method=RequestMethod.GET)
+	public String sellHistory() {
+		return "member/sell/sellHistory";
+	}
+	
 	// SweetAlert를 이용한 메세지 전달용 메소드
 	public static void swalSetMessage(RedirectAttributes ra, String icon, String title, String text) {
 

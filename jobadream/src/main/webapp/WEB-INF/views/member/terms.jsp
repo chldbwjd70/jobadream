@@ -7,14 +7,19 @@
 <jsp:include page="../common/header.jsp"/>
 </head>
 <style>
-	#title1{ color: #3eafe6; }
+	#title1 {
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
+}
 	.text1{ font-weight: bold; }
 	#btn-color1{
 		background-color: #4161c8;
 		color: white;
 		font-weight: bold;
 	}
-	.pss{
+	#pss{
 		background-color: rgba(62, 175, 230, 0.1);
 	}
 </style>
@@ -31,7 +36,7 @@
                         <div class="col-md-10">
                             <h4 class="text1">*약관</h4>
                             <!-- <p style="border: 1px solid gray;"> -->
-                            <textarea class=" pss" readonly rows="10" cols="107" style="resize: none;">
+                            <textarea class="form-control "  id="pss"  rows="10" cols="107" style="resize: none;">
 제1조
 이 약관은 샘플 약관입니다.
 

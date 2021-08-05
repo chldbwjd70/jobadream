@@ -7,7 +7,12 @@
 <jsp:include page="../common/header.jsp"/>
 </head>
 <style>
-	#title1{ color: #3eafe6; }
+	#title1 {
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
+}
 	.text1{ font-weight: bold; }
 	#btn-color1{
 	    background-color: #4161c8;
@@ -173,7 +178,6 @@
                             <div class="col-md-2">
                                 <input type="number" class="form-control phone" id="phone2" name="phone" required>
                             </div>
-    
                             <!-- 전화번호3 -->
                             <div class="col-md-2">
                                 <input type="number" class="form-control phone" id="phone3" name="phone" required>

@@ -1,6 +1,6 @@
 package edu.kh.job.member.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Member {
 	private int memberNo;			// 회원 번호

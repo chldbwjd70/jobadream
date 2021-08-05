@@ -6,13 +6,13 @@
 <title>job아드림 회원 가입</title>
 <jsp:include page="../common/header.jsp"/>
 <style>
-  .container {
-      width: 1200px;
-      margin: auto;
-      padding: 0;
-  }
 
-  #title1 { color: #3eafe6; }     
+  #title1 {
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
+}
 
   .text1 { font-weight: bold; }
       
@@ -92,13 +92,13 @@
                             </h3>
                         </div>
                         <div class="col-md-6">
-                            <a href="sell/pointSell.html">
+                            <a href="pointSell">
                                 <button type="button" class="btn btn-block btn-outline bc-color  btnhover" id="sell" >
                                     <img src="${contextPath}/resources/images/main/mypage2.png">
                                 </button>
                             </a>
                             <h3 class="text-center text1" ><br>
-                                <label for="sell"><a href="pointSell" class="text3">결제</a></label>
+                                <label for="pointSell"><a href="pointSell" class="text3">결제</a></label>
                             </h3>
                         </div>
                     </div>
