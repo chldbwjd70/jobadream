@@ -33,10 +33,11 @@
 	height: 400px;
 }
 
-#update{
+#updateBtn {
 	background-color: #4161c8;
 }
 </style>
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"></jsp:include>
@@ -56,12 +57,12 @@
 				<div class="row">
 					<div class="col-md-2" id="notice-top">작성일</div>
 					<div class="col-md-10" id="notice-top-co">
-						<fmt:formatDate value="${notice.createDt }" pattern="yyyy년 MM월 dd일 HH:mm:ss"/>
+						<fmt:formatDate value="${notice.createDt }"
+							pattern="yyyy년 MM월 dd일 HH:mm:ss" />
 					</div>
 				</div>
 				<hr>
-				<br>
-				<br>
+				<br> <br>
 				<!-- 글 내용 -->
 				<div class="row">
 					<div class="col-md-12" id="notice-list-content">
@@ -76,15 +77,37 @@
 
 						<%-- 글 작성자일 경우에만--%>
 						<c:if test="${loginMember.memberNo == notice.memberNo }">
-							<button class="btn btn-primary float-right mr-4" id="update"  onclick="fnRequest('updateForm');">수정</button>
-							<button class="btn btn-primary float-right mr-4" id="deleteBtn">삭제</button>
+							<button class="btn btn-primary float-right mr-4" id="updateBtn" onclick="fnRequest('updateForm');">수정</button>
+							<button class="btn btn-primary float-right mr-4" id="deleteBtn" onclick="deleteRequest();">삭제</button>
+						</c:if>
+						<%-- 검색 상태 유지를 위한 쿼리스트링용 변수 선언 --%>
+						<c:if test="${!empty param.sk && !empty param.sv }">
+
+							<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
 						</c:if>
 					</div>
 				</div>
 			</form>
 		</div>
+		<form action="#" method="post" name="requestForm">
+			<input type="hidden" value="${notice}" name="notice" >
+			<input type="hidden" value="${param.cp}" name="cp" >
+		</form>
 	</div>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+<script>
+	function fnRequest(addr){
+			document.requestForm.action = addr;
+			document.requestForm.submit();
+		}
+		
+		
+</script>
+
+
+	
+
+
 
 </body>
 </html>

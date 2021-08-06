@@ -4,20 +4,35 @@ import java.util.List;
 
 import edu.kh.job.notice.model.vo.Notice;
 import edu.kh.job.notice.model.vo.Pagination;
+import edu.kh.job.qusetions.model.vo.Search;
 
 public interface NoticeService {
 
-	/** 게시글목록 페이지네이션
+	/** 게시글수 조회
 	 * @param pg
 	 * @return pagination
 	 */
 	Pagination getPagination(Pagination pg);
+	
+	/** 게시글수 조회(검색)
+	 * @param search
+	 * @param pg
+	 * @return pagination
+	 */
+	Pagination getPagination(Search search, Pagination pg);
 
 	/** 게시글목록조회
 	 * @param pagination
 	 * @return noticeList
 	 */
 	List<Notice> selectNoticeList(Pagination pagination);
+	
+	/** 게시글 검색목록조회
+	 * @param search
+	 * @param pagination
+	 * @return noticeList
+	 */
+	List<Notice> selectNoticeList(Search search, Pagination pagination);
 
 	/** 게시글 상세조회
 	 * @param noticeNo
@@ -31,10 +46,17 @@ public interface NoticeService {
 	 */
 	int insertNotice(Notice notice);
 
+
 	/** 게시글 수정
 	 * @param noticeNo
 	 * @return notice
 	 */
-	Notice selectUpdateNotice(int noticeNo);
+	Notice selectUpdateForm(int noticeNo);
+
+	int delete(int noticeNo);
+
+
+
+	
 
 }

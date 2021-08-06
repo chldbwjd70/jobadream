@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.kh.job.notice.model.dao.NoticeDAO;
 import edu.kh.job.notice.model.vo.Notice;
 import edu.kh.job.notice.model.vo.Pagination;
+import edu.kh.job.qusetions.model.vo.Search;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -24,12 +25,29 @@ public class NoticeServiceImpl implements NoticeService {
 		Pagination selectPg = dao.getListCount();
 		return new Pagination(pg.getCurrentPage(), selectPg.getListCount());
 	}
+	
+	
+	// 검색한 게시글수
+	@Override
+	public Pagination getPagination(Search search, Pagination pg) {
+		
+		Pagination selectPg = dao.getSearchListCount(search);
+		return new Pagination(pg.getCurrentPage(), selectPg.getListCount());
+	}
 
 	// 전체게시글 목록조회
 	@Override
 	public List<Notice> selectNoticeList(Pagination pagination) {
 		return dao.selectNoticeList(pagination);
 	}
+	
+	
+
+	@Override
+	public List<Notice> selectNoticeList(Search search, Pagination pagination) {
+		return dao.selectSearchList(search,pagination);
+	}
+
 
 	// 게시글 상세조회
 	@Transactional(rollbackFor = Exception.class)
@@ -57,22 +75,27 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeNo;
 	}
 	
-	//게시글 수정화면
-	@Transactional(rollbackFor = Exception.class)
+	
+	// 게시글 수정화면
 	@Override
-	public Notice selectUpdateNotice(int noticeNo) {
+	public Notice selectUpdateForm(int noticeNo) {
 		
 		Notice notice = dao.selectNotice(noticeNo);
-		
-		System.out.println("gd" +notice);
-		
+		System.out.println("왜안됨 : "+ notice);
 		notice.setNoticeContent(notice.getNoticeContent().replaceAll("<br>", "\r\n"));
 		return notice;
 	}
-
+	
+	
 	
 
-	// 크로스 사이트 스크립트 방지 처리 메소드
+	@Override
+	public int delete(int noticeNo) {
+		return dao.delete(noticeNo);
+	}
+
+
+		// 크로스 사이트 스크립트 방지 처리 메소드
 		public static String replaceParameter(String param) {
 			String result = param;
 			if(param != null) {

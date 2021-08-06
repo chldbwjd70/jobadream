@@ -30,7 +30,7 @@
 	<div class="container">
 		<h2 class="notice-update-line">공지사항</h2>
 		<div class="list-detaiil shadow p-3 mb-5 bg-white rounded p-5">
-			 <form name="update" action="update" method="POST" role="form" onsubmit="return noticeValidate();">
+			 <form action="update" method="POST" role="form" onsubmit="return noticeValidate();">
 				<!-- 글 상단 정보 -->
 				<div class="row">
 					<div class="col-md-2" id="notice-top">제목</div>

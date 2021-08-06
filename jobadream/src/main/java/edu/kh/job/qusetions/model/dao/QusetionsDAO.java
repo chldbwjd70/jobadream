@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.job.qusetions.model.vo.Pagination;
 import edu.kh.job.qusetions.model.vo.Qusetions;
+import edu.kh.job.qusetions.model.vo.Search;
 
 @Repository
 public class QusetionsDAO {
@@ -22,6 +23,15 @@ public class QusetionsDAO {
 	public Pagination getListCount() {
 		return sqlSession.selectOne("qusetionsMapper.getListCount");
 	}
+	
+	
+	/** 검색 게시글수조회
+	 * @param search
+	 * @return pagination
+	 */
+	public Pagination getSearchListCount(Search search) {
+		return sqlSession.selectOne("qusetionsMapper.getSearchListCount", search);
+	}
 
 	
 	/** 게시글목록조회
@@ -34,6 +44,19 @@ public class QusetionsDAO {
 		int offset = (pagination.getCurrentPage() - 1)*pagination.getLimit();
 		RowBounds rowBouns = new RowBounds(offset, pagination.getLimit());
 		return sqlSession.selectList("qusetionsMapper.selectQusetionList", pagination, rowBouns);
+	}
+	
+	/** 검색한 게시글목록조회
+	 * @param search
+	 * @param pagination
+	 * @return qusetionsList
+	 */
+	public List<Qusetions> selectSearchList(Search search, Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() - 1)*pagination.getLimit();
+		RowBounds rowBouns = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("qusetionsMapper.selectSearchList", search , rowBouns);
 	}
 
 
@@ -59,4 +82,10 @@ public class QusetionsDAO {
 			return 0;
 		}
 	}
+
+
+	
+
+
+	
 }

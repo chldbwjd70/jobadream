@@ -39,6 +39,37 @@
   	WHERE NOTICE_STATUS = 'Y'
   </select>
   
+  <!-- 검색한 게시글수 조회 -->
+  <select id="getSearchListCount" parameterType="NoticeSearch" resultMap="npg_rm">
+  	SELECT COUNT(*) CNT
+  	FROM NOTICE_LIST
+  	WHERE NOTICE_STATUS = 'Y'
+  	<if test="sv != null">
+			AND 
+			
+			<!-- bind 태그 : 변수 선언 -->
+			<bind name="val" value="'%' + sv + '%'"/>
+			
+			<!-- sk에 따라서 조건절을 선택함(title, content, titcont, writer) -->
+			<choose>
+			
+				<when test="sk == 'title'" >
+					NOTICE_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'content'" >
+					NOTICE_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'titcont'" >
+					( NOTICE_TITLE LIKE #{val} OR NOTICE_CONTENT LIKE #{val} )
+				</when>
+				<when test="sk == 'writer'" >
+					MEMBER_ID LIKE #{val}
+				</when>
+			
+			</choose>
+		</if> 
+  </select>
+  
   <!-- 전체게시글 목록 -->
   <select id="selectNoticeList" parameterType="NoticePagination" resultMap="notice_rm">
   	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_STATUS, CREATE_DT,
@@ -48,9 +79,44 @@
 	ORDER BY NOTICE_NO DESC
   </select>
   
+  <!-- 검색한 게시글목록 -->
+   <select id="selectSearchList" parameterType="NoticeSearch" resultMap="notice_rm">
+  	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_STATUS, CREATE_DT,
+		MEMBER_NO, MEMBER_ID
+		FROM NOTICE
+	JOIN MEMBER USING(MEMBER_NO)
+	WHERE NOTICE_STATUS = 'Y'
+	<if test="sv != null">
+			AND 
+			
+			<!-- bind 태그 : 변수 선언 -->
+			<bind name="val" value="'%' + sv + '%'"/>
+			
+			<!-- sk에 따라서 조건절을 선택함(title, content, titcont, writer) -->
+			<choose>
+			
+				<when test="sk == 'title'" >
+					NOTICE_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'content'" >
+					NOTICE_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'titcont'" >
+					( NOTICE_TITLE LIKE #{val} OR NOTICE_CONTENT LIKE #{val} )
+				</when>
+				<when test="sk == 'writer'" >
+					MEMBER_ID LIKE #{val}
+				</when>
+			
+			</choose>
+		</if> 
+	ORDER BY NOTICE_NO DESC
+  </select>
+  
+  
   <!-- 게시글상세조회 -->
   <select id="selectNotice" parameterType="_int" resultMap="notice_rm">
-  	SELECT NOTICE_TITLE, NOTICE_CONTENT, NOTICE_STATUS,
+  	SELECT NOTICE_NO,NOTICE_TITLE, NOTICE_CONTENT, NOTICE_STATUS,
          	CREATE_DT, MEMBER_NO, MEMBER_ID
 	FROM NOTICE
 	JOIN MEMBER USING(MEMBER_NO)
@@ -67,5 +133,11 @@
 	INSERT INTO NOTICE VALUES 
 	(#{noticeNo}, #{noticeTitle},#{noticeContent},DEFAULT, DEFAULT,#{memberNo})
 	</insert>
+	
+	<update id="delete" parameterType="_int">
+	UPDATE NOTICE SET
+	NOTICE_STATUS = 'Y'
+	WHERE NOTICE_NO = #{noticeNo}
+	</update>
   
 </mapper>
