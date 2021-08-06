@@ -19,6 +19,7 @@ import edu.kh.job.member.model.vo.Member;
 import edu.kh.job.qusetions.model.service.QusetionsService;
 import edu.kh.job.qusetions.model.vo.Pagination;
 import edu.kh.job.qusetions.model.vo.Qusetions;
+import edu.kh.job.qusetions.model.vo.Search;
 
 @Controller
 @SessionAttributes({"loginMember"}) 
@@ -30,15 +31,31 @@ public class QusetionsController {
 	// 게시글목록조회
 		@RequestMapping(value = "/qusetions/qusetionsList", method=RequestMethod.GET)
 		public String QusetionsList(Model model, Pagination pg,/*페이징처리*/
-								@RequestParam(value="cp", required =false, defaultValue = "1") int cp
+								@RequestParam(value="cp", required =false, defaultValue = "1") int cp,
+								Search search
 								) {
 			
 			pg.setCurrentPage(cp);
-			Pagination pagination = service.getPagination(pg);
 			
-			// pagination을 이용하여 현재 목록페이지 조회
-			List<Qusetions> qusetionsList = service.selectQusetionsList(pagination);
 			
+			//System.out.println(search);
+			// 검색x -> sk==null , 검색o -> sk!=null
+			
+			List<Qusetions> qusetionsList = null;
+			Pagination pagination = null;
+			
+			if(search.getSk()==null) { // 검색 x 
+				
+				// pagination을 이용하여 현재 목록페이지 조회
+				pagination = service.getPagination(pg);
+				qusetionsList = service.selectQusetionsList(pagination);
+			}else { // 검색 : 검색목록조회
+				pagination = service.getPagination(search,pg);
+				qusetionsList = service.selectQusetionsList(search ,pagination);
+				
+			}
+			
+			System.out.println(qusetionsList);
 			model.addAttribute("qusetionsList", qusetionsList);
 			model.addAttribute("pagination", pagination);
 		

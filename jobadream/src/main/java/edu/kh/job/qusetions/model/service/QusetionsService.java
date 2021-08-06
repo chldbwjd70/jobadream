@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.kh.job.qusetions.model.vo.Pagination;
 import edu.kh.job.qusetions.model.vo.Qusetions;
+import edu.kh.job.qusetions.model.vo.Search;
 
 public interface QusetionsService {
 
@@ -12,12 +13,27 @@ public interface QusetionsService {
 	 * @return pagination
 	 */
 	Pagination getPagination(Pagination pg);
+	
+	/** 전체게시글수(검색)
+	 * @param search
+	 * @param pg
+	 * @return pagination
+	 */
+	Pagination getPagination(Search search, Pagination pg);
 
 	/** 게시글 목록조회
 	 * @param pagination
 	 * @return qusetionsList
 	 */
 	List<Qusetions> selectQusetionsList(Pagination pagination);
+	
+	/** 게시글 목록조회(검색)
+	 * @param search
+	 * @param pagination
+	 * @return qusetionsList
+	 */
+	List<Qusetions> selectQusetionsList(Search search, Pagination pagination);
+
 
 	/** 게시글 상세조회
 	 * @param qusetionsNo
@@ -30,5 +46,8 @@ public interface QusetionsService {
 	 * @return qusetionsNo
 	 */
 	int insertQu(Qusetions qusetions);
+
+	
+
 
 }

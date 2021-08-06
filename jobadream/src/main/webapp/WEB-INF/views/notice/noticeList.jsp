@@ -54,6 +54,14 @@
 								<th>작성일</th>
 							</tr>
 						</thead>
+						<%-- 검색 상태 유지를 위한 쿼리스트링용 변수 선언 --%>
+						<c:if test="${!empty param.sk}">
+							<!-- sv가 파라미터에 있다면 -->
+							<c:if test="${ !empty param.sv &&  param.sv != '' }">
+								<c:set var="searchValue" value="&sv=${param.sv}" />
+							</c:if>
+							<c:set var="searchStr" value="&sk=${param.sk}${searchValue}" />
+						</c:if>
 						<%-- 게시글 목록 --%>
 						<tbody>
 							<c:choose>
@@ -77,8 +85,8 @@
 											<td>${notice.mem.memberId}</td>
 											<%-- 작성일 --%>
 											<td><fmt:formatDate var="createDate"
-													value="${notice.createDt}" pattern="yyyy-MM-dd" /> 
-													<fmt:formatDate var="today" value="<%=new java.util.Date()%>"
+													value="${notice.createDt}" pattern="yyyy-MM-dd" /> <fmt:formatDate
+													var="today" value="<%=new java.util.Date()%>"
 													pattern="yyyy-MM-dd" /> <c:choose>
 													<%-- 글 작성일이 오늘이 아닐 경우 --%>
 													<c:when test="${createDt != today}">
@@ -164,6 +172,22 @@
 				</ul>
 			</div>
 			<%---------------------- Pagination end----------------------%>
+			<!-- 검색창 -->
+			<div class="my-5">
+				<form action="noticeList" method="GET" class="text-center"
+					id="searchForm">
+					<select name="sk" class="form-control"
+						style="width: 100px; display: inline-block;">
+						<option value="title">글제목</option>
+						<option value="content">내용</option>
+						<option value="titcont">제목+내용</option>
+						<option value="writer">작성자</option>
+					</select> <input type="text" name="sv" class="form-control"
+						style="width: 25%; display: inline-block;">
+					<button class="form-control btn btn-primary"
+						style="width: 100px; display: inline-block;">검색</button>
+				</form>
+			</div>
 
 
 

@@ -19,6 +19,7 @@ import edu.kh.job.member.model.vo.Member;
 import edu.kh.job.notice.model.service.NoticeService;
 import edu.kh.job.notice.model.vo.Notice;
 import edu.kh.job.notice.model.vo.Pagination;
+import edu.kh.job.qusetions.model.vo.Search;
 
 @Controller
 @SessionAttributes({"loginMember"}) 
@@ -31,19 +32,21 @@ public class NoticeController {
 	// 게시글목록조회
 	@RequestMapping(value = "/notice/noticeList", method=RequestMethod.GET)
 	public String noticeList(Model model, Pagination pg,/*페이징처리*/
-							@RequestParam(value="cp", required =false, defaultValue = "1") int cp
+							@RequestParam(value="cp", required =false, defaultValue = "1") int cp,
+							Search search
 							) {
-		
 		pg.setCurrentPage(cp);
-		Pagination pagination = service.getPagination(pg);
 		
-		// pagination을 이용하여 현재 목록페이지 조회
-		List<Notice> noticeList = service.selectNoticeList(pagination);
+		Pagination pagination = null;
+		List<Notice> noticeList = null;
 		
-		for(Notice n : noticeList) {
-			System.out.println(n);
+		if(search.getSk() == null) { // 검색안했을때
+			pagination = service.getPagination(pg);
+			noticeList = service.selectNoticeList(pagination);
+		}else {
+			pagination = service.getPagination(search,pg);
+			noticeList = service.selectNoticeList(search,pagination);
 		}
-		
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pagination", pagination);
 		
@@ -89,6 +92,15 @@ public class NoticeController {
 			swalSetMessage(ra, "error", "등록 실패", null);
 		}
 		return path;
+	}
+	
+	// 게시글 수정 화면
+	@RequestMapping(value = "/notice/updateForm", method=RequestMethod.POST)
+	public String updateForm(int noticeNo, Model model) {
+		Notice notice = service.selectUpdateForm(noticeNo);
+		System.out.println("왜안됨? : " + notice);
+		model.addAttribute("notice", notice);
+		return "notice/noticeUpdate";
 	}
 	
 	

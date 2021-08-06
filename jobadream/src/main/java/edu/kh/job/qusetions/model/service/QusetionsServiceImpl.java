@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.kh.job.qusetions.model.dao.QusetionsDAO;
 import edu.kh.job.qusetions.model.vo.Pagination;
 import edu.kh.job.qusetions.model.vo.Qusetions;
+import edu.kh.job.qusetions.model.vo.Search;
 
 @Service
 public class QusetionsServiceImpl implements QusetionsService{
@@ -23,6 +24,17 @@ public class QusetionsServiceImpl implements QusetionsService{
 		Pagination selectPg = dao.getListCount();
 		return new Pagination(pg.getCurrentPage(), selectPg.getListCount());
 	}
+	
+	
+	// 게시글수조회(검색포함)
+	@Override
+	public Pagination getPagination(Search search, Pagination pg) {
+		
+		Pagination selectPg = dao.getSearchListCount(search);
+		return new Pagination(pg.getCurrentPage(), selectPg.getListCount());
+	}
+
+
 
 	// 게시글 목록조회
 	@Override
@@ -31,6 +43,13 @@ public class QusetionsServiceImpl implements QusetionsService{
 	}
 
 	
+	// 검색한 게시글 목록조회
+	@Override
+	public List<Qusetions> selectQusetionsList(Search search, Pagination pagination) {
+		return dao.selectSearchList(search ,pagination);
+	}
+
+
 	// 게시글 상세조회
 	@Transactional(rollbackFor = Exception.class)
 	@Override

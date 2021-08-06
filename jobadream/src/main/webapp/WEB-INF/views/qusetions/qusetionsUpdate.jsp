@@ -57,6 +57,7 @@
 	<div class="container">
 		<h2 class="request-line">1:1 문의</h2>
 		<div class="list-detaiil shadow p-3 mb-5 bg-white rounded p-5">
+			<form>
 				<!-- 글 상단 정보 -->
 				<div class="row">
 					<div class="col-md-2" id="request-top">제목</div>
@@ -94,21 +95,11 @@
 							<button type="button" class="btn btn-primary float-right mr-4"
 								id="btn-r">삭제</button>
 						</c:if>
-						<%-- 검색 상태 유지를 위한 쿼리스트링용 변수 선언 --%>
-					<c:if test="${!empty param.sk && !empty param.sv }">
-						
-						<c:set var="searchStr" 
-							value="&sk=${param.sk}&sv=${param.sv}"  />
-					</c:if>
-					
-					
-					<a href="list?type=${param.type}&cp=${param.cp}${searchStr}" class="btn btn-primary float-right mr-2">목록으로</a>
-				</div>
-				
 					</div>
 				</div>
-				
+			</form>
 		</div>
+	</div>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 </body>
 </html>

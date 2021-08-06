@@ -42,22 +42,88 @@
 		FROM QUSETIONS_LIST
 		WHERE QUSETIONS_STATUS = 'Y'
 	</select>
+	
+	<!-- 검색 게시글수조회  -->
+	<select id="getSearchListCount" parameterType="QusetionsSearch" resultMap="qpg_rm">
+		SELECT COUNT(*) CNT
+		FROM QUSETIONS_LIST
+		WHERE QUSETIONS_STATUS = 'Y'
+		
+		<!-- sv있을때만 -->
+		<if test="sv != null">
+			AND 
+			
+			<!-- bind 태그 : 변수 선언 -->
+			<bind name="val" value="'%' + sv + '%'"/>
+			
+			<!-- sk에 따라서 조건절을 선택함(title, content, titcont, writer) -->
+			<choose>
+			
+				<when test="sk == 'title'" >
+					QUSETIONS_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'content'" >
+					QUSETIONS_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'titcont'" >
+					( QUSETIONS_TITLE LIKE #{val} OR QUSETIONS_CONTENT LIKE #{val} )
+				</when>
+				<when test="sk == 'writer'" >
+					MEMBER_ID LIKE #{val}
+				</when>
+			
+			</choose>
+		</if> 
+	</select>
 
 	<!-- 전체게시글 목록조회 -->
 	<select id="selectQusetionList"
 		parameterType="QusetionsPagination" resultMap="qus_rm">
 		SELECT QUSETIONS_NO, QUSETIONS_TITLE, QUSETIONS_CONTENT, QUSETIONS_DT,
-		QUSETIONS_STATUS,
-		QUSETIONS_REPLY_STATUS,QUSETIONS_REPLY,MEMBER_NO, MEMBER_ID
+		QUSETIONS_STATUS,MEMBER_NO, MEMBER_ID
 		FROM QUSETIONS
 		JOIN MEMBER USING(MEMBER_NO)
+		ORDER BY QUSETIONS_NO DESC
+	</select>
+	
+	<!-- 검색한 게시글 조회 -->
+	<select id="selectSearchList"
+		parameterType="QusetionsSearch" resultMap="qus_rm">
+		SELECT QUSETIONS_NO, QUSETIONS_TITLE, QUSETIONS_CONTENT, QUSETIONS_DT,MEMBER_NO, MEMBER_ID
+		FROM QUSETIONS
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE QUSETIONS_STATUS = 'Y'
+		<if test="sv != null">
+			AND 
+			
+			<!-- bind 태그 : 변수 선언 -->
+			<bind name="val" value="'%' + sv + '%'"/>
+			
+			<!-- sk에 따라서 조건절을 선택함(title, content, titcont, writer) -->
+			<choose>
+			
+				<when test="sk == 'title'" >
+					QUSETIONS_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'content'" >
+					QUSETIONS_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'titcont'" >
+					( QUSETIONS_TITLE LIKE #{val} OR QUSETIONS_CONTENT LIKE #{val} )
+				</when>
+				<when test="sk == 'writer'" >
+					MEMBER_ID LIKE #{val}
+				</when>
+			
+			</choose>
+		</if> 
 		ORDER BY QUSETIONS_NO DESC
 	</select>
 
 	<!-- 게시글 상세조회 -->
 	<select id="selectQusetions" parameterType="_int"
 		resultMap="qus_rm">
-		SELECT QUSETIONS_TITLE, QUSETIONS_CONTENT, QUSETIONS_DT,QUSETIONS_STATUS,
+		SELECT QUSETIONS_NO,QUSETIONS_TITLE, QUSETIONS_CONTENT, QUSETIONS_DT,QUSETIONS_STATUS,
 		MEMBER_NO, MEMBER_ID
 		FROM QUSETIONS
 		JOIN MEMBER USING(MEMBER_NO)

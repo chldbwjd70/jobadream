@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.job.notice.model.vo.Notice;
 import edu.kh.job.notice.model.vo.Pagination;
+import edu.kh.job.qusetions.model.vo.Search;
 
 @Repository
 public class NoticeDAO {
@@ -22,6 +23,16 @@ public class NoticeDAO {
 	public Pagination getListCount() {
 		return sqlSession.selectOne("noticeMapper.getListCount");
 	}
+	
+	
+	/** 검색한 게시글수 조회
+	 * @param search
+	 * @return selectPg
+	 */
+	public Pagination getSearchListCount(Search search) {
+		return sqlSession.selectOne("noticeMapper.getSearchListCount", search);
+	}
+
 
 	/** 게시글목록조회
 	 * @param pagination
@@ -34,6 +45,20 @@ public class NoticeDAO {
 		RowBounds rowBouns = new RowBounds(offset, pagination.getLimit());
 		return sqlSession.selectList("noticeMapper.selectNoticeList", pagination, rowBouns);
 	}
+	
+	/** 게시글 검색목록조회
+	 * @param search
+	 * @param pagination
+	 * @return noticeList
+	 */
+	public List<Notice> selectSearchList(Search search, Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() - 1)*pagination.getLimit();
+		RowBounds rowBouns = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("noticeMapper.selectSearchList", search, rowBouns);
+	}
+
 
 	/** 게시글 상세조회
 	 * @param noticeNo
@@ -58,6 +83,15 @@ public class NoticeDAO {
 		
 		
 	}
+
+
+	public int delete(int noticeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("noticeMapper.delete", noticeNo);
+	}
+
+
+	
 
 	
 }
