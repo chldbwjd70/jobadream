@@ -96,7 +96,6 @@ public class MemberController {
 		}else {
 			swalSetMessage(ra, "error", "회원 가입 실패",  "고객센터로 문의해주세요.");
 		}
-		
 		return "redirect:/"; 
 	}
 	
@@ -118,8 +117,8 @@ public class MemberController {
 		return "member/findIdPw"; 
 	}
 	
-	// 아이디 찾기 
-	@RequestMapping(value="findIdPw", method=RequestMethod.POST)  
+	// 아이디 찾기 전환
+	@RequestMapping(value="findId", method=RequestMethod.POST)  
 	public String findId(Member member, RedirectAttributes ra) {
 		
 		return  "redirect:/"; 
@@ -162,7 +161,7 @@ public class MemberController {
 		}else { 
 			swalSetMessage(ra, "error", "회원 정보 수정 실패", null);
 		}
-		return "redirect:/member/information/myInformation";
+		return "redirect:/member/myInformation";
 	}
 	
 	// 내소개 전환

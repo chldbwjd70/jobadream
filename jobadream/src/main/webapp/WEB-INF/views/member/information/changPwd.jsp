@@ -66,8 +66,6 @@
 				<li class="nav-item col-md-3"><a
 					class="nav-link  text-center text1 text2" href="myInformation">내 정보</a></li>
 				<li class="nav-item col-md-3"><a
-					class="nav-link text-center text1 text2" href="myIntroduce">내 소개</a></li>
-				<li class="nav-item col-md-3"><a
 					class="nav-link active text-center text1 text2" href="changPwd">비밀번호 변경</a></li>
 				<li class="nav-item col-md-3"><a
 					class="nav-link text-center text1 text2" href="secession">탈퇴</a>

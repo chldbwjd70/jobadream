@@ -88,7 +88,7 @@
                                 </button>
                             </a>
                             <h3 class="text-center text1" ><br>
-                                <label for="Information"><a href="myInformation class="text3">내 정보</a></label>
+                                <label for="Information"><a href="myInformation" class="text3">내 정보</a></label>
                             </h3>
                         </div>
                         <div class="col-md-6">
