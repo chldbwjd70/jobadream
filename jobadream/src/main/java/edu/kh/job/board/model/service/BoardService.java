@@ -3,6 +3,7 @@ package edu.kh.job.board.model.service;
 import java.util.List;
 
 import edu.kh.job.board.model.vo.Board;
+import edu.kh.job.board.model.vo.Category;
 import edu.kh.job.board.model.vo.Pagination;
 
 public interface BoardService {
@@ -40,6 +41,19 @@ public interface BoardService {
 	 * @return
 	 */
 	Board selectBoard(int boardNo);
+
+
+	/** 모든 카테고리 조회
+	 * @return
+	 */
+	List<Category> selectCategory();
+
+
+	/** 게시판 삽입
+	 * @param board
+	 * @return boardNo
+	 */
+	int boardInsert(Board board);
 
 
 

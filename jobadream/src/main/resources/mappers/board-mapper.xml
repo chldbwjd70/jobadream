@@ -26,6 +26,12 @@
 		<result property="memberIntroduce" column="MEMBER_INTRODUCE"/>
 	</resultMap>
 	
+	<!-- 카테고리 조회 result Map -->
+	<resultMap type="Category" id="category_rm">
+		<id property="categoryCode" column="CATEGORY_CD"/>
+		<result property="categoryTitle" column="CATEGORY_TITLE"/>
+	</resultMap>
+	
 	
 	<select id="getListCount" parameterType="_int" resultMap="pg_rm">
 		    SELECT CNT, (SELECT CATEGORY_TITLE FROM CATEGORY WHERE CATEGORY_CD =  #{categoryCode}) CATEGORY_TITLE
@@ -58,4 +64,20 @@
 		SELECT * FROM BOARD_LIST
 		WHERE BOARD_NO = #{boardNo}
 	</select>
+	
+	<select id="selectCategory" resultMap="category_rm">
+		SELECT * FROM CATEGORY
+	</select>
+	
+	<insert id="boardInsert" parameterType="Board" useGeneratedKeys="true">
+		<selectKey keyProperty="boardNo" resultType="_int" order="BEFORE">
+			SELECT SEQ_BNO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO BOARD VALUES(
+			#{boardNo}, #{boardTitle},DEFAULT, DEFAULT, DEFAULT,#{memberNo}, 
+			#{categoryCode}, #{boardTime}, #{boardPlace}, #{boardPay},#{boardContent}
+		)
+		
+	</insert>
 </mapper>

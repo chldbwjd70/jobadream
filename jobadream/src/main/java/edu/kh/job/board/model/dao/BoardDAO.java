@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.job.board.model.vo.Board;
+import edu.kh.job.board.model.vo.Category;
 import edu.kh.job.board.model.vo.Pagination;
 
 @Repository
@@ -65,6 +66,27 @@ public class BoardDAO {
 	 */
 	public Board selectBoard(int boardNo) {
 		return sqlSession.selectOne("boardMapper.selectBoard",boardNo);
+	}
+
+	/** 모든 카테고리 조회
+	 * @return categoryList
+	 */
+	public List<Category> selectCategory() {
+		return sqlSession.selectList("boardMapper.selectCategory");
+	}
+
+	/** 게시판 삽입
+	 * @param board
+	 * @return
+	 */
+	public int boardInsert(Board board) {
+		int result = sqlSession.insert("boardMapper.boardInsert", board);
+		
+		if(result > 0) {
+			return board.getBoardNo();
+		}else {
+			return 0;
+		}
 	}
 
 }

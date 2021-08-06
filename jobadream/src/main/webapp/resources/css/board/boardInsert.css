@@ -1,0 +1,58 @@
+@charset "UTF-8";
+.page-title{
+    width: 80%;
+    margin: auto;
+}
+.page-title > p{
+    text-align: center;
+    font-size: 25px;
+    font-weight: 800;
+}
+.work-1, .work-2, .work-5{
+    width: 60%;
+    margin: auto;
+    margin-top: 2%;
+}
+.work-3{
+    width: 60%;
+    margin: auto;
+    margin-top: 2%;
+}
+.work-3 > p{
+    margin-bottom: 1%;
+}
+.work-4{
+    width: 60%;
+    margin: auto;
+    border: 1px solid gainsboro;
+    padding: 1%;
+}
+#postcodify_search_button{
+    background-color: #FC8934;
+    border: none;
+    color: white;
+}
+.category-select{
+    display: inline-block;
+}
+#boardTitle{
+    margin-top: 2%;
+    display: inline-block;
+}
+#request-content{
+    margin-top: 2%;
+}
+.request{
+    width: 60%;
+    margin: auto;
+    margin-top: 3%;
+    text-align: center;
+}
+.request-btn{
+    background-color: #4d61c4;
+    color: white;
+}
+#prv{
+    background-color: gray;
+    color: white;
+}
