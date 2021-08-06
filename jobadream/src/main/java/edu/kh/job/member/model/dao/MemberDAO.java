@@ -47,8 +47,8 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.secession", memberNo);
 	}
 
-	// 내 소개 삭제
-	public int deleteMy(Member inputMember) {
-		return sqlSession.update("memberMapper.deleteMy", inputMember);
+	public int findId(Member member) {
+		return sqlSession.selectOne("memberMapper.findId", member);
 	}
+
 }

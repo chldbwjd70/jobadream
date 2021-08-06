@@ -113,6 +113,27 @@ input, select{
 							</div>
 							<br>
 							<div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-2">
+                                    <br>
+                                    <label class=" text1 text2"> 한줄 소개 </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5><p>
+                                    <!-- 길이 구하기 -->
+                                    	(<span id="introduce"> ${fn:length(loginMember.memberIntroduce)}</span> / 30)
+                                    </p></h5>
+                                    <input type="text" class="form-control" name="inputIntroduce" id="inputIntroduce" autocomplete="off" value="${loginMember.memberIntroduce }">
+                            </div>
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-7 offset-md-4">
+                                    <span id="checkEmail">&nbsp;</span>
+                                </div>
+                            </div>
+                            <br>
+							<div class="row">
 								<div class="col-md-2"></div>
 								<div class="col-md-2">
 									<label class=" text1 text2"> 이메일 </label>
@@ -247,8 +268,6 @@ input, select{
 				
 			});
 		})();
-	
-	
 			
 		// 회원 정보 수정 시 유효성 검사
 		function memberUpdateValidate(){
@@ -291,8 +310,22 @@ input, select{
 			$("form[name='updateForm']").append(memberPhone).append(memberAddress);
 		    
 		}
-			
 	</script>
+	 <script>
+        $('#inputIntroduce').on('input',function(){
+
+        if($(this).val().length <= 29){
+            $('#introduce').css('color','black');
+        }else{  
+            $('#introduce').css('color','red');
+            const str = $(this).val();
+            swal({ "icon"  : "warning",
+	    		   "text"  : "30자 이하로 작성해주세요." });
+            $(this).val(str.substr(0,30))
+        }
+        $('#introduce').text($(this).val().length);    // 글자 수 세기
+        });
+    </script>
 	<jsp:include page="../../common/footer.jsp" />
 </body>
 </html>

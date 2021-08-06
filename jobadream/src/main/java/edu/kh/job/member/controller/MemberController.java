@@ -38,18 +38,27 @@ public class MemberController {
 		Member loginMember =  service.login(inputMember);
 		
 		if(loginMember != null) { 
-			
-			model.addAttribute("loginMember", loginMember); 
-
-			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
-			
-			if(save != null) { 
-				cookie.setMaxAge(60 * 60 * 24 * 30); 
-			}else {  
-				cookie.setMaxAge(0);
+			if(loginMember.getMemberStatus().equals("Y")) {
+				model.addAttribute("loginMember", loginMember); 
+				
+				Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
+				
+				if(save != null) { 
+					cookie.setMaxAge(60 * 60 * 24 * 30); 
+				}else {  
+					cookie.setMaxAge(0);
+				}
+				cookie.setPath( request.getContextPath() ); 
+				response.addCookie(cookie);
+				ra.addFlashAttribute("title", "job아드림");
+				ra.addFlashAttribute("text", loginMember.getMemberId()+"님 환영합니다.");
+				
+				
+			}else {
+				ra.addFlashAttribute("icon", "error");
+				ra.addFlashAttribute("title", "로그인 실패");
+				ra.addFlashAttribute("text", "관리자로 인해 정지된 회원입니다.");
 			}
-			cookie.setPath( request.getContextPath() ); 
-			response.addCookie(cookie);
 		
 		}else { 
 			ra.addFlashAttribute("icon", "error");
@@ -106,7 +115,6 @@ public class MemberController {
 		
 		// 아이디 중복 검사 Service 호출
 		int result = service.idDupCheck(id);
-		
 		return result;
 		
 	}
@@ -117,11 +125,20 @@ public class MemberController {
 		return "member/findIdPw"; 
 	}
 	
-	// 아이디 찾기 전환
+	// 아이디 찾기
 	@RequestMapping(value="findId", method=RequestMethod.POST)  
-	public String findId(Member member, RedirectAttributes ra) {
+	public String findId(Member member,  RedirectAttributes ra) { 
 		
-		return  "redirect:/"; 
+		int result = service.findId(member);
+		
+		if(result > 0) {
+			swalSetMessage(ra, "success", "회원님의 아이디는" + member.getMemberId(), null);
+			
+		}else { // 실패
+			swalSetMessage(ra, "error", "일치하는 회원 정보가 없습니다.", null);
+			
+		}
+		return "member/findIdPw"; 
 	}
 	
 	// 마이페이지 전환
@@ -140,11 +157,13 @@ public class MemberController {
 	// 회원 정보 수정 Controller
 	@RequestMapping(value="update", method=RequestMethod.POST)
 	public String updateMember( @ModelAttribute("loginMember") Member loginMember,
-								String inputEmail, String inputPhone, String inputAddress,
-								Member inputMember, RedirectAttributes ra) {
+								String inputEmail, String inputPhone, String inputAddress, String inputIntroduce,
+								Member inputMember,  RedirectAttributes ra) {
 		
 		inputMember.setMemberNo(loginMember.getMemberNo());
+		
 		inputMember.setMemberEmail(inputEmail);
+		inputMember.setMemberIntroduce(inputIntroduce);
 		inputMember.setMemberPhone(inputPhone);
 		inputMember.setMemberAddress(inputAddress);
 		
@@ -155,6 +174,7 @@ public class MemberController {
 			swalSetMessage(ra, "success", "회원 정보 수정 성공", null);
 			
 			loginMember.setMemberEmail(inputEmail);
+			loginMember.setMemberIntroduce(inputIntroduce);
 			loginMember.setMemberPhone(inputPhone);
 			loginMember.setMemberAddress(inputAddress);
 			
@@ -162,32 +182,6 @@ public class MemberController {
 			swalSetMessage(ra, "error", "회원 정보 수정 실패", null);
 		}
 		return "redirect:/member/myInformation";
-	}
-	
-	// 내소개 전환
-	@RequestMapping(value="myIntroduce", method=RequestMethod.GET)
-	public String myIntroduce() {
-		return "member/information/myIntroduce";
-	}
-
-	// 내소개 삭제
-	@RequestMapping(value="deleteBtn")
-	public String deleteMy(@ModelAttribute("loginMember") Member loginMember,
-							Member inputMember, RedirectAttributes ra ) {
-		
-		inputMember.setMemberNo(loginMember.getMemberNo());
-		
-		int result = service.deleteMy(inputMember);
-		
-		if( result > 0 ) { 
-			swalSetMessage(ra, "success", "내 소개 삭제 성공", null);
-			loginMember.setMemberIntroduce(null);
-			
-		}else { 
-			swalSetMessage(ra, "error", "내 소개 삭제  실패", null);
-		}
-		
-		return  "redirect:/member/information/myIntroduce";
 	}
 	
 	// 비밀번호 수정 전환
@@ -216,7 +210,6 @@ public class MemberController {
 			path += "information/changPwd";
 			
 		}
-		
 		return path;
 	}
 	

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<form role="form" method="POST" action="findId">
+<form method="POST" action="findId" onsubmit="return findId();" class="form-horizontal" role="form">
+---- ${member }
+---- ${Member }
 	<div class="style1">
 		<br>
 		<br>
@@ -13,7 +15,7 @@
 			</div>
 			<div class="col-md-6">
 				<input type="text" class="form-control" id="name" name="memberName"
-					placeholder="이름을 입력해주세요." required>
+					placeholder="이름을 입력해주세요." >
 			</div>
 			<div class="col-md-2"></div>
 		</div>
@@ -29,7 +31,7 @@
 			<div class="col-md-6">
 				<input type="email" class="form-control" id="email"
 					name="memberEmail" autocomplete="off" placeholder="이메일을 입력해주세요."
-					required>
+					>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
@@ -47,3 +49,30 @@
 		</div>
 	</div>
 </form>
+
+<script>
+function findId(){
+	
+	const regExp1 = /^[가-힣]{1,}$/;
+	const regExp2 = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
+	
+	const inputName = $("#name").val().trim();
+    const inputEmail = $("#email").val().trim();
+	
+	if( !regExp1.test(inputName) ){
+		swal({ 
+			"icon" : "error",
+			"title" : "이름을 작성해주세요."
+		});
+		
+		return false;
+	}
+	if( !regExp2.test(inputEmail) ){
+		swal({ 
+			"icon" : "error",
+			"title" : "올바른 이메일을 작성해주세요."
+		});
+		return false;
+	}
+}
+</script>
