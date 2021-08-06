@@ -59,14 +59,23 @@ public class MemberServiceImpl implements MemberService{
 		return dao.idDupCheck(id);
 	}
 
+
+	@Override
+	public int findId(Member member) {
+		return dao.findId(member);
+	}
+
 	// 회원 정보 수정
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int updateMember(Member inputMember) {
+		
+		inputMember.setMemberIntroduce(replaceParameter(inputMember.getMemberIntroduce()));
+		
 		return dao.updateMember(inputMember);
 	}
 	
-	
+	// 비밀번호 변경
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int changPwd(String currentPwd, String newPwd, Member loginMember) {
@@ -105,13 +114,6 @@ public class MemberServiceImpl implements MemberService{
 			result = dao.secession(memberNo);
 		}
 		return result;
-	}
-	
-	// 내 소개 삭제
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public int deleteMy(Member inputMember) {
-		return dao.deleteMy(inputMember);
 	}
 
 	// 크로스 사이트 스크립트 방지 처리 메소드

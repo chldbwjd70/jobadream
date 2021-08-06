@@ -24,8 +24,8 @@ public interface MemberService {
 	// 회원 탈퇴
 	int secession(String currentPwd, int memberNo);
 
-	// 내 소개 삭제
-	int deleteMy(Member inputMember);
+	int findId(Member member);
+
 
 
 
