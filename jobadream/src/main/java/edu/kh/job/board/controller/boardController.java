@@ -2,18 +2,24 @@ package edu.kh.job.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.job.board.model.service.BoardService;
 import edu.kh.job.board.model.vo.Board;
+import edu.kh.job.board.model.vo.Category;
 import edu.kh.job.board.model.vo.Pagination;
+import edu.kh.job.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/board/*")
@@ -36,7 +42,7 @@ public class boardController {
 			
 			List<Board> boardList = service.selectBoardList(pagination);
 			
-			System.out.println(pagination);
+			//System.out.println(pagination);
 			model.addAttribute("boardList",boardList);
 			model.addAttribute("pagination",pagination);
 			
@@ -54,7 +60,7 @@ public class boardController {
 		
 		List<Board> boardList = service.selectAllBoardList(pagination);
 		
-		System.out.println(pagination);
+		//System.out.println(pagination);
 		model.addAttribute("boardList",boardList);
 		model.addAttribute("pagination",pagination);
 		
@@ -62,6 +68,7 @@ public class boardController {
 		return "board/boardList";
 	}
 	
+	// 게시판 상세조회
 	@RequestMapping("/{categoryCode}/{boardNo}")
 	public String boardDetail(@PathVariable("categoryCode") int categoryCode,
 			@PathVariable("boardNo") int boardNo,
@@ -70,7 +77,7 @@ public class boardController {
 			RedirectAttributes ra) {
 		
 		Board board = service.selectBoard(boardNo);
-		System.out.println(board);
+		//System.out.println(board);
 		
 		if(board != null) { // 상세 조회 성공 시
 			
@@ -80,6 +87,45 @@ public class boardController {
 			
 			return "redirect:list";
 		}
+	}
+	
+	// 게시판 등록 화면 전환 Controller
+	@RequestMapping(value = "{categoryCode}/insert", method=RequestMethod.GET)
+	public String boardForm(Model model) {
+		
+		// DB에서 CATEGORY 테이블 내용을 모두 조회해오기
+		List<Category> category = service.selectCategory();  
+		
+		//System.out.println(category);
+		model.addAttribute("category",category);
+		
+		return "board/boardInsert";
+		
+	}
+	
+	// 게시판 등록
+	@RequestMapping(value = "{categoryCode}/insert", method=RequestMethod.POST)
+	public String boardInsert(@ModelAttribute Board board,
+								@ModelAttribute("loginMember") Member loginMember,
+								HttpServletRequest request,
+								RedirectAttributes ra) {
+		board.setMemberNo(loginMember.getMemberNo());
+		System.out.println(board);
+		
+		int boardNo = service.boardInsert(board);
+		String path = null;
+		if(boardNo > 0) {
+			
+			path = "redirect:" + boardNo;
+			ra.addFlashAttribute("icon", "success");
+			ra.addFlashAttribute("title", "해주세요 등록 성공");
+		}else {
+			
+	    	path = "rediect:" + request.getHeader("referer"); // 요청 이전 주소
+			ra.addFlashAttribute("icon", "error");
+			ra.addFlashAttribute("title", "해주세요 등록 실패");
+		}
+		return path;
 	}
 	
 	

@@ -69,7 +69,7 @@
 			                        <td class="tb-title">${board.categoryTitle}</td>
 			                        <td class="tb-parti">${board.memberName}</td>
 			                        <td>
-			                        	<a id="title" href="${contextPath}/board/${board.categoryCode}/${board.boardNo}?cp=${pagination.currentPage}${searchStr}">  
+			                        	<a id="title" onClick="titleClick(${board.categoryCode},${board.boardNo})">  
 			                        		${board.boardTitle}
 			                        	</a>
 			                        </td>
@@ -99,7 +99,7 @@
         </div>
         <c:if test="${loginMember != null}">
 	       	<div class="btn-box">   
-	            <button class="btn" id="register">해주세요 등록</button>
+	            <a class="btn" id="register" href='insert'>해주세요 등록</a>
 	        </div>
         </c:if>
        	<%---------------------- Pagination start----------------------%>
@@ -148,6 +148,19 @@
 		</div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
-    
+    <script>
+    	function titleClick(categoryCode, boardNo){
+    		console.log(boardNo);
+    		const addr = "${contextPath}/board/"+categoryCode+"/"+boardNo+ "?cpage=${pagination.currentPage}${searchStr}";
+    		console.log(addr);
+    		if( "${loginMember}" == ""){
+    			alert("로그인 해주세요");
+    			$("#title").attr("href", "${contextPath}/board/${board.categoryCode}/list?cpage=${pagination.currentPage}${searchStr}");
+    		}else{
+    			location.href = addr;
+    		} 
+    		
+    	}
+    </script>
 </body>
 </html>

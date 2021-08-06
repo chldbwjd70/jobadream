@@ -43,11 +43,20 @@
                     <span class="col-md-4" id="pay">${board.boardPay}</span>
                 </div>
             </div>
+            <c:if test="${loginMember.memberNo != board.memberNo}">
             <div class="workForm-5">
-                <button type="button" class="btn" id="chat">채팅하기</button>
-                <button type="button" class="btn" id="support">지원하기</button>
-                <button type="button" class="btn" id="prv">이전으로</button>
+                <a class="btn" id="chat">채팅하기</a>
+                <a class="btn" id="support">지원하기</a>
+            	<a href="list?cpage=${param.cpage}${searchStr}" class="btn" id="prv">이전으로</a>
             </div>
+            </c:if>
+            <c:if test="${loginMember.memberNo == board.memberNo}">
+	           <div class="workForm-5">
+	                <a class="btn" id="update">수정하기</a>
+	                <a class="btn" id="delete">삭제하기</a>
+	             	<a href="list?cpage=${param.cpage}${searchStr}" class="btn" id="prv">이전으로</a>
+	            </div>
+            </c:if>
         </div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
