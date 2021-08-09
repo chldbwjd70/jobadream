@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.job.board.model.vo.Board;
+import edu.kh.job.board.model.vo.BoardProgress;
 import edu.kh.job.board.model.vo.Category;
 import edu.kh.job.board.model.vo.Pagination;
 
@@ -109,6 +110,25 @@ public class BoardDAO {
 		}else {
 			return 0;
 		}
+	}
+
+	/** 진행 삽입
+	 * @param boardProgress
+	 * @return result
+	 */
+	public int boardProgress(BoardProgress boardProgress) {
+		return sqlSession.insert("boardMapper.boardProgress", boardProgress);
+	}
+
+	/** realTimeSelect
+	 * @return rList
+	 */
+	public List<Board> realTimeSelect() {
+		
+		
+		return sqlSession.selectList("boardMapper.realTimeSelect");
+		
+
 	}
 
 }

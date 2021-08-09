@@ -3,6 +3,7 @@ package edu.kh.job.board.model.service;
 import java.util.List;
 
 import edu.kh.job.board.model.vo.Board;
+import edu.kh.job.board.model.vo.BoardProgress;
 import edu.kh.job.board.model.vo.Category;
 import edu.kh.job.board.model.vo.Pagination;
 
@@ -75,6 +76,26 @@ public interface BoardService {
 	 * @return
 	 */
 	int boardUpdate(Board board);
+
+
+	/** 지원하기 클릭 시 게시글 상태 변경
+	 * @param boardNo
+	 * @return
+	 */
+	int boardUpdateStatus(int boardNo);
+
+
+	/** 진행 삽입
+	 * @param boardProgress
+	 * @return result
+	 */ 
+	int boardProgress(BoardProgress boardProgress);
+
+
+	/** 실시간 게시글 TOP3 조회
+	 * @return rList
+	 */
+	List<Board> realTimeSelect();
 
 
 

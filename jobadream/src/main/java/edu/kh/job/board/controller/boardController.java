@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import edu.kh.job.board.model.service.BoardService;
 import edu.kh.job.board.model.vo.Board;
+import edu.kh.job.board.model.vo.BoardProgress;
 import edu.kh.job.board.model.vo.Category;
 import edu.kh.job.board.model.vo.Pagination;
 import edu.kh.job.member.controller.MemberController;
@@ -70,7 +74,7 @@ public class boardController {
 	}
 	
 	// 게시판 상세조회
-	@RequestMapping("/{categoryCode}/{boardNo}")
+	@RequestMapping("{categoryCode}/{boardNo}")
 	public String boardDetail(@PathVariable("categoryCode") int categoryCode,
 			@PathVariable("boardNo") int boardNo,
 			@RequestParam(value = "cpage" ,required = false, defaultValue = "1" ) int cpage,
@@ -130,7 +134,7 @@ public class boardController {
 	}
 	
 	// 게시판 삭제
-	@RequestMapping(value = "/{categoryCode}/deleteFaq/{boardNo}", method=RequestMethod.GET)
+	@RequestMapping(value = "{categoryCode}/deleteFaq/{boardNo}", method=RequestMethod.GET)
 	public String boardDelete(@PathVariable("boardNo") int boardNo,
 								@PathVariable("categoryCode") int categoryCode,
 								@RequestParam(value = "cpage" ,required = false, defaultValue = "1" ) int cpage,
@@ -152,7 +156,7 @@ public class boardController {
 	}
 	
 	// 게시판 수정 화면전환
-	@RequestMapping(value="/{categoryCode}/updateForm/{boardNo}", method=RequestMethod.GET)
+	@RequestMapping(value="{categoryCode}/updateForm/{boardNo}", method=RequestMethod.GET)
 	public String updateForm(@PathVariable("boardNo") int boardNo,
 						@PathVariable("categoryCode") int categoryCode,
 						Model model) {
@@ -169,7 +173,7 @@ public class boardController {
 	}
 	
 	// 게시판 수정
-	@RequestMapping(value="/{categoryCode}/update/{boardNo}", method=RequestMethod.POST)
+	@RequestMapping(value="{categoryCode}/update/{boardNo}", method=RequestMethod.POST)
 	public String boardUpdate(@ModelAttribute Board board,
 							HttpServletRequest request, RedirectAttributes ra) {
 		
@@ -189,10 +193,53 @@ public class boardController {
 		}
 		
 		return path;
-		
-		
-		
 	}
 	
+	// 지원하기 
+	@RequestMapping(value = "{categoryCode}/progress/{boardNo}", method = RequestMethod.GET)
+	public String boardProgress(@PathVariable("boardNo") int boardNo,
+								@ModelAttribute("loginMember") Member loginMember,
+								@ModelAttribute BoardProgress boardProgress,
+								RedirectAttributes ra, HttpServletRequest request
+								) {
+		
+		// 지원하기 클릭 시 게시판 status 변경
+		int result = service.boardUpdateStatus(boardNo);
+		
+		boardProgress.setBoardNo(boardNo);
+		boardProgress.setMemberNo(loginMember.getMemberNo());
+		
+		String path = null;
+		
+		if(result > 0) { // status 변경 성공 시
+			// progress 테이블에 진행 삽입
+			result = service.boardProgress(boardProgress);
+			if(result > 0) {
+			  	  path = "redirect:../list";
+		    	  MemberController.swalSetMessage(ra, "success", "지원 완료", "자세한 진행상황은 마이페이지[이용내역]에서 확인해주세요");
+			}else {
+		    	  path = "redirect:" + request.getHeader("referer"); 
+		    	  MemberController.swalSetMessage(ra, "error", "지원 중 오류 발생", null);
+			}
+			
+		}else {
+	    	  path = "redirect:" + request.getHeader("referer"); 
+	    	  MemberController.swalSetMessage(ra, "error", "지원 중 오류 발생", null);
+			
+		}
+		
+		return path;
+	}
+	
+	// 실시간 게시글 TOP3 조회
+	@RequestMapping(value ="realList", method=RequestMethod.POST)
+	public String realTimeSelect() {
+		
+		List<Board> rList = service.realTimeSelect();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create();
+		
+		return gson.toJson(rList);
+	}
 	
 }
