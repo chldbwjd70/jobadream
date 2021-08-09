@@ -87,11 +87,10 @@
            </div>
        </div>
 
-       <!-- 실시간 간단알바 제목 -->
+                  <!-- 실시간 간단알바 제목 -->
        <div class="real-head"> 
            <div class="real-title">실시간 간단알바</div>
        </div>
-
        <!-- 실시간 간단 알바 목록 -->
        <div class="real-list">
            
@@ -99,7 +98,6 @@
                <div class="item-image col-md-4"><a href="#"></a><img src="${contextPath}/resources/images/main/new-square.png"></div>
                <div class="item-text col-md-8"><a href="#"><strong>편의점 1시간 대타 구합니다[급구]</strong></a>
                    <p class="item-info"><strong>강서구   |   금액:12,000원 |  시간: 1시간</strong></p>
-                   <p class="item-title">대타가 개인사정으로 오지못해서 1시간 급하게 구해봅니다...</p>
                </div>
            </div>
 
@@ -107,7 +105,6 @@
                <div class="item-image col-md-4"><a href="#"></a><img src="${contextPath}/resources/images/main/new-square.png"></div>
                <div class="item-text col-md-8"><a href="#"><strong>편의점 1시간 대타 구합니다[급구]</strong></a>
                    <p class="item-info"><strong>강서구   |   금액:12,000원 |  시간: 1시간</strong></p>
-                   <p class="item-title">대타가 개인사정으로 오지못해서 1시간 급하게 구해봅니다...</p>
                </div>
            </div>
 
@@ -115,12 +112,10 @@
                <div class="item-image col-md-4"><a href="#"></a><img src="${contextPath}/resources/images/main/new-square.png"></div>
                <div class="item-text col-md-8"><a href="#"><strong>편의점 1시간 대타 구합니다[급구]</strong></a>
                    <p class="item-info"><strong>강서구   |   금액:12,000원 |  시간: 1시간</strong></p>
-                   <p class="item-title">대타가 개인사정으로 오지못해서 1시간 급하게 구해봅니다...</p>
                </div>
            </div>
            
        </div>
-
    </div>
    	<jsp:include page="common/footer.jsp"/>
 	<script>
@@ -129,6 +124,27 @@
          // 순환 설정, true면 1 -> 2가면 다시 1로 돌아가서 반복
          wrap: true,
        })
+       
+	   $.ajax({
+			url : "${contextPath}/board/realList",
+			type : "POST",
+			dataType : "JSON", 
+			success : function(rList){
+				console.log(rList);
+				
+		         $(".real-list").html(""); 
+		         
+		         $.each(rList, function(index, item){
+		            // $.each() : jQuery 반복문
+		            // rList : ajax 결과로 받은 댓글ㅇ리 담겨있는 객체 배열
+		            // index : 순차 접근 시 현재 인덱스
+		            // item ㅣ 순차 접근 시 현재 접근한 배열 요소(댓글 정보 하나)
+		         });
+			},
+			error : function(){
+				console.log("실시간 게시글 조회 실패");
+			}
+		});
    	</script>
 
 </body>

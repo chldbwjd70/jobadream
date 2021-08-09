@@ -107,4 +107,21 @@
 			BOARD_CONTENT = #{boardContent}
 		WHERE BOARD_NO = #{boardNo}
 	</update>
+	
+	<!-- 진행 삽입 -->
+	<insert id="boardProgress" parameterType="BoardProgress">
+		INSERT INTO PROGRESS VALUES(	
+			#{memberNo},
+			#{boardNo},
+			DEFAULT, DEFAULT
+		)
+	</insert>
+	
+	<!-- 실시간 게시글 TOP3 -->
+	<select id="realTimeSelect" resultMap="board_rm">
+	    SELECT * FROM(
+		    SELECT * FROM BOARD
+		    ORDER BY BOARD_NO DESC)
+	    WHERE ROWNUM BETWEEN 1 AND 5
+	</select>
 </mapper>
