@@ -19,6 +19,7 @@ import edu.kh.job.board.model.service.BoardService;
 import edu.kh.job.board.model.vo.Board;
 import edu.kh.job.board.model.vo.Category;
 import edu.kh.job.board.model.vo.Pagination;
+import edu.kh.job.member.controller.MemberController;
 import edu.kh.job.member.model.vo.Member;
 
 @Controller
@@ -72,7 +73,7 @@ public class boardController {
 	@RequestMapping("/{categoryCode}/{boardNo}")
 	public String boardDetail(@PathVariable("categoryCode") int categoryCode,
 			@PathVariable("boardNo") int boardNo,
-			@RequestParam(value = "cp" ,required = false, defaultValue = "1" ) int cp,
+			@RequestParam(value = "cpage" ,required = false, defaultValue = "1" ) int cpage,
 			Model model,
 			RedirectAttributes ra) {
 		
@@ -121,11 +122,76 @@ public class boardController {
 			ra.addFlashAttribute("title", "해주세요 등록 성공");
 		}else {
 			
-	    	path = "rediect:" + request.getHeader("referer"); // 요청 이전 주소
+	    	path = "redirect:" + request.getHeader("referer"); // 요청 이전 주소
 			ra.addFlashAttribute("icon", "error");
 			ra.addFlashAttribute("title", "해주세요 등록 실패");
 		}
 		return path;
+	}
+	
+	// 게시판 삭제
+	@RequestMapping(value = "/{categoryCode}/deleteFaq/{boardNo}", method=RequestMethod.GET)
+	public String boardDelete(@PathVariable("boardNo") int boardNo,
+								@PathVariable("categoryCode") int categoryCode,
+								@RequestParam(value = "cpage" ,required = false, defaultValue = "1" ) int cpage,
+							HttpServletRequest request, RedirectAttributes ra) {
+		
+		int result = service.boardDelete(boardNo);
+		
+	   String path = null;
+       if(result > 0) { // 삽입 성공
+    	  path = "redirect:../list";
+    	  MemberController.swalSetMessage(ra, "success", "해주세요 삭제 성공", null);
+    	  
+       }else { // 삽입 실패
+    	  
+    	  path = "redirect:" + request.getHeader("referer"); 
+    	  MemberController.swalSetMessage(ra, "error", "해주세요 삭제 실패", null);
+       }
+		return path;
+	}
+	
+	// 게시판 수정 화면전환
+	@RequestMapping(value="/{categoryCode}/updateForm/{boardNo}", method=RequestMethod.GET)
+	public String updateForm(@PathVariable("boardNo") int boardNo,
+						@PathVariable("categoryCode") int categoryCode,
+						Model model) {
+		
+		List<Category> category = service.selectCategory();
+		
+		Board board = service.selectUpdateBoard(boardNo);
+		
+		model.addAttribute("category",category);
+		model.addAttribute("board",board);
+		
+		return "board/boardUpdate";
+		
+	}
+	
+	// 게시판 수정
+	@RequestMapping(value="/{categoryCode}/update/{boardNo}", method=RequestMethod.POST)
+	public String boardUpdate(@ModelAttribute Board board,
+							HttpServletRequest request, RedirectAttributes ra) {
+		
+		
+		int categoryCode = service.boardUpdate(board);
+		System.out.println(categoryCode);
+		
+		String path = null;
+		if(categoryCode > 0) {
+			path = "redirect:../../" + categoryCode + "/" +board.getBoardNo();
+			MemberController.swalSetMessage(ra, "success", "해주세요 수정 성공", null);
+			
+		}else {
+	    	  path = "redirect:" + request.getHeader("referer"); 
+	    	  MemberController.swalSetMessage(ra, "error", "해주세요 수정 실패", null);
+			
+		}
+		
+		return path;
+		
+		
+		
 	}
 	
 	

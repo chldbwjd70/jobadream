@@ -89,4 +89,26 @@ public class BoardDAO {
 		}
 	}
 
+	/** 게시판 삭제
+	 * @param boardNo
+	 * @return result
+	 */
+	public int boardDelete(int boardNo) {
+		return sqlSession.update("boardMapper.boardDelete", boardNo);
+	}
+
+	/** 게시판 수정
+	 * @param board
+	 * @return result
+	 */
+	public int boardUpdate(Board board) {
+		
+		int result = sqlSession.update("boardMapper.boardUpdate",board);
+		if(result > 0) {
+			return board.getCategoryCode();
+		}else {
+			return 0;
+		}
+	}
+
 }

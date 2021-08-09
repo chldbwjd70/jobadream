@@ -74,6 +74,13 @@ public class BoardServiceImpl implements BoardService {
 		return boardNo;
 	}
 	
+	// 게시판 삭제
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int boardDelete(int boardNo) {
+		return dao.boardDelete(boardNo);
+	}
+	
 	// 크로스 사이트 스크립트 방지 처리 메소드
 	public static String replaceParameter(String param) {
 		String result = param;
@@ -86,5 +93,29 @@ public class BoardServiceImpl implements BoardService {
 		
 		return result;
 	}
+
+	// 게시글 수정 화면 전환
+	@Override
+	public Board selectUpdateBoard(int boardNo) {
+		
+		Board board = dao.selectBoard(boardNo);
+		
+		board.setBoardContent(board.getBoardContent().replaceAll("<br>","\r\n"));
+		
+		return board;
+	}
+
+	// 게시글 수정
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int boardUpdate(Board board) {
+		
+		board.setBoardTitle(replaceParameter(board.getBoardTitle()));
+		board.setBoardContent(replaceParameter(board.getBoardContent()));
+		board.setBoardContent(  board.getBoardContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>")  );
+		
+		return dao.boardUpdate(board);
+	}
+
 
 }

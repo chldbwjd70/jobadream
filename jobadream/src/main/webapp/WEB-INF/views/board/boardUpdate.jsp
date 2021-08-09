@@ -7,16 +7,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>해주세요 등록</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	<link rel="stylesheet" href="${contextPath}/resources/css/board/boardInsert.css" type="text/css"/>
     <div class="container">
         <div class="page-title">
-            <p>해주세요 등록</p>
+            <p>해주세요 수정</p>
         </div>
-        <form class="work-register" action="insert" name="boardForm" method ="post" onsubmit="return validate();">
+        <c:set var="place" value="${fn:split(board.boardPlace, ',') }" />
+        <form class="work-register" action="../update/${board.boardNo}" name="boardForm" method ="post" onsubmit="return validate();">
             <div class="work-1">
                   <label class="input-group-addon mr-3 insert-label">카테고리</label> 
                   <select   class="custom-select category-select" id="categoryCode" name="categoryCode" style="width: 150px;">
@@ -24,12 +25,12 @@
                         <option value="${c.categoryCode}">${c.categoryTitle}</option>
                      </c:forEach>
                   </select>
-                <input type="text" class="form-control" placeholder="제목 입력" id="boardTitle" name="boardTitle" required>
-                <textarea class="form-control" name="boardContent" placeholder="요청사항을 입력해주세요.(최대한 구체적으로 적어주세요)"  id="request-content" rows="10"></textarea>
+                <input type="text" class="form-control" placeholder="제목 입력" id="boardTitle" name="boardTitle" value="${board.boardTitle}" required>
+                <textarea class="form-control" name="boardContent" placeholder="요청사항을 입력해주세요.(최대한 구체적으로 적어주세요)"  id="request-content" rows="10">${board.boardContent}</textarea>
             </div>
             <div class="work-2">
                 <label for="time">예상 시간</label>
-                <input type="text" class="form-control" id="boardTime" name ="boardTime" placeholder="소요 시간을 입력해주세요." required>
+                <input type="text" class="form-control" id="boardTime" name ="boardTime" placeholder="소요 시간을 입력해주세요." value="${board.boardTime}" required>
             </div>
             <div class="work-3"> 
                 <p>장소</p>
@@ -40,7 +41,7 @@
                         <label for="postcodify_search_button">우편번호</label>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" name="address" class="form-control postcodify_postcode5">
+                        <input type="text" name="address" class="form-control postcodify_postcode5" value="${place[0]}">
                     </div>
                     <div class="col-md-3">
                         <button type="button" class="btn btn-primary" id="postcodify_search_button">검색</button>
@@ -52,7 +53,7 @@
                         <label for="address1">도로명 주소</label>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" class="form-control postcodify_address" name="address" id="address1">
+                        <input type="text" class="form-control postcodify_address" name="address" id="address1" value="${place[1]}">
                     </div>
                 </div>
 
@@ -61,13 +62,13 @@
                         <label for="address2">상세주소</label>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" class="form-control postcodify_details" name="address" id="address2">
+                        <input type="text" class="form-control postcodify_details" name="address" id="address2" value="${place[2]}">
                     </div>
                 </div>
             </div>
             <div class="work-5">
                 <label for="pay">페이</label>
-                <input type="number" class="form-control" id="boardPay" name="boardPay" placeholder="지급할 포인트를 입력해주세요." required>
+                <input type="number" class="form-control" id="boardPay" name="boardPay" placeholder="지급할 포인트를 입력해주세요." value="${board.boardPay}" required>
             </div>
 
             <div class="request">
@@ -89,5 +90,6 @@
             $("#postcodify_search_button").postcodifyPopUp();
         });
     </script>
+
 </body>
 </html>

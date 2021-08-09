@@ -56,5 +56,26 @@ public interface BoardService {
 	int boardInsert(Board board);
 
 
+	/** 게시판 삭제
+	 * @param boardNo
+	 * @return result
+	 */
+	int boardDelete(int boardNo);
+
+
+	/** 게시판 수정 화면 전환
+	 * @param boardNo
+	 * @return
+	 */
+	Board selectUpdateBoard(int boardNo);
+
+
+	/** 게시판 수정
+	 * @param board
+	 * @return
+	 */
+	int boardUpdate(Board board);
+
+
 
 }
