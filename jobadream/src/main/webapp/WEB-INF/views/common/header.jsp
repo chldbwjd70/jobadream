@@ -45,7 +45,7 @@
 	font-weight: bold;
 }
 
-.text2 {
+.text2-1 {
 	font-size: 20px;
 }
 
@@ -93,7 +93,7 @@ textarea {
 					</c:otherwise>
 				</c:choose>
 				<a href="${contextPath}/member/error">오류</a>
-				<a href="404"> 404</a>
+				<a href="${contextPath}/member/error404"> 404</a>
 			</div>
 			<div class="row hd-2">
 				<div class="col-sm-4" id="logo">
@@ -144,7 +144,7 @@ textarea {
 								<div class="row">
 									<div class="col-md-1"></div>
 									<div class="col-md-3">
-										<label class=" text1 text2"> 아이디 </label>
+										<label class=" text1 text2-1"> 아이디 </label>
 									</div>
 									<div class="col-md-6 pdd">
 										<input type="text" class="form-control " name="memberId" id="id cssid" maxlength="12" 
@@ -158,7 +158,7 @@ textarea {
                                      <div class="col-md-1">
                                      </div>
                                      <div class="col-md-3">
-                                         <label class=" text1 text2"> 비밀번호 </label>
+                                         <label class=" text1 text2-1"> 비밀번호 </label>
                                      </div>
                                      <div class="col-md-6 pdd">
                                          <input type="password" class="form-control " id="memberPw" name="memberPw"
@@ -190,7 +190,7 @@ textarea {
 											</div>
 											<div class="col-md-2"></div>
 											<div class="col-md-6 text-right">
-												<label> <a href="${contextPath}/member/findIdPw">아이디/비밀번호
+												<label> <a href="${contextPath}/member/findId">아이디/비밀번호
 														찾기</a>
 												</label>
 											</div>
