@@ -24,7 +24,16 @@ public interface MemberService {
 	// 회원 탈퇴
 	int secession(String currentPwd, int memberNo);
 
-	int findId(Member member);
+	// 아이디 찾기
+	String findId(Member findMemberId);
+
+	// 비밀번호 찾기-조회
+	String findPw(Member findMemberPw);
+
+	// 비밀번호 찾기 - 변경
+	int findPw2(String chPwd, Member findMemberPw);
+
+
 
 
 

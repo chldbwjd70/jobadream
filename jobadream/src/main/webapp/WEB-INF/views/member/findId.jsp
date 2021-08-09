@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <form method="POST" action="findId" onsubmit="return findId();" class="form-horizontal" role="form">
----- ${member }
----- ${Member }
 	<div class="style1">
 		<br>
 		<br>
@@ -14,7 +12,7 @@
 				<label class=" text1 text2"> 이름 </label>
 			</div>
 			<div class="col-md-6">
-				<input type="text" class="form-control" id="name" name="memberName"
+				<input type="text" class="form-control" id="name" name="findName"
 					placeholder="이름을 입력해주세요." >
 			</div>
 			<div class="col-md-2"></div>
@@ -30,8 +28,7 @@
 			</div>
 			<div class="col-md-6">
 				<input type="email" class="form-control" id="email"
-					name="memberEmail" autocomplete="off" placeholder="이메일을 입력해주세요."
-					>
+					name="findEamil" autocomplete="off" placeholder="이메일을 입력해주세요." >
 			</div>
 			<div class="col-md-2"></div>
 		</div>
@@ -45,11 +42,10 @@
 	<div class="row">
 		<div class="col-md-12">
 			<button type="submit" class="btn float-right" id="btn-color1"
-				type="submit" onclick="findId">아이디 찾기</button>
+				onclick="findId">아이디 찾기</button>
 		</div>
 	</div>
 </form>
-
 <script>
 function findId(){
 	
@@ -62,7 +58,7 @@ function findId(){
 	if( !regExp1.test(inputName) ){
 		swal({ 
 			"icon" : "error",
-			"title" : "이름을 작성해주세요."
+			"title" : "올바른 이름을 작성해주세요."
 		});
 		
 		return false;

@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>job아드림 회원 가입</title>
+
 <jsp:include page="../common/header.jsp"/>
 <style>
 

@@ -29,6 +29,13 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	// 오류화면
+	@RequestMapping(value="error", method=RequestMethod.GET)  
+	public String error() { 
+		return "common/errorpage"; 
+	}
+	
+	
 	// 로그인 
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(Member inputMember, Model model,
@@ -127,19 +134,78 @@ public class MemberController {
 	
 	// 아이디 찾기
 	@RequestMapping(value="findId", method=RequestMethod.POST)  
-	public String findId(Member member,  RedirectAttributes ra) { 
+	public String findId(@RequestParam("findEamil") String findEamil, @RequestParam("findName") String findName,
+						@ModelAttribute Member findMemberId,  RedirectAttributes ra, Model model, @RequestHeader("referer") String referer ) { 
 		
-		int result = service.findId(member);
+		findMemberId.setMemberEmail(findEamil);
+		findMemberId.setMemberName(findName);
 		
-		if(result > 0) {
-			swalSetMessage(ra, "success", "회원님의 아이디는" + member.getMemberId(), null);
+		String memberId = service.findId(findMemberId);
+		findMemberId.setMemberId(memberId);
+		
+		if(memberId != null) {
+			
+			model.addAttribute("findMemberId", findMemberId); 
+			
+			ra.addFlashAttribute("icon", "success");
+			ra.addFlashAttribute("text", findMemberId.getMemberName()+"님의 아이디는 다음과 같습니다.");
+			ra.addFlashAttribute("title",  findMemberId.getMemberId());
+		}else { // 실패
+			ra.addFlashAttribute("icon", "error");
+			ra.addFlashAttribute("title",  "일치하는 회원 정보가 없습니다.");
+		}
+		return "redirect:" + referer;
+	}
+	
+	// 비밀번호 찾기(회원 정보 확인)
+	@RequestMapping(value="findPw", method=RequestMethod.POST)  
+	public String findPw(@RequestParam("findEamil2") String findEamil, @RequestParam("findName2") String findName, 
+						@RequestParam("findId2") String findId, @RequestParam("emailNum") String emailNum,
+						@ModelAttribute Member findMemberPw, RedirectAttributes ra, Model model, 
+						@RequestHeader("referer") String referer ) { 
+		
+		findMemberPw.setMemberEmail(findEamil);
+		findMemberPw.setMemberName(findName);
+		findMemberPw.setMemberId(findId);
+		
+		String memberPw = service.findPw(findMemberPw);
+		
+		String path = null;
+		
+		if(memberPw != null) {
+			
+			model.addAttribute("findMemberPw", findMemberPw); 
+			
+			path = "member/findPw2"; 
 			
 		}else { // 실패
-			swalSetMessage(ra, "error", "일치하는 회원 정보가 없습니다.", null);
 			
+			ra.addFlashAttribute("icon", "error");
+			ra.addFlashAttribute("title",  "일치하는 회원 정보가 없습니다.");
+			path = "redirect:" + referer;
 		}
-		return "member/findIdPw"; 
+		return path;
 	}
+	
+	// 비밀번호 수정
+		@RequestMapping(value="findPw2", method=RequestMethod.POST)
+		public String findPw2(@RequestParam("chPwd") String chPwd,
+							  @ModelAttribute Member findMemberPw, RedirectAttributes ra,
+							  @RequestHeader("referer") String referer ) {
+			
+			int result = service.findPw2(chPwd, findMemberPw);
+			
+			String path = "redirect:";
+			
+			if(result > 0) { // 비밀번호 변경 성공
+				swalSetMessage(ra, "success", "비밀번호 변경이 완료되었습니다.", null);
+				path += "redirect:/";
+				
+			}else { // 실패
+				path = "redirect:" + referer;
+			}
+			return path;
+		}
 	
 	// 마이페이지 전환
 	@RequestMapping(value="myPage", method=RequestMethod.GET)  
