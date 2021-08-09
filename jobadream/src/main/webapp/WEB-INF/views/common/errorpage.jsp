@@ -69,7 +69,7 @@ div.bg-image-full {
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8 errfont">
 				<h1 id="error1">
-					ERROR...<br>job아드림..
+					ERROR..in<br>'job아드림'
 				</h1>
 			</div>
 			<div class="col-sm-2"></div>

@@ -47,8 +47,19 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.secession", memberNo);
 	}
 
-	public int findId(Member member) {
-		return sqlSession.selectOne("memberMapper.findId", member);
+	// 아이디 찾기
+	public String findId(Member findMemberId) {
+		return sqlSession.selectOne("memberMapper.findId", findMemberId);
+	}
+
+	// 비밀번호 찾기 - 조회
+	public String findPw(Member findMemberPw) {
+		return sqlSession.selectOne("memberMapper.findPw", findMemberPw);
+	}
+
+	// 비밀번호 찾기 - 변경
+	public int findPw2(Member findMemberPw) {
+		return sqlSession.update("memberMapper.findPw2", findMemberPw);
 	}
 
 }

@@ -59,10 +59,34 @@ public class MemberServiceImpl implements MemberService{
 		return dao.idDupCheck(id);
 	}
 
-
+	// 아이디 찾기
 	@Override
-	public int findId(Member member) {
-		return dao.findId(member);
+	public String findId(Member findMemberId) {
+		return dao.findId(findMemberId);
+
+	}
+
+	// 비밀번호 찾기 - 조회
+	@Override
+	public String findPw(Member findMemberPw) {
+		return dao.findPw(findMemberPw);
+	}
+
+	// 비밀번호 찾기 - 변경
+	@Override
+	public int findPw2(String chPwd, Member findMemberPw) {
+		
+		int result = 0; 
+
+			String encPwd = bCryptPasswordEncoder.encode(chPwd);
+			
+			findMemberPw.setMemberPw(encPwd);
+			
+			result = dao.findPw2(findMemberPw);
+			
+			findMemberPw.setMemberPw(null);
+		
+		return result;
 	}
 
 	// 회원 정보 수정
@@ -129,6 +153,7 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 
+	
 	
 
 	

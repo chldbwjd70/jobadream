@@ -60,21 +60,6 @@
         	</div>
         </div>
     </div>
-    <script type="text/javascript">
-    
-    function findId() {
-    	const inputName = Number(document.getElementById("name").value);
-    	const inputEamil = Number(document.getElementById("email").value);
-    	
-    	const memberName = ${Member.memberName};
-        
-    	const point1 = ${loginMember.memberPoint};
-        
-    	
-    	
-    	
-    }
-    </script>
 <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

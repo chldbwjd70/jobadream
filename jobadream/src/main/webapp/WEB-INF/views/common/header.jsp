@@ -92,7 +92,8 @@ textarea {
 						<a href="${contextPath}/member/logout">로그아웃</a>
 					</c:otherwise>
 				</c:choose>
-
+				<a href="${contextPath}/member/error">오류</a>
+				<a href="404"> 404</a>
 			</div>
 			<div class="row hd-2">
 				<div class="col-sm-4" id="logo">
@@ -164,7 +165,7 @@ textarea {
                                              maxlength="20" placeholder="비밀번호를 입력하세요" required>
                                      </div>
                                      <div class="col-md-1 pdd">
-                                         <button type="button" class="btn btn-outline-secondary btn-md " id="eye">show </button>
+                                         <button type="button" class="btn btn-outline-secondary btn-md " id="eye">show</button>
                                      </div>
                                      <div class="col-md-1">
                                      </div>
@@ -213,7 +214,6 @@ textarea {
 				"text" : "${text}"
 			});
 		</script>
-
 	</c:if>
 	<script>
 		// 로그인 수행 시 아이디/비밀번호가 작성 되었는지 확인하는 유효성 검사
@@ -242,7 +242,6 @@ textarea {
 			}
 		}
 	</script>
-	
 	<script>
         // mouseenter(hover) mousedown(action)
       $('#eye').on("mousedown", function(){
