@@ -15,7 +15,7 @@
         <a href="#" class="footer-text" id="ft-t3">개인정보처리방침</a>
         <a href="${contextPath}/notice/noticeList" class="footer-text" id="ft-t4">공지사항</a>
         <a href="${contextPath}/qusetions/qusetionsList" class="footer-text" id="ft-t5">1:1문의</a>
-        <a href="#" class="footer-text" id="ft-t6">신고</a>
+        <a href="${contextPath}/report/list" class="footer-text" id="ft-t6">신고</a>
       </div>
     </div>
 

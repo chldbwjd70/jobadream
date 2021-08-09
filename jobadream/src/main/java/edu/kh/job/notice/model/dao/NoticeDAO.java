@@ -83,11 +83,20 @@ public class NoticeDAO {
 		
 		
 	}
+	
+
+	/** 게시글 수정
+	 * @param notice
+	 * @return
+	 */
+	public int updateNotice(Notice notice) {
+		return sqlSession.update("noticeMapper.updateNotice", notice);
+	}
 
 
 	public int delete(int noticeNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.insert("noticeMapper.delete", noticeNo);
+		return sqlSession.update("noticeMapper.delete", noticeNo);
 	}
 
 

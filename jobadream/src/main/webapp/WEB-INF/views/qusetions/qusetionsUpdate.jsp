@@ -56,12 +56,14 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<div class="container">
 		<h2 class="request-line">1:1 문의</h2>
+		<form action="update" method="post" role="form" onsubmit="return boardValidate();">
 		<div class="list-detaiil shadow p-3 mb-5 bg-white rounded p-5">
-			<form>
 				<!-- 글 상단 정보 -->
 				<div class="row">
 					<div class="col-md-2" id="request-top">제목</div>
-					<div class="col-md-10" id="request-top-co">${qusetions.qusetionsTitle }</div>
+					<div class="col-md-10" id="request-top-co">
+					<input type="text" class="form-control" id="qusetionsTitle" name="qusetionsTitle" size="70" value="${qusetions.qusetionsTitle }">
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-2" id="request-top">작성자</div>
@@ -79,27 +81,39 @@
 				<!-- 글 내용 -->
 				<div class="row">
 					<div class="col-md-12" id="request-list-content">
-						${qusetions.qusetionsContent }</div>
+					<textarea class="form-control" id="qusetionsContent" name="qusetionsContent" rows="15" style="resize: none;">${qusetions.qusetionsContent }</textarea>
+				</div>
 				</div>
 				<hr>
 				<br> <br>
 				<div class="row">
 					<div class="col-md-12 mt-4 mb-4">
-
-						<a href="#" class="btn btn-primary  mr-2">목록으로</a>
-
-						<%-- 글 작성자일 경우에만--%>
-						<c:if test="${loginMember.memberNo == qusetions.memberNo }">
-							<button type="button" class="btn btn-primary float-right mr-4"
-								id="btn-r">수정</button>
-							<button type="button" class="btn btn-primary float-right mr-4"
-								id="btn-r">삭제</button>
-						</c:if>
+						<button type="submit" class="btn btn-primary">수정</button>
+						<a class="btn btn-primary" href="qusetionsList?cp=${param.cp}">목록으로</a>
 					</div>
+					<input type="hidden" name="cp" value="${param.cp}">
+					<input type="hidden" name="qusetionsNo" value="${qusetions.qusetionsNo}">
+				</div>
 				</div>
 			</form>
 		</div>
-	</div>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+	<script>
+		// 유효성 검사 
+		function boardValidate() {
+			if ($("#qusetionsTitle").val().trim().length == 0) {
+				alert("제목을 입력해 주세요.");
+				$("#title").focus();
+				return false;
+			}
+			if ($("#qusetionsContent").val().trim().length == 0) {
+				alert("내용을 입력해 주세요.");
+				$("#content").focus();
+				return false;
+			}
+			
+			
+		}
+	</script>
 </body>
 </html>

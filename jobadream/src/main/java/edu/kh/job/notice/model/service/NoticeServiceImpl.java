@@ -25,12 +25,11 @@ public class NoticeServiceImpl implements NoticeService {
 		Pagination selectPg = dao.getListCount();
 		return new Pagination(pg.getCurrentPage(), selectPg.getListCount());
 	}
-	
-	
+
 	// 검색한 게시글수
 	@Override
 	public Pagination getPagination(Search search, Pagination pg) {
-		
+
 		Pagination selectPg = dao.getSearchListCount(search);
 		return new Pagination(pg.getCurrentPage(), selectPg.getListCount());
 	}
@@ -40,14 +39,11 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<Notice> selectNoticeList(Pagination pagination) {
 		return dao.selectNoticeList(pagination);
 	}
-	
-	
 
 	@Override
 	public List<Notice> selectNoticeList(Search search, Pagination pagination) {
-		return dao.selectSearchList(search,pagination);
+		return dao.selectSearchList(search, pagination);
 	}
-
 
 	// 게시글 상세조회
 	@Transactional(rollbackFor = Exception.class)
@@ -65,48 +61,51 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int insertNotice(Notice notice) {
 		// 1) 크로스사이트 스크립트 방지 처리 + 개행문자 처리(\r\n -> <br>)
-		notice.setNoticeTitle( replaceParameter(  notice.getNoticeTitle()  )  );
-		notice.setNoticeContent( replaceParameter(  notice.getNoticeContent()  )  );
-				
-		notice.setNoticeContent(  notice.getNoticeContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>")  );
-		
+		notice.setNoticeTitle(replaceParameter(notice.getNoticeTitle()));
+		notice.setNoticeContent(replaceParameter(notice.getNoticeContent()));
+
+		notice.setNoticeContent(notice.getNoticeContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+
 		int noticeNo = dao.insertNotice(notice);
-		
+
 		return noticeNo;
 	}
-	
-	
-	// 게시글 수정화면
+
+	// 수정화면
 	@Override
-	public Notice selectUpdateForm(int noticeNo) {
-		
+	public Notice selectUpdateNotice(int noticeNo) {
 		Notice notice = dao.selectNotice(noticeNo);
-		System.out.println("왜안됨 : "+ notice);
 		notice.setNoticeContent(notice.getNoticeContent().replaceAll("<br>", "\r\n"));
 		return notice;
 	}
-	
-	
-	
 
+	// 게시글수정
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateNotice(Notice notice) {
+		notice.setNoticeTitle(replaceParameter(notice.getNoticeTitle()));
+		notice.setNoticeContent(replaceParameter(notice.getNoticeContent()));
+		notice.setNoticeContent(notice.getNoticeContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		return dao.updateNotice(notice);
+	}
+	
+	
 	@Override
 	public int delete(int noticeNo) {
 		return dao.delete(noticeNo);
 	}
 
-
-		// 크로스 사이트 스크립트 방지 처리 메소드
-		public static String replaceParameter(String param) {
-			String result = param;
-			if(param != null) {
-				result = result.replaceAll("&", "&amp;");
-				result = result.replaceAll("<", "&lt;");
-				result = result.replaceAll(">", "&gt;");
-				result = result.replaceAll("\"", "&quot;");
-			}
-			
-			return result;
+	// 크로스 사이트 스크립트 방지 처리 메소드
+	public static String replaceParameter(String param) {
+		String result = param;
+		if (param != null) {
+			result = result.replaceAll("&", "&amp;");
+			result = result.replaceAll("<", "&lt;");
+			result = result.replaceAll(">", "&gt;");
+			result = result.replaceAll("\"", "&quot;");
 		}
 
-	
+		return result;
+	}
+
 }

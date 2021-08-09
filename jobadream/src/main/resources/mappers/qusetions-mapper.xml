@@ -140,5 +140,14 @@
 	INSERT INTO QUSETIONS VALUES
 	(#{qusetionsNo}, #{qusetionsTitle},#{qusetionsContent},DEFAULT,DEFAULT,DEFAULT,DEFAULT,#{memberNo})
 	</insert>
+	
+	<!-- 게시글수정 -->
+	<update id="updateQusetions" parameterType="Qusetions">
+		UPDATE QUSETIONS SET
+		QUSETIONS_TITLE =#{qusetionsTitle},
+		QUSETIONS_CONTENT =#{qusetionsContent},
+		QUSETIONS_DT = SYSDATE
+		WHERE QUSETIONS_NO =#{qusetionsNo}
+	</update>
 
 </mapper>

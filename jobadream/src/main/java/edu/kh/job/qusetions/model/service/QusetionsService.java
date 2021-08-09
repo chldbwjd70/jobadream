@@ -47,7 +47,18 @@ public interface QusetionsService {
 	 */
 	int insertQu(Qusetions qusetions);
 
-	
+
+	/** 게시글 수정화면
+	 * @param qusetionsNo
+	 * @return qusetions
+	 */
+	Qusetions selectUpdateQusetions(int qusetionsNo);
+
+	/** 게시글수정
+	 * @param qusetions
+	 * @return
+	 */
+	int updateQusetions(Qusetions qusetions);
 
 
 }

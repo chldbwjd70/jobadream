@@ -84,7 +84,11 @@ public class QusetionsDAO {
 	}
 
 
-	
+	public int updateQusetions(Qusetions qusetions) {
+		return sqlSession.update("qusetionsMapper.updateQusetions", qusetions);
+	}
+
+
 
 
 	

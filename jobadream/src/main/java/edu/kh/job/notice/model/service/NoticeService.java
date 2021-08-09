@@ -46,14 +46,20 @@ public interface NoticeService {
 	 */
 	int insertNotice(Notice notice);
 
+	/** 수정화면
+	 * @param noticeNo
+	 * @return
+	 */
+	Notice selectUpdateNotice(int noticeNo);
 
 	/** 게시글 수정
-	 * @param noticeNo
-	 * @return notice
+	 * @param notice
+	 * @return result
 	 */
-	Notice selectUpdateForm(int noticeNo);
+	int updateNotice(Notice notice);
 
 	int delete(int noticeNo);
+
 
 
 
