@@ -80,8 +80,8 @@
 					<%-- 글 작성자일 경우에만--%>
 					<c:if test="${loginMember.memberNo == notice.memberNo }">
 						<button id="notice-deleteBtn"
-							class="btn btn-primary float-right mr-2 noticeDelete" 
-							>삭제</button>
+							class="btn btn-primary float-right mr-2 noticeDelete" onclick="deleteRequest('delete');" 
+							 >삭제</button>
 						<button id="notice-updateBtn"
 							class="btn btn-primary float-right mr-2 noticeUpdate"
 							onclick="fnRequest('updateForm');">수정</button>
@@ -115,6 +115,26 @@
 			document.requestForm.action = addr;
 
 			document.requestForm.submit();
+		}
+		
+		
+		function deleteRequest(addr){
+			swal({
+				  title: "삭제하시겠습니까?",
+				  text: "삭제하시면 복구가 불가능합니다",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					  	document.requestForm.action =  addr;
+						document.requestForm.submit();
+				  
+				  } else {
+				    swal("삭제가 취소되었습니다");
+				  }
+				});
 		}
 		
 	

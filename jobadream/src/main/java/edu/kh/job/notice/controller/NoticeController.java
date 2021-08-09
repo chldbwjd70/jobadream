@@ -126,11 +126,11 @@ public class NoticeController {
 		int result = service.delete(noticeNo);
 		String path = null;
 		if(result>0) {
-			path = "redirect:"+noticeNo;
-			swalSetMessage(ra, "success", "성공", null);
+			path = "redirect:/notice/noticeList" ;
+			swalSetMessage(ra, "success", "삭제 완료",  null);
 		}else {
-			path = "redirect:" + request.getHeader("referer");
-			swalSetMessage(ra, "error", "실패", null);
+			path = "redirect:" + request.getHeader("referer"); 
+			swalSetMessage(ra, "error", "삭제 실패",  null);
 		}
 		return path;
 	}

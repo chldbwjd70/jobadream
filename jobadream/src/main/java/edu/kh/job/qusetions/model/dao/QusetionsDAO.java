@@ -89,6 +89,11 @@ public class QusetionsDAO {
 	}
 
 
+	public int deleteForm(int qusetionsNo) {
+		return sqlSession.update("qusetionsMapper.deleteForm", qusetionsNo);
+	}
+
+
 
 
 	

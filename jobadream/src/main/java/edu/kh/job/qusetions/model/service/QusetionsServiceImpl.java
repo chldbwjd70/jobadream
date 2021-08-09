@@ -76,19 +76,24 @@ public class QusetionsServiceImpl implements QusetionsService {
 		qusetions.setQusetionsContent(qusetions.getQusetionsContent().replaceAll("<br>", "\r\n"));
 		return qusetions;
 	}
-	
-	
 
 	// 수정
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int updateQusetions(Qusetions qusetions) {
 		// 1) 크로스사이트 스크립트 방지 처리 + 개행문자 처리(\r\n -> <br>)
-				qusetions.setQusetionsTitle( replaceParameter(  qusetions.getQusetionsTitle() )  );
-				qusetions.setQusetionsContent( replaceParameter(  qusetions.getQusetionsContent()  )  );
-				qusetions.setQusetionsContent(qusetions.getQusetionsContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
-				return dao.updateQusetions(qusetions);
-			}
+		qusetions.setQusetionsTitle(replaceParameter(qusetions.getQusetionsTitle()));
+		qusetions.setQusetionsContent(replaceParameter(qusetions.getQusetionsContent()));
+		qusetions.setQusetionsContent(qusetions.getQusetionsContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		return dao.updateQusetions(qusetions);
+	}
+
+	// 삭제
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteForm(int qusetionsNo) {
+		return dao.deleteForm(qusetionsNo);
+	}
 
 	// 크로스 사이트 스크립트 방지 처리 메소드
 	public static String replaceParameter(String param) {

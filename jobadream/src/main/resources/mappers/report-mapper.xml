@@ -61,6 +61,20 @@
 		ORDER BY REPORT_NO DESC
 	</select>
 	
+	<select id="selectReport" parameterType="_int" resultMap="re_rm">
+		SELECT REPORT_NO,REPORT_TITLE, REPORT_CONTENT, REPORT_DT,REPORT_STATUS,REPORT_REPLY_STATUS
+		,REPORT_ATTACHMENT,REPORT_CATEGORY_CD,REPORT_CATEGORY_TITLE,MEMBER_NO, MEMBER_ID
+		FROM REPORT
+		JOIN MEMBER USING(MEMBER_NO)
+        JOIN REPORT_CATEGORY USING(REPORT_CATEGORY_CD)
+		WHERE REPORT_NO = #{reportNo}
+		AND REPORT_STATUS = 'Y'
+	</select>
+	
+	<select id="selectCategory" resultMap="rcate_rm">
+		SELECT*FROM REPORT_CATEGORY
+	</select>
+	
 	
 	
 </mapper>

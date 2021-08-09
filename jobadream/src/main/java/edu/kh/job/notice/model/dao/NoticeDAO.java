@@ -95,7 +95,6 @@ public class NoticeDAO {
 
 
 	public int delete(int noticeNo) {
-		// TODO Auto-generated method stub
 		return sqlSession.update("noticeMapper.delete", noticeNo);
 	}
 
