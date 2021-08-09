@@ -55,11 +55,11 @@
     margin-right: 2%;
     text-align: center;
 }
-#chat{
+#chat, #update{
     background-color: #FC8934;
     color: white;
 }
-#support{
+#support, #delete{
     background-color: #4d61c4;
     color: white;
 }

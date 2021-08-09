@@ -52,9 +52,9 @@
             </c:if>
             <c:if test="${loginMember.memberNo == board.memberNo}">
 	           <div class="workForm-5">
-	                <a class="btn" id="update">수정하기</a>
-	                <a class="btn" id="delete">삭제하기</a>
-	             	<a href="list?cpage=${param.cpage}${searchStr}" class="btn" id="prv">이전으로</a>
+	                <a class="btn" id="update" href="updateForm/${board.boardNo}">수정하기</a>
+	                <a class="btn" id="delete" href="${contextPath}/board/${board.categoryCode}/deleteFaq/${board.boardNo}" >삭제하기</a>
+	             	<a href="${contextPath}/board/${board.categoryCode}/list?cpage=${param.cpage}${searchStr}" class="btn" id="prv">이전으로</a>
 	            </div>
             </c:if>
         </div>

@@ -32,7 +32,7 @@
 		<result property="categoryTitle" column="CATEGORY_TITLE"/>
 	</resultMap>
 	
-	
+	<!-- 페이징 처리 -->
 	<select id="getListCount" parameterType="_int" resultMap="pg_rm">
 		    SELECT CNT, (SELECT CATEGORY_TITLE FROM CATEGORY WHERE CATEGORY_CD =  #{categoryCode}) CATEGORY_TITLE
             FROM (SELECT COUNT(*) CNT
@@ -41,6 +41,7 @@
             AND BOARD_STATUS='Y')
 	</select>
 	
+	<!-- 한 페이지당 게시판 목록 조회 -->
 	<select id="selectBoardList" parameterType="_int" resultMap="board_rm">
 		SELECT * FROM BOARD_LIST
 		WHERE BOARD_STATUS = 'Y'
@@ -48,27 +49,32 @@
 		ORDER BY BOARD_NO DESC
 	</select>
 	
+	<!-- 모든 게시판 글 수 -->
 	<select id="getAllListCount" resultType="_int">
 		SELECT COUNT(*) CNT
          FROM BOARD
          WHERE BOARD_STATUS='Y'
 	</select>
 	
+	<!-- 모든 게시판 목록 조회 -->
 	<select id="selectAllBoardList" parameterType="Pagination" resultMap="board_rm">
 		SELECT * FROM BOARD_LIST
 		WHERE BOARD_STATUS = 'Y'
 		ORDER BY BOARD_NO DESC
 	</select>
 	
+	<!-- 게시판 조회 -->
 	<select id="selectBoard" parameterType="_int" resultMap="board_rm">
 		SELECT * FROM BOARD_LIST
 		WHERE BOARD_NO = #{boardNo}
 	</select>
 	
+	<!-- 모든 카테고리 조회 -->
 	<select id="selectCategory" resultMap="category_rm">
 		SELECT * FROM CATEGORY
 	</select>
 	
+	<!-- 게시판 삽입 -->
 	<insert id="boardInsert" parameterType="Board" useGeneratedKeys="true">
 		<selectKey keyProperty="boardNo" resultType="_int" order="BEFORE">
 			SELECT SEQ_BNO.NEXTVAL FROM DUAL
@@ -80,4 +86,25 @@
 		)
 		
 	</insert>
+	
+	<!-- 게시판 삭제 -->
+	<update id="boardDelete" parameterType="_int">
+		UPDATE BOARD SET BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<update id="boardUpdate" parameterType="Board">
+		<selectKey keyProperty="categoryCode" resultType="_int" order="AFTER">
+			SELECT CATEGORY_CD FROM BOARD
+			WHERE BOARD_NO = #{boardNo}
+		</selectKey>
+		UPDATE BOARD SET 
+			BOARD_TITLE = #{boardTitle},
+			CATEGORY_CD = #{categoryCode},
+			BOARD_TIME = #{boardTime},
+			BOARD_PLACE = #{boardPlace},
+			BOARD_PAY = #{boardPay},
+			BOARD_CONTENT = #{boardContent}
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 </mapper>
