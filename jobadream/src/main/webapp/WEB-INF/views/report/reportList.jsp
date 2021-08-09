@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1 문의</title>
+<title>신고하기</title>
 <style>
-.list-title {
+.report-list-title {
 	color: #3eafe6;
 	font-weight: bold;
 	margin-top: 10px;
@@ -19,7 +19,7 @@
 	text-align: center;
 }
 
-#qusetions-table-btn {
+#report-table-btn {
 	border-radius: 4px;
 	background-color: #4161c8;
 }
@@ -40,7 +40,7 @@
 <body>
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<div class="container">
-		<h2 class="list-title" style="font-weight: bold;">1:1 문의</h2>
+		<h2 class="report-list-title" style="font-weight: bold;">신고하기</h2>
 		<div class="list-detaiil shadow p-3 mb-5 bg-white rounded p-5">
 			<div class="row">
 				<div class="col-md-12">
@@ -49,6 +49,7 @@
 						<thead>
 							<tr>
 								<th>번호</th>
+								<th>카테고리</th>
 								<th>제목</th>
 								<th>작성자</th>
 								<th>작성일</th>
@@ -69,36 +70,38 @@
 						<tbody>
 							<c:choose>
 								<%-- 조회된 게시글 목록이 없는 경우 --%>
-								<c:when test="${empty qusetionsList}">
+								<c:when test="${empty reportList}">
 									<tr>
 										<td colspan="6">게시글이 존재하지 않습니다.</td>
 									</tr>
 								</c:when>
 								<%-- 조회된 게시글 목록이 있을 경우 --%>
 								<c:otherwise>
-									<c:forEach items="${qusetionsList}" var="qu">
+									<c:forEach items="${reportList}" var="re">
 										<tr>
 											<%-- 글 번호 --%>
-											<td>${qu.qusetionsNo }</td>
+											<td>${re.reportNo }</td>
+											<%-- 카테고리 --%>
+											<td>${re.rcategory.reportCategoryTitle }</td>
 											<%-- 글제목 --%>
-											<td class="boardTitle"><a
-												href="${qu.qusetionsNo}?cp=${pagination.currentPage}${searchStr}">
-													${qu.qusetionsTitle} </a></td>
+											<td class="reportTitle"><a
+												href="${re.reportNo}?cp=${pagination.currentPage}${searchStr}">
+													${re.reportTitle} </a></td>
 											<%-- 작성자 --%>
-											<td>${qu.mem.memberId}</td>
+											<td>${re.mem.memberId}</td>
 											<%-- 작성일 --%>
-											<td><fmt:formatDate var="qusetionsDt"
-													value="${qu.qusetionsDt}" pattern="yyyy-MM-dd" /> <fmt:formatDate
+											<td><fmt:formatDate var="reportDt"
+													value="${re.reportDt}" pattern="yyyy-MM-dd" /> <fmt:formatDate
 													var="today" value="<%=new java.util.Date()%>"
 													pattern="yyyy-MM-dd" /> <c:choose>
 													<%-- 글 작성일이 오늘이 아닐 경우 --%>
-													<c:when test="${qusetionsDt != today}">
-													${qusetionsDt}
+													<c:when test="${reportDt != today}">
+													${reportDt}
 												</c:when>
 
 													<%-- 글 작성일이 오늘일 경우 --%>
 													<c:otherwise>
-														<fmt:formatDate value="${qu.qusetionsDt}" pattern="HH:mm" />
+														<fmt:formatDate value="${re.reportDt}" pattern="HH:mm" />
 													</c:otherwise>
 												</c:choose></td>
 										</tr>
@@ -113,14 +116,14 @@
 			<br>
 			<%-- 회원일경우에만 글쓰기 버튼 노출 --%>
 			<c:if test="${!empty loginMember}">
-				<a class="btn btn-primary float-right" id="qusetions-table-btn"
+				<a class="btn btn-primary float-right" id="report-table-btn"
 					href='insert'>글쓰기</a>
 			</c:if>
 			<br>
 			<%---------------------- Pagination start----------------------%>
 			<%-- 페이징 처리 시 주소를 쉽게 작성할 수 있도록 필요한 변수를 미리 선언 --%>
 
-			<c:set var="pageURL" value="qusetionsList" />
+			<c:set var="pageURL" value="list" />
 
 			<c:set var="prev"
 				value="${pageURL}?cp=${pagination.prevPage}${searchStr}" />
@@ -176,21 +179,7 @@
 			</div>
 			<%---------------------- Pagination end----------------------%>
 			<!-- 검색창 -->
-			<div class="my-5">
-				<form action="qusetionsList" method="GET" class="text-center"
-					id="searchForm">
-					<select name="sk" class="form-control"
-						style="width: 100px; display: inline-block;">
-						<option value="title">글제목</option>
-						<option value="content">내용</option>
-						<option value="titcont">제목+내용</option>
-						<option value="writer">작성자</option>
-					</select> <input type="text" name="sv" class="form-control"
-						style="width: 25%; display: inline-block;">
-					<button class="form-control btn btn-primary"
-						style="width: 100px; display: inline-block;">검색</button>
-				</form>
-			</div>
+			
 
 
 

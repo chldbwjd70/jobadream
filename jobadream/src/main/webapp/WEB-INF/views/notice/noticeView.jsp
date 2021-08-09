@@ -8,14 +8,14 @@
 <meta charset="UTF-8">
 <title>공지사항</title>
 <style>
-.notice-line {
+.notice-line-view {
 	color: #3eafe6;
 	font-weight: bold;
 	margin-top: 10px;
 	margin-bottom: 40px;
 }
 
-#notice-top {
+#notice-top-view {
 	background-color: #f7f5f8;
 	font-weight: bold;
 	text-align: left;
@@ -23,91 +23,101 @@
 	height: 60px;
 }
 
-#notice-top-co {
+#notice-top-con {
 	text-align: left;
 	padding-top: 13px;
 	height: 60px;
 }
 
-#notice-list-content {
+#notice-view-content {
 	height: 400px;
 }
 
-#updateBtn {
+#notice-deleteBtn {
+	background-color: #4161c8;
+}
+
+#notice-updateBtn {
+	background-color: #4161c8;
+}
+
+#notice-listBtn {
 	background-color: #4161c8;
 }
 </style>
-
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<div class="container">
-		<h2 class="notice-line">공지사항</h2>
+		<h2 class="notice-line-view">공지사항</h2>
 		<div class="list-detaiil shadow p-3 mb-5 bg-white rounded p-5">
-			<form>
-				<!-- 글 상단 정보 -->
-				<div class="row">
-					<div class="col-md-2" id="notice-top">제목</div>
-					<div class="col-md-10" id="notice-top-co">${notice.noticeTitle }</div>
+			<!-- 글 상단 정보 -->
+			<div class="row">
+				<div class="col-md-2" id="notice-top-view">제목</div>
+				<div class="col-md-10" id="notice-top-con">${notice.noticeTitle }</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2" id="notice-top-view">작성자</div>
+				<div class="col-md-10" id="notice-top-con">${notice.mem.memberId }</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2" id="notice-top-view">작성일</div>
+				<div class="col-md-10" id="notice-top-con">
+					<fmt:formatDate value="${notice.createDt }" pattern="yyyy년 MM월 dd일" />
 				</div>
-				<div class="row">
-					<div class="col-md-2" id="notice-top">작성자</div>
-					<div class="col-md-10" id="notice-top-co">${notice.mem.memberId }</div>
-				</div>
-				<div class="row">
-					<div class="col-md-2" id="notice-top">작성일</div>
-					<div class="col-md-10" id="notice-top-co">
-						<fmt:formatDate value="${notice.createDt }"
-							pattern="yyyy년 MM월 dd일 HH:mm:ss" />
-					</div>
-				</div>
-				<hr>
-				<br> <br>
-				<!-- 글 내용 -->
-				<div class="row">
-					<div class="col-md-12" id="notice-list-content">
-						${notice.noticeContent }</div>
-				</div>
-				<br>
-				<hr>
-				<div class="row">
-					<div class="col-md-12 mt-4 mb-4">
+			</div>
+			<hr>
+			<br> <br>
+			<!-- 글 내용 -->
+			<div class="row">
+				<div class="col-md-12" id="notice-view-content">${notice.noticeContent }</div>
+			</div>
+			<hr>
+			<br> <br>
+			<div class="row">
+				<div class="col-md-12 mt-4 mb-4">
 
-						<a href="#" class="btn btn-primary  mr-2">목록으로</a>
+					<%-- 글 작성자일 경우에만--%>
+					<c:if test="${loginMember.memberNo == notice.memberNo }">
+						<button id="notice-deleteBtn"
+							class="btn btn-primary float-right mr-2 noticeDelete" 
+							>삭제</button>
+						<button id="notice-updateBtn"
+							class="btn btn-primary float-right mr-2 noticeUpdate"
+							onclick="fnRequest('updateForm');">수정</button>
+					</c:if>
+					<%-- 검색 상태 유지를 위한 쿼리스트링용 변수 선언 --%>
+					<c:if test="${!empty param.sk && !empty param.sv }">
 
-						<%-- 글 작성자일 경우에만--%>
-						<c:if test="${loginMember.memberNo == notice.memberNo }">
-							<button class="btn btn-primary float-right mr-4" id="updateBtn" onclick="fnRequest('updateForm');">수정</button>
-							<button class="btn btn-primary float-right mr-4" id="deleteBtn" onclick="deleteRequest();">삭제</button>
-						</c:if>
-						<%-- 검색 상태 유지를 위한 쿼리스트링용 변수 선언 --%>
-						<c:if test="${!empty param.sk && !empty param.sv }">
-
-							<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
-						</c:if>
-					</div>
+						<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
+					</c:if>
+					<a href="noticeList?&cp=${param.cp}${searchStr}"
+						id="notice-listBtn"
+						class="btn btn-primary float-left mr-2 noticelist">목록으로</a>
 				</div>
-			</form>
+
+			</div>
 		</div>
-		<form action="#" method="post" name="requestForm">
-			<input type="hidden" value="${notice}" name="notice" >
-			<input type="hidden" value="${param.cp}" name="cp" >
-		</form>
+
 	</div>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
-<script>
-	function fnRequest(addr){
-			document.requestForm.action = addr;
-			document.requestForm.submit();
-		}
-		
-		
-</script>
+	<form action="#" method="POST" name="requestForm">
+		<input type="hidden" name="noticeNo" value="${notice.noticeNo}">
+		<input type="hidden" name="cp" value="${param.cp}">
+	</form>
 
 
 	
-
-
-
 </body>
+<script>
+		function fnRequest(addr) {
+
+			document.requestForm.action = addr;
+
+			document.requestForm.submit();
+		}
+		
+	
+	</script>
+
 </html>
