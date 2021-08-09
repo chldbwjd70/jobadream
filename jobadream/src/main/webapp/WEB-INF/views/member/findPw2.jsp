@@ -51,6 +51,7 @@
 }
 </style>
 <body>
+---${findMemberPw }
 	<div class="container">
 		<div class="container-fluid">
 			<div class="row">
@@ -67,7 +68,7 @@
 					href="#findPw2">비밀번호 변경</a></li>
 			</ul>
 			<div class="tab-content">
-				<div class="tab-pane fade show active " id="findPw2">
+				<div class="tab-pane fade show active " >
 					<form method="POST" action="findPw2" onsubmit="return findPw2();" class="form-horizontal" role="form">
 						<div class="style1">
 							<br>
@@ -111,8 +112,7 @@
 						<br>
 						<div class="row">
 							<div class="col-md-12">
-								<button type="submit" class="btn float-right" id="btn-color1"
-									type="submit">비밀번호 변경</button>
+								<button type="submit" class="btn float-right" id="btn-color1" >비밀번호 변경</button>
 							</div>
 						</div>
 					</form>

@@ -34,6 +34,11 @@ public class MemberController {
 	public String error() { 
 		return "common/errorpage"; 
 	}
+	// 오류화면404
+	@RequestMapping(value="error404", method=RequestMethod.GET)  
+	public String error404() { 
+		return "common/error404"; 
+	}
 	
 	
 	// 로그인 
@@ -127,9 +132,9 @@ public class MemberController {
 	}
 	
 	// 아아디,비밀번호 찾기 화면 전환
-	@RequestMapping(value="findIdPw", method=RequestMethod.GET)  
-	public String findIdPw() { 
-		return "member/findIdPw"; 
+	@RequestMapping(value="findId", method=RequestMethod.GET)  
+	public String findId() { 
+		return "member/findId"; 
 	}
 	
 	// 아이디 찾기
@@ -157,9 +162,15 @@ public class MemberController {
 		return "redirect:" + referer;
 	}
 	
+	// 아아디,비밀번호 찾기 화면 전환
+	@RequestMapping(value="findPw", method=RequestMethod.GET)  
+	public String findPw() { 
+		return "member/findPw"; 
+	}
+	
 	// 비밀번호 찾기(회원 정보 확인)
-	@RequestMapping(value="findPw", method=RequestMethod.POST)  
-	public String findPw(@RequestParam("findEamil2") String findEamil, @RequestParam("findName2") String findName, 
+	@RequestMapping(value="findPw", method =RequestMethod.POST)  
+	public String findPw( @RequestParam("findName2") String findName,  @RequestParam("findEamil2") String findEamil,
 						@RequestParam("findId2") String findId, @RequestParam("emailNum") String emailNum,
 						@ModelAttribute Member findMemberPw, RedirectAttributes ra, Model model, 
 						@RequestHeader("referer") String referer ) { 
@@ -186,22 +197,24 @@ public class MemberController {
 		}
 		return path;
 	}
-	
 	// 비밀번호 수정
-		@RequestMapping(value="findPw2", method=RequestMethod.POST)
+		@RequestMapping(value="findPw2",method=RequestMethod.POST)
 		public String findPw2(@RequestParam("chPwd") String chPwd,
 							  @ModelAttribute Member findMemberPw, RedirectAttributes ra,
 							  @RequestHeader("referer") String referer ) {
 			
 			int result = service.findPw2(chPwd, findMemberPw);
 			
-			String path = "redirect:";
+			String path = null;
 			
 			if(result > 0) { // 비밀번호 변경 성공
-				swalSetMessage(ra, "success", "비밀번호 변경이 완료되었습니다.", null);
+				ra.addFlashAttribute("icon", "success");
+				ra.addFlashAttribute("text", "비밀번호가 변경되었습니다.");
 				path += "redirect:/";
 				
 			}else { // 실패
+				ra.addFlashAttribute("icon", "error");
+				ra.addFlashAttribute("text", "비밀번호중 오류 발생");
 				path = "redirect:" + referer;
 			}
 			return path;
