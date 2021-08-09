@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1 문의</title>
+<title>신고하기</title>
 <style>
 .request-line {
 	color: #3eafe6;
@@ -29,7 +29,7 @@
 	height: 60px;
 }
 
-#request-list-content {
+#report-list-content {
 	height: 400px;
 }
 
@@ -69,7 +69,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-2" id="report-top">카테고리</div>
-					<div class="col-md-10" id="report-top-co">${report.reportTitle }</div>
+					<div class="col-md-10" id="report-top-co">${report.rcategory.reportCategoryTitle }</div>
 				</div>
 				<div class="row">
 					<div class="col-md-2" id="report-top">작성자</div>
@@ -83,24 +83,8 @@
 					</div>
 				</div>
 				<hr>
-				<br> <br>
-				<!-- 이미지 출력 -->
-				<div class="row">
-					<c:when test="${!empty at.fileName}">
-								<c:set var="img" value="${contextPath}/${at.filePath}${at.fileName}"/>
-					</c:when>
-					<div class="form-inline mb-2">
-						<label class="input-group-addon mr-3 insert-label">이미지</label>
-						<div class="boardImg image" id="ImgArea">
-							
-							<!-- img0 변수가 만들어진 경우 -->
-							<c:if test="${!empty img }"> 
-								<img id="Img" src="${img}">
-							</c:if>
-								
-						</div>
-					</div>
-				</div>
+				<br>
+				
 				<!-- 글 내용 -->
 				<div class="row">
 					<div class="col-md-12" id="report-list-content">

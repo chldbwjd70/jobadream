@@ -60,5 +60,7 @@ public interface QusetionsService {
 	 */
 	int updateQusetions(Qusetions qusetions);
 
+	int deleteForm(int qusetionsNo);
+
 
 }

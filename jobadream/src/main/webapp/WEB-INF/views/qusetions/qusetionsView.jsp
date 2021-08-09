@@ -47,7 +47,10 @@
 	list-style: none;
 }
 
-.btn {
+#updateBtn {
+	background-color: #4161c8;
+}
+#deletesBtn {
 	background-color: #4161c8;
 }
 </style>
@@ -87,7 +90,7 @@
 
 						<%-- 글 작성자일 경우에만--%>
 						<c:if test="${loginMember.memberNo == qusetions.memberNo }">
-							<button id="deleteBtn" class="btn btn-primary float-right mr-2">삭제</button> 
+							<button id="deleteBtn" class="btn btn-primary float-right mr-2" onclick="deleteRequest('delete');">삭제</button> 
 							<button id="updateBtn" class="btn btn-primary float-right mr-2" onclick="fnRequest('updateForm');">수정</button> 
 						</c:if>
 						<%-- 검색 상태 유지를 위한 쿼리스트링용 변수 선언 --%>
@@ -117,6 +120,27 @@
 			
 			document.requestForm.submit();
 		}
+		
+		function deleteRequest(addr){
+			swal({
+				  title: "삭제하시겠습니까?",
+				  text: "삭제하시면 복구가 불가능합니다",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					  	document.requestForm.action =  addr;
+						document.requestForm.submit();
+				  
+				  } else {
+				    swal("삭제가 취소되었습니다");
+				  }
+				});
+		}
+		
+		
 		
 	</script>
 	

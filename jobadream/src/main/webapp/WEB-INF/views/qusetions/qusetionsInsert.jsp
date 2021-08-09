@@ -49,7 +49,6 @@
 }
 
 #qu-button{
-	width:
 	background-color: #4161c8;
 	color: white;
 }

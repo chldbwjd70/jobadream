@@ -83,6 +83,7 @@
 		QUSETIONS_STATUS,MEMBER_NO, MEMBER_ID
 		FROM QUSETIONS
 		JOIN MEMBER USING(MEMBER_NO)
+		WHERE QUSETIONS_STATUS = 'Y'
 		ORDER BY QUSETIONS_NO DESC
 	</select>
 	
@@ -147,6 +148,12 @@
 		QUSETIONS_TITLE =#{qusetionsTitle},
 		QUSETIONS_CONTENT =#{qusetionsContent},
 		QUSETIONS_DT = SYSDATE
+		WHERE QUSETIONS_NO =#{qusetionsNo}
+	</update>
+	
+	<update id="deleteForm" parameterType="_int">
+		UPDATE QUSETIONS SET
+		QUSETIONS_STATUS = 'N'
 		WHERE QUSETIONS_NO =#{qusetionsNo}
 	</update>
 

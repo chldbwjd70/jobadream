@@ -120,13 +120,34 @@ public class QusetionsController {
 				swalSetMessage(ra, "success", "게시글 수정 성공",  null);
 				
 			} else { // 삽입 실패
-				path = "redirect:" + request.getHeader("referer"); // 요청 이전 주소
+				path = "redirect:" + request.getHeader("referer"); 
 				swalSetMessage(ra, "error", "게시글 수정 실패",  null);
 			}
 			
 			
 			return path;
 		}
+		
+		
+		// 게시글 삭제 
+		@RequestMapping(value = "/qusetions/delete", method = RequestMethod.POST)
+		public String deleteForm(int qusetionsNo, Model model, HttpServletRequest request,RedirectAttributes ra  ) {
+			
+			int result = service.deleteForm(qusetionsNo);
+			String path = null;
+			if(result > 0) { //
+				path = "redirect:/qusetions/qusetionsList" ;
+				swalSetMessage(ra, "success", "삭제 완료",  null);
+				
+			} else { 
+				path = "redirect:" + request.getHeader("referer"); 
+				swalSetMessage(ra, "error", "삭제 실패",  null);
+			}
+			
+			
+			return path;
+		}
+		
 		
 
 	// SweetAlert를 이용한 메세지 전달용 메소드
