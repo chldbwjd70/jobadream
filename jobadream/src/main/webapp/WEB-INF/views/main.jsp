@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -126,7 +129,7 @@
        })
        
 	   $.ajax({
-			url : "${contextPath}/board/realList",
+			url : "${contextPath}/real/realList",
 			type : "POST",
 			dataType : "JSON", 
 			success : function(rList){
@@ -139,6 +142,27 @@
 		            // rList : ajax 결과로 받은 댓글ㅇ리 담겨있는 객체 배열
 		            // index : 순차 접근 시 현재 인덱스
 		            // item ㅣ 순차 접근 시 현재 접근한 배열 요소(댓글 정보 하나)
+		            
+			         var div1 = $("<div>").addClass("real-item row");
+			         
+			         var div2 = $("<div>").addClass("item-image col-md-4");
+			         var img  = $("<img>").attr("src", "${contextPath}/resources/images/main/new-square.png");
+			         div2.append(img);
+			         
+			         var div3 = $("<div>").addClass("item-text col-md-8");
+			         var path = "${contextPath}/board/"+item.categoryCode+"/" + item.boardNo + "?cpage=${pagination.currentPage}${searchStr}";
+			         var a = $("<a>").attr("href", path).text(item.boardTitle);
+			         
+			         var txt = item.boardPlace.split(',');
+			         var txtArray = txt[1].split(' ');
+			         
+			         var ptxt = txt[1] + " | 포인트 : " + item.boardPay + " | 시간 : " + item.boardTime;
+			         
+			         var p = $("<p>").addClass("item-info").text(ptxt);
+			         div3.append(a).append(p);
+			         
+			         div1.append(div2).append(div3);
+			         $(".real-list").append(div1);
 		         });
 			},
 			error : function(){

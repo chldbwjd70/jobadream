@@ -113,14 +113,12 @@ textarea {
 				</div>
 				<div class="col-sm-3 btn-box">
 					<c:if test="${ !empty loginMember }">
-						<button type="button" class="btn-location" id="btd-2">
+						<button type="button" class="btn-location" id="btd-2" onClick="location.href='${contextPath}/chat/roomList'">
 							<strong>1:1채팅</strong>
 						</button>
 					</c:if>
-					<button type="button" class="btn-location" id="btd-2">
-						<strong>내주변 job</strong>
-					</button>
-				</div>
+					<button type="button" class="btn-location" id="btd-2"><strong>내주변 job</strong></button>
+				</div>	
 			</div>
 
 			<!-- 로그인 모달 -->

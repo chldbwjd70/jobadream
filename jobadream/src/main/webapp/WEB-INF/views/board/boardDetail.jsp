@@ -45,7 +45,7 @@
             </div>
             <c:if test="${loginMember.memberNo != board.memberNo}">
             <div class="workForm-5">
-                <a class="btn" id="chat">채팅하기</a>
+                <a class="btn" id="chat" data-toggle="modal" href="#openChatRoom">채팅하기</a>
                 <a class="btn" id="support" href="progress/${board.boardNo}">지원하기</a>
             	<a href="list?cpage=${param.cpage}${searchStr}" class="btn" id="prv">이전으로</a>
             </div>
@@ -59,6 +59,33 @@
             </c:if>
         </div>
     </div>
+    <div class="modal fade" id="openChatRoom" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<p class="modal-title">채팅을 하시려면 확인 버튼을 눌러주세요.</p>
+					<button type="button" class="close" data-dismiss="modal" id="closeBtn">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<form method="POST" action="${contextPath}/chat/openChatRoom">
+						<div class="form-label-group">
+							<input type="hidden" name="boardTitle" value="${board.boardTitle}">
+							<input type="hidden" name="boardNo" value="${board.boardNo}">
+							<input type="hidden" name="boardMemberNo" value="${board.memberNo}">
+						</div>
+						<div class="chat-btn">
+							<button class="btn" id="chatBtn" type="submit">확인</button>
+						</div>
+					</form>
+				</div>
+			</div>	
+		</div>
+	</div>
     <jsp:include page="../common/footer.jsp"/>
 
 </body>

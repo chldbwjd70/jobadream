@@ -13,6 +13,11 @@
 	<typeAlias type="edu.kh.job.board.model.vo.Board" alias="Board" />
 	<typeAlias type="edu.kh.job.board.model.vo.Category" alias="Category" />
 	<typeAlias type="edu.kh.job.board.model.vo.BoardProgress" alias="BoardProgress" />
+	
+	<typeAlias type="edu.kh.job.chat.model.vo.ChatMessage" alias="ChatMessage" />
+	<typeAlias type="edu.kh.job.chat.model.vo.ChatRoom" alias="ChatRoom" />
+	<typeAlias type="edu.kh.job.chat.model.vo.ChatRoomJoin" alias="ChatRoomJoin" />
+	<typeAlias type="edu.kh.job.chat.model.vo.ChatAlarm" alias="ChatAlarm" />
 
 	<typeAlias type="edu.kh.job.notice.model.vo.Notice" alias="Notice" />
 	<typeAlias type="edu.kh.job.notice.model.vo.Pagination" alias="NoticePagination" />
