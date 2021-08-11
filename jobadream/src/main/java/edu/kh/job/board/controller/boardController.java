@@ -231,15 +231,6 @@ public class boardController {
 		return path;
 	}
 	
-	// 실시간 게시글 TOP3 조회
-	@RequestMapping(value ="realList", method=RequestMethod.POST)
-	public String realTimeSelect() {
-		
-		List<Board> rList = service.realTimeSelect();
-		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create();
-		
-		return gson.toJson(rList);
-	}
+
 	
 }

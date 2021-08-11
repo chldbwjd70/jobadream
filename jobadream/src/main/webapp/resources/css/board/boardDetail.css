@@ -55,11 +55,11 @@
     margin-right: 2%;
     text-align: center;
 }
-#chat, #update{
+#chat, #update, #closebtn{
     background-color: #FC8934;
     color: white;
 }
-#support, #delete{
+#support, #delete, #chatBtn{
     background-color: #4d61c4;
     color: white;
 }
@@ -69,4 +69,14 @@
     color: white;
     margin-right : 3%;
     margin-bottom : 2%;
+}
+.chat-btn{
+	text-align : center;
+}
+.modal-header > p{
+	margin : auto;
+	font-size : 20px;
+}
+#closeBtn{
+	margin-left : 0;
 }
