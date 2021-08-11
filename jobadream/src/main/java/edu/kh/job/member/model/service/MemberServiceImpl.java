@@ -1,12 +1,23 @@
 package edu.kh.job.member.model.service;
 
+import java.util.HashMap;
+import java.util.Random;
+import java.util.UUID;
+
+import javax.mail.internet.MimeMessage;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.job.member.model.dao.MemberDAO;
 import edu.kh.job.member.model.vo.Member;
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -16,6 +27,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
 	private MemberDAO dao;
+	
+	@Autowired  
+	private JavaMailSender mailSender; 
 
 	// 로그인 
 	@Override
@@ -68,26 +82,66 @@ public class MemberServiceImpl implements MemberService{
 
 	// 비밀번호 찾기 - 조회
 	@Override
-	public String findPw(Member findMemberPw) {
+	public int findPw(Member findMemberPw) {
 		return dao.findPw(findMemberPw);
 	}
 
-	// 비밀번호 찾기 - 변경
-	@Override
-	public int findPw2(String chPwd, Member findMemberPw) {
-		
-		int result = 0; 
-
-			String encPwd = bCryptPasswordEncoder.encode(chPwd);
+	// 이메일 보내기
+		@Transactional(rollbackFor = Exception.class)
+		@Override
+		public int sendEmail(Member inputMember) {
 			
-			findMemberPw.setMemberPw(encPwd);
 			
-			result = dao.findPw2(findMemberPw);
+			int leftLimit = 65; // letter 'a'
+			int rightLimit = 122; // letter 'z'
+			int targetStringLength = 10;
+			Random random = new Random();
+			StringBuilder buffer = new StringBuilder(targetStringLength);
+			for (int i = 0; i < targetStringLength; i++) {
+			    int randomLimitedInt = leftLimit + (int)
+			            (random.nextFloat() * (rightLimit - leftLimit + 1));
+			    buffer.append((char) randomLimitedInt);
+			}
+			String garbagePassword = buffer.toString();
+			String encPwd = bCryptPasswordEncoder.encode(garbagePassword.toString());
 			
-			findMemberPw.setMemberPw(null);
-		
-		return result;
-	}
+			inputMember.setMemberPw(encPwd);
+			
+			int result = dao.changePwd2(inputMember);
+			
+			if (result > 0) {
+				
+				String setfrom = "khjobadream@gmail.com"; // 보내는 서버 이메일
+				String tomail = inputMember.getMemberEmail(); // 받는 사람 이메일
+				String title = "job아드림 임시 비밀번호입니다."; // 제목
+				
+				String  content="";
+				content += "<h3> job아드림 임시 비밀번호 입니다.";
+				content += "<div font-family: 'Pretendard-Regular';>";
+				content += "</h3> <h2> "+ garbagePassword + "</h2>"; // 내용
+				content +=  "<h3 style='color:red;'>로그인 후 비밀번호를 변경해주시기 바랍니다.</h3></div>";
+				
+				try {
+					
+					MimeMessage message = mailSender.createMimeMessage();
+					MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+					
+					messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+					messageHelper.setTo(tomail); // 받는사람 이메일
+					messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+					messageHelper.setText(content, true); // 메일 내용
+					
+					mailSender.send(message);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else {
+				result = -1;
+			}
+			
+			return result;
+		}
 
 	// 회원 정보 수정
 	@Transactional(rollbackFor = Exception.class)
@@ -154,7 +208,33 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	
-	
+	// 휴대폰 인증
+	@Override
+    public void certifiedPhoneNumber(String memberPhone, String numStr) {
+
+        String api_key = "NCSLWLUNEAYBTBGN";
+        String api_secret = "ODGJKFE1RMX385GST2IRCKNDF1XHUMJG";
+        Message coolsms = new Message(api_key, api_secret);
+        
+        System.out.println("서비스 인증 번호 : " + numStr);
+        System.out.println("서비스 멤버 번호 : " + memberPhone);
+        // 4 params(to, from, type, text) are mandatory. must be filled
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("to", memberPhone);    // 수신전화번호
+        params.put("from", "010-5624-3195");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+        params.put("type", "SMS");
+        params.put("text", "job아드림 인증번호는" + "["+numStr+"]" + "입니다.");
+        params.put("app_version", "test app 1.2"); // application name and version
+
+        try {
+            JSONObject obj = (JSONObject) coolsms.send(params);
+            System.out.println(obj.toString());
+        } catch (CoolsmsException e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCode());
+        }
+
+    }
 
 	
 

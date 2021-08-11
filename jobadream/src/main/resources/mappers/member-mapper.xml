@@ -49,21 +49,23 @@
   	</select>
 
   	<!-- 비밀번호 찾기 - 조회 -->
-  	<select id="findPw" parameterType="Member" resultType="string">
-  	   SELECT MEMBER_ID, MEMBER_NO FROM MEMBER
+  	<select id="findPw" parameterType="Member" resultType="_int">
+  	   SELECT COUNT(*) FROM MEMBER
         WHERE MEMBER_NM = #{memberName}
         AND MEMBER_EMAIL = #{memberEmail}
         AND MEMBER_ID = #{memberId}
         AND MEMBER_STATUS = 'Y'
   	</select>
   	
-  	<!-- 비밀번호 찾기 - 변경 -->
-  <update id="findPw2" parameterType="Member" >
-  	UPDATE MEMBER SET
-  	MEMBER_PW = #{memberPw}
-  	WHERE MEMBER_ID = #{memberId}
-  </update>
-  	
+	<!-- 임시 비밀번호 -->
+	<update id="changePwd2" parameterType="Member">
+		UPDATE MEMBER SET
+		MEMBER_PW = #{memberPw}
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_NM = #{memberName}
+		AND MEMBER_EMAIL = #{memberEmail}
+	</update>
+	
   	<!-- 회원 정보 수정 -->
   	<update id="updateMember"  parameterType="Member" >
   		UPDATE MEMBER SET

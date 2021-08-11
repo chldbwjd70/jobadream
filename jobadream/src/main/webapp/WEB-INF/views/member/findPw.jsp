@@ -108,21 +108,7 @@
 										placeholder="이메일을 입력해주세요.">
 								</div>
 								<div class="col-md-2">
-									<button type="button" class="btn btn-color2">인증</button>
 								</div>
-								<div class="col-md-7 offset-md-4">
-									<span id="checkEmail">&nbsp;</span>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-1"></div>
-								<div class="col-md-3"></div>
-								<div class="col-md-3">
-									<input type="text" class="form-control" id="emailNum"
-										name="emailNum" autocomplete="off" placeholder="인증번호" required>
-								</div>
-								<div class="col-md-5"></div>
-
 								<div class="col-md-7 offset-md-4">
 									<span id="checkEmail">&nbsp;</span>
 								</div>

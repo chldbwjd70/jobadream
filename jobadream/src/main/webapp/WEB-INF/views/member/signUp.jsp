@@ -58,6 +58,7 @@
                              <strong>모든 항목을 입력해주세요.</strong>
                         </div>
                         <br>
+                        <!-- 아이디 -->
                         <div class="row">
                             <div class="col-md-1">
                             </div>
@@ -75,6 +76,7 @@
                             </div>
                         </div>
                         <br>
+                        <!-- 비밀번호 -->
                         <div class="row">
                             <div class="col-md-1">
                             </div>
@@ -108,6 +110,8 @@
                             </div>
                         </div>
                         <br>
+                        
+                        <!-- 이름 -->
                         <div class="row">
                             <div class="col-md-1">
                             </div>
@@ -125,7 +129,7 @@
                             </div>
                         </div>
                         
-                        <!-- 이메일 인증 처리 -->
+                        <!-- 이메일 -->
                         <div class="row">
                             <div class="col-md-1">
                             </div>
@@ -136,27 +140,13 @@
                                 <input type="email" class="form-control" id="email" name="memberEmail" autocomplete="off" placeholder="이메일을 입력해주세요." required>
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-color2" >인증</button>
                             </div>
                             <div class="col-md-7 offset-md-4">
                                 <span id="checkEmail">&nbsp;</span>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-1">
-                            </div>
-                            <div class="col-md-3">
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="emailNum" name="EmailNum" autocomplete="off" placeholder="인증번호">
-                            </div>
-                            <div class="col-md-5">
-                            </div>
-    
-                            <div class="col-md-7 offset-md-4">
-                                <span id="checkEmail">&nbsp;</span>
-                            </div>
-                        </div>
+                        
+                        <!-- 전화번호 -->
                         <div class="row">
                             <div class="col-md-1">
                             </div>
@@ -183,10 +173,26 @@
                                 <input type="number" class="form-control phone" id="phone3" name="phone" required>
                             </div>
                             <div class="col-md-2">
+                            <button type="button" id="sendPhoneNumber" name="sendPhoneNumber" class="btn btn-color2" >전송</button>
+                            </div>
+                            <div class="col-md-7 offset-md-4">
+                                <span id="checkPhone">&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="row  form-row">
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="inputCertifiedNumber" name="inputCertifiedNumber" autocomplete="off" placeholder="인증번호">
+                            </div>
+                            <div class="col-md-3">
+                            <button type="button" id="checkBtn" name="checkBtn" class="btn btn-color2" >인증</button>
+                            </div>
+                            <div class="col-md-1">
                             </div>
     
                             <div class="col-md-7 offset-md-4">
-                                <span id="checkPhone">&nbsp;</span>
+                                <span id="checkEmail">&nbsp;</span>
                             </div>
                         </div>
                         <div class="row mb-3 form-row">
@@ -249,6 +255,45 @@
             $("#postcodify_search_button").postcodifyPopUp();
         });
     </script>
+    <script>
+    $('#sendPhoneNumber').click(function() {
+    	
+    	const phone = $("[name='phone']");
+    	let memberPhone =  $(phone[0]).val() + "-" + $(phone[1]).val() + "-" + $(phone[2]).val();
+    	swal({
+    		title: "인증번호가 전송되었습니다.",
+    		icon: "warning",
+    	})
+    	$.ajax({
+    		type: "POST",
+    		url: "${contextPath}/sendSMS",
+    		data: {
+    			"memberPhone": memberPhone
+    		},
+    		success: function(res) {
+    			console.log(res)
+    			 $('#checkBtn').click(function(){
+    	              if($.trim(res) ==$('#inputCertifiedNumber').val()){
+    		              	swal({
+    		              		icon: "success",
+    		              		title: "인증이 완료되었습니다.",
+    		              	})
+    					}else{
+    						swal({
+    		              		icon: "warning",
+    		              		title: "인증번호가 일치하지 않습니다.",
+    		              	})
+    		              	return false;
+    					}
+    				})
+    		},error : function(e){
+    				console.log(e);
+    		}
+    	})
+    });
+    </script>
+    
+    
 <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
