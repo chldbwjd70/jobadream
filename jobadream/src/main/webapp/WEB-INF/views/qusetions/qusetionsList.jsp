@@ -77,6 +77,7 @@
 								<%-- 조회된 게시글 목록이 있을 경우 --%>
 								<c:otherwise>
 									<c:forEach items="${qusetionsList}" var="qu">
+									<c:if test="${loginMember.memberNo == qu.memberNo }">
 										<tr>
 											<%-- 글 번호 --%>
 											<td>${qu.qusetionsNo }</td>
@@ -102,6 +103,7 @@
 													</c:otherwise>
 												</c:choose></td>
 										</tr>
+										</c:if>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
@@ -127,7 +129,7 @@
 			<c:set var="next"
 				value="${pageURL}?cp=${pagination.nextPage}${searchStr}" />
 
-
+			<c:if test="${!empty qusetionsList && loginMember.memberNo == qusetions.memberNo}">
 			<div class="my-5">
 				<ul class="pagination">
 
@@ -174,6 +176,7 @@
 
 				</ul>
 			</div>
+			</c:if>
 			<%---------------------- Pagination end----------------------%>
 			<!-- 검색창 -->
 			<div class="my-5">
@@ -184,7 +187,6 @@
 						<option value="title">글제목</option>
 						<option value="content">내용</option>
 						<option value="titcont">제목+내용</option>
-						<option value="writer">작성자</option>
 					</select> <input type="text" name="sv" class="form-control"
 						style="width: 25%; display: inline-block;">
 					<button class="form-control btn btn-primary"

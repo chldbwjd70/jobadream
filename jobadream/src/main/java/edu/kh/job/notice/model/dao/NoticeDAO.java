@@ -94,6 +94,10 @@ public class NoticeDAO {
 	}
 
 
+	/** 게시글 삭제
+	 * @param noticeNo
+	 * @return
+	 */
 	public int delete(int noticeNo) {
 		return sqlSession.update("noticeMapper.delete", noticeNo);
 	}

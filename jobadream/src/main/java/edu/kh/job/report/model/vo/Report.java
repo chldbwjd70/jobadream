@@ -1,6 +1,7 @@
 package edu.kh.job.report.model.vo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import edu.kh.job.member.model.vo.Member;
 
@@ -12,9 +13,10 @@ public class Report {
 	private Timestamp reportDt;
 	private String reportStatus;
 	private String reportReplyStatus;
-	private String reportAttachment;
 	private int memberNo;
 	private int reportCategoryCd;
+	
+	private List<ReportFile> rfList;
 	
 	private Member mem; // join
 	private ReportCategory rcategory; // join
@@ -71,13 +73,6 @@ public class Report {
 		this.reportReplyStatus = reportReplyStatus;
 	}
 
-	public String getReportAttachment() {
-		return reportAttachment;
-	}
-
-	public void setReportAttachment(String reportAttachment) {
-		this.reportAttachment = reportAttachment;
-	}
 
 	public int getMemberNo() {
 		return memberNo;
@@ -110,15 +105,26 @@ public class Report {
 	public void setRcategory(ReportCategory rcategory) {
 		this.rcategory = rcategory;
 	}
+	
+	
+
+	public List<ReportFile> getRfList() {
+		return rfList;
+	}
+
+	public void setRfList(List<ReportFile> rfList) {
+		this.rfList = rfList;
+	}
 
 	@Override
 	public String toString() {
 		return "Report [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportContent=" + reportContent
 				+ ", reportDt=" + reportDt + ", reportStatus=" + reportStatus + ", reportReplyStatus="
-				+ reportReplyStatus + ", reportAttachment=" + reportAttachment + ", memberNo=" + memberNo
-				+ ", reportCategoryCd=" + reportCategoryCd + ", mem=" + mem + ", rcategory=" + rcategory + "]";
+				+ reportReplyStatus + ", memberNo=" + memberNo + ", reportCategoryCd=" + reportCategoryCd + ", rfList="
+				+ rfList + ", mem=" + mem + ", rcategory=" + rcategory + "]";
 	}
 
+	
 	
 	
 	

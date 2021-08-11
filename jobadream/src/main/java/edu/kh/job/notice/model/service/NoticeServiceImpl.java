@@ -89,7 +89,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.updateNotice(notice);
 	}
 	
-	
+	// 게시글삭제
 	@Override
 	public int delete(int noticeNo) {
 		return dao.delete(noticeNo);

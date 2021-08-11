@@ -29,9 +29,7 @@
 		<result property="qusetionsContent" column="QUSETIONS_CONTENT" />
 		<result property="qusetionsDt" column="QUSETIONS_DT" />
 		<result property="qusetionsStatus" column="QUSETIONS_STATUS" />
-		<result property="qusetionsReplyStatus"
-			column="QUSETIONS_REPLY_STATUS" />
-		<result property="qusetionsReply" column="QUSETIONS_REPLY" />
+		<result property="qusetionsReplyStatus" column="QUSETIONS_REPLY_STATUS" />
 		<result property="memberNo" column="MEMBER_NO" />
 		<collection property="mem" resultMap="member_rm" />
 	</resultMap>
@@ -68,9 +66,7 @@
 				<when test="sk == 'titcont'" >
 					( QUSETIONS_TITLE LIKE #{val} OR QUSETIONS_CONTENT LIKE #{val} )
 				</when>
-				<when test="sk == 'writer'" >
-					MEMBER_ID LIKE #{val}
-				</when>
+			
 			
 			</choose>
 		</if> 
@@ -112,9 +108,7 @@
 				<when test="sk == 'titcont'" >
 					( QUSETIONS_TITLE LIKE #{val} OR QUSETIONS_CONTENT LIKE #{val} )
 				</when>
-				<when test="sk == 'writer'" >
-					MEMBER_ID LIKE #{val}
-				</when>
+			
 			
 			</choose>
 		</if> 
@@ -139,7 +133,7 @@
 	</selectKey>
 
 	INSERT INTO QUSETIONS VALUES
-	(#{qusetionsNo}, #{qusetionsTitle},#{qusetionsContent},DEFAULT,DEFAULT,DEFAULT,DEFAULT,#{memberNo})
+	(#{qusetionsNo}, #{qusetionsTitle},#{qusetionsContent},DEFAULT,DEFAULT,DEFAULT,#{memberNo})
 	</insert>
 	
 	<!-- 게시글수정 -->
@@ -151,6 +145,7 @@
 		WHERE QUSETIONS_NO =#{qusetionsNo}
 	</update>
 	
+	<!-- 게시글삭제 -->
 	<update id="deleteForm" parameterType="_int">
 		UPDATE QUSETIONS SET
 		QUSETIONS_STATUS = 'N'
