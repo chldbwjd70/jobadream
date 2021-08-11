@@ -53,13 +53,13 @@ public class MemberDAO {
 	}
 
 	// 비밀번호 찾기 - 조회
-	public String findPw(Member findMemberPw) {
+	public int findPw(Member findMemberPw) {
 		return sqlSession.selectOne("memberMapper.findPw", findMemberPw);
 	}
 
-	// 비밀번호 찾기 - 변경
-	public int findPw2(Member findMemberPw) {
-		return sqlSession.update("memberMapper.findPw2", findMemberPw);
+	// 임시 비밀번호로 회원 정보 변경
+	public int changePwd2(Member findMemberPw) {
+		return sqlSession.update("memberMapper.changePwd2",findMemberPw);
 	}
 
 }

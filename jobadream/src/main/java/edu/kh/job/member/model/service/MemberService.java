@@ -28,10 +28,12 @@ public interface MemberService {
 	String findId(Member findMemberId);
 
 	// 비밀번호 찾기-조회
-	String findPw(Member findMemberPw);
+	int findPw(Member findMemberPw);
+	
+	int sendEmail(Member findMemberPw);
 
-	// 비밀번호 찾기 - 변경
-	int findPw2(String chPwd, Member findMemberPw);
+	void certifiedPhoneNumber(String memberPhone, String numStr);
+
 
 
 

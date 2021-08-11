@@ -171,7 +171,7 @@ public class MemberController {
 	// 비밀번호 찾기(회원 정보 확인)
 	@RequestMapping(value="findPw", method =RequestMethod.POST)  
 	public String findPw( @RequestParam("findName2") String findName,  @RequestParam("findEamil2") String findEamil,
-						@RequestParam("findId2") String findId, @RequestParam("emailNum") String emailNum,
+						@RequestParam("findId2") String findId, 
 						@ModelAttribute Member findMemberPw, RedirectAttributes ra, Model model, 
 						@RequestHeader("referer") String referer ) { 
 		
@@ -179,15 +179,21 @@ public class MemberController {
 		findMemberPw.setMemberName(findName);
 		findMemberPw.setMemberId(findId);
 		
-		String memberPw = service.findPw(findMemberPw);
+		int result = service.findPw(findMemberPw);
 		
 		String path = null;
 		
-		if(memberPw != null) {
+		if (result > 0) {
 			
 			model.addAttribute("findMemberPw", findMemberPw); 
 			
-			path = "member/findPw2"; 
+			result = service.sendEmail(findMemberPw);
+			
+			ra.addFlashAttribute("icon", "success");
+			ra.addFlashAttribute("title",  "임시 비밀번호 발송");
+			ra.addFlashAttribute("text",  findMemberPw.getMemberName()+"님의 메일로 임시 비밀번호가 발송되었습니다.");
+			
+			path = "redirect:/"; 
 			
 		}else { // 실패
 			
@@ -197,28 +203,8 @@ public class MemberController {
 		}
 		return path;
 	}
-	// 비밀번호 수정
-		@RequestMapping(value="findPw2",method=RequestMethod.POST)
-		public String findPw2(@RequestParam("chPwd") String chPwd,
-							  @ModelAttribute Member findMemberPw, RedirectAttributes ra,
-							  @RequestHeader("referer") String referer ) {
-			
-			int result = service.findPw2(chPwd, findMemberPw);
-			
-			String path = null;
-			
-			if(result > 0) { // 비밀번호 변경 성공
-				ra.addFlashAttribute("icon", "success");
-				ra.addFlashAttribute("text", "비밀번호가 변경되었습니다.");
-				path += "redirect:/";
-				
-			}else { // 실패
-				ra.addFlashAttribute("icon", "error");
-				ra.addFlashAttribute("text", "비밀번호중 오류 발생");
-				path = "redirect:" + referer;
-			}
-			return path;
-		}
+	
+	
 	
 	// 마이페이지 전환
 	@RequestMapping(value="myPage", method=RequestMethod.GET)  
