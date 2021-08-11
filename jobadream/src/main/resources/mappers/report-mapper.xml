@@ -6,6 +6,16 @@
 		<result property="listCount" column="CNT" />
 	</resultMap>
 
+	<!-- 파일 정보 조회용 resultMap -->
+	<resultMap type="ReportFile" id="file_rm">
+		<id property="fileNo" column="FILE_NO" />
+
+		<result property="filePath" column="FILE_PATH" />
+		<result property="fileName" column="FILE_NAME" />
+		<result property="fileLevel" column="FILE_LEVEL" />
+		<result property="reportNo" column="REPORT_NO" />
+	</resultMap>
+
 	<!-- join용 -->
 	<resultMap type="Member" id="member_rm">
 		<id property="memberNo" column="MEMBER_NO" />
@@ -29,52 +39,205 @@
 		<result property="reportContent" column="REPORT_CONTENT" />
 		<result property="reportDt" column="REPORT_DT" />
 		<result property="reportStatus" column="REPORT_STATUS" />
-		<result property="reportReplyStatus"
-			column="REPORT_REPLY_STATUS" />
-		<result property="reportAttachment" column="REPORT_ATTACHMENT" />
+		<result property="reportReplyStatus" column="REPORT_REPLY_STATUS" />
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="reportCategoryCd" column="REPORT_CATEGORY_CD" />
 		<collection property="mem" resultMap="member_rm" />
 		<collection property="rcategory" resultMap="rcate_rm" />
+		<collection property="rfList" column="REPORT_NO" javaType="java.util.ArrayList" ofType="ReportFile" select="selectFile" />
 	</resultMap>
-	
+
 	<resultMap type="ReportCategory" id="rcate_rm">
 		<id property="reportCategoryCd" column="REPORT_CATEGORY_CD" />
 		<result property="reportCategoryTitle" column="REPORT_CATEGORY_TITLE" />
 	</resultMap>
 
+	<!-- 특정 게시글의 모든 이미지 정보 조회 -->
+	<select id="selectFile" parameterType="_int" resultMap="file_rm">
+		SELECT * FROM REPORT_FILE
+		WHERE REPORT_NO = #{reportNo}
+		ORDER BY FILE_LEVEL
+	</select>
+
 	<!-- 전체게시글수 조회 -->
 	<select id="getListCount" resultMap="rpg_rm">
 		SELECT COUNT(*) CNT
-		FROM REPORT
+		FROM
+		REPORT_LIST
 		WHERE REPORT_STATUS = 'Y'
 	</select>
-	
+
+	<!-- 전체게시글수 조회(검색) -->
+	<select id="getSearchListCount" parameterType="ReportSearch"
+		resultMap="rpg_rm">
+		SELECT COUNT(*) CNT
+		FROM REPORT_LIST
+		WHERE REPORT_STATUS = 'Y'
+		<!-- sv있을때만 -->
+		<if test="sv != null">
+			AND
+
+			<!-- bind 태그 : 변수 선언 -->
+			<bind name="val" value="'%' + sv + '%'" />
+			<!-- sk에 따라서 조건절을 선택함(title, content, titcont, writer) -->
+			<choose>
+				<when test="sk == 'title'">
+					REPORT_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'content'">
+					REPORT_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'titcont'">
+					( REPORT_TITLE LIKE #{val} OR REPORT_CONTENT LIKE #{val} )
+				</when>
+				
+			</choose>
+		</if>
+		<if test="ct != null">
+			AND REPORT_CATEGORY_CD IN
+			<foreach collection="ct" item="code" open="(" close=")" separator=",">
+				#{code}
+			</foreach>
+
+
+		</if>
+	</select>
+
 	<!-- 전체게시글 목록조회 -->
-	<select id="selectReportList"
-		parameterType="ReportPagination" resultMap="re_rm">
+	<select id="selectReportList" parameterType="ReportPagination" resultMap="re_rm">
 		SELECT REPORT_NO, REPORT_TITLE, REPORT_CONTENT, REPORT_DT,
-		REPORT_STATUS,MEMBER_NO, MEMBER_ID,REPORT_CATEGORY_CD,REPORT_CATEGORY_TITLE
+		REPORT_STATUS,MEMBER_NO,
+		MEMBER_ID,REPORT_CATEGORY_CD,REPORT_CATEGORY_TITLE
 		FROM REPORT
 		JOIN MEMBER USING(MEMBER_NO)
 		JOIN REPORT_CATEGORY USING(REPORT_CATEGORY_CD)
+		WHERE REPORT_STATUS = 'Y'
 		ORDER BY REPORT_NO DESC
 	</select>
-	
-	<select id="selectReport" parameterType="_int" resultMap="re_rm">
-		SELECT REPORT_NO,REPORT_TITLE, REPORT_CONTENT, REPORT_DT,REPORT_STATUS,REPORT_REPLY_STATUS
-		,REPORT_ATTACHMENT,REPORT_CATEGORY_CD,REPORT_CATEGORY_TITLE,MEMBER_NO, MEMBER_ID
+
+	<!-- 전체게시글 목록조회(검색) -->
+	<select id="selectSearchList" parameterType="ReportSearch"
+		resultMap="re_rm">
+		SELECT REPORT_NO, REPORT_TITLE, REPORT_CONTENT, REPORT_DT,
+		REPORT_STATUS,MEMBER_NO,
+		MEMBER_ID,REPORT_CATEGORY_CD,REPORT_CATEGORY_TITLE
 		FROM REPORT
 		JOIN MEMBER USING(MEMBER_NO)
-        JOIN REPORT_CATEGORY USING(REPORT_CATEGORY_CD)
+		JOIN REPORT_CATEGORY USING(REPORT_CATEGORY_CD)
+		WHERE REPORT_STATUS = 'Y'
+		<!-- sv있을때만 -->
+		<if test="sv != null">
+			AND
+
+			<!-- bind 태그 : 변수 선언 -->
+			<bind name="val" value="'%' + sv + '%'" />
+
+			<!-- sk에 따라서 조건절을 선택함(title, content, titcont, writer) -->
+			<choose>
+
+				<when test="sk == 'title'">
+					REPORT_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'content'">
+					REPORT_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'titcont'">
+					( REPORT_TITLE LIKE #{val} OR
+					REPORT_CONTENT LIKE
+					#{val} )
+				</when>
+	
+
+			</choose>
+		</if>
+
+		<!-- 카테고리조건추가 -->
+		<if test="ct != null">
+			AND REPORT_CATEGORY_CD IN
+			<foreach collection="ct" item="code" open="(" close=")" separator=",">
+				#{code}
+			</foreach>
+		</if>
+		ORDER BY REPORT_NO DESC
+	</select>
+
+	<!-- 상세조회 -->
+	<select id="selectReport" parameterType="_int" resultMap="re_rm">
+		SELECT
+		REPORT_NO,REPORT_TITLE, REPORT_CONTENT,
+		REPORT_DT,REPORT_STATUS,REPORT_REPLY_STATUS
+		,REPORT_CATEGORY_CD,REPORT_CATEGORY_TITLE,MEMBER_NO, MEMBER_ID
+		FROM REPORT
+		JOIN MEMBER USING(MEMBER_NO)
+		JOIN REPORT_CATEGORY USING(REPORT_CATEGORY_CD)
 		WHERE REPORT_NO = #{reportNo}
 		AND REPORT_STATUS = 'Y'
 	</select>
-	
+
+	<!-- 카테고리조회 -->
 	<select id="selectCategory" resultMap="rcate_rm">
 		SELECT*FROM REPORT_CATEGORY
 	</select>
+
+	<insert id="insertReport" parameterType="Report" useGeneratedKeys="true">
+		<selectKey keyProperty="reportNo" resultType="_int" order="BEFORE">
+			SELECT SEQ_RNO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO REPORT VALUES
+		(#{reportNo},#{reportTitle},#{reportContent},DEFAULT,DEFAULT,DEFAULT,
+		#{memberNo},#{reportCategoryCd})
+	</insert>
+
+	<!-- 파일삽입 -->
+	<insert id="insertFileList" parameterType="list">
+		INSERT INTO REPORT_FILE
+		SELECT SEQ_FNO.NEXTVAL, A.* FROM (
+		<foreach collection="list" item="rf" separator=" UNION ALL ">
+			SELECT #{rf.filePath} FILE_PATH,
+			#{rf.fileName} FILE_NAME,
+			#{rf.fileLevel} FILE_LEVEL,
+			#{rf.reportNo} REPORT_NO FROM DUAL
+		</foreach>
+		) A
+	</insert>
+
+	<!-- 글삭제 -->
+	<update id="deleteReport" parameterType="_int">
+		UPDATE REPORT SET
+		REPORT_STATUS = 'N'
+		WHERE REPORT_NO = #{reportNo}
+	</update>
+
+	<!-- 게시글 수정 -->
+	<update id="updateReport" parameterType="Report">
+		UPDATE REPORT SET
+		REPORT_TITLE = #{reportTitle},
+		REPORT_CONTENT = #{reportContent},
+		REPORT_CATEGORY_CD =#{reportCategoryCd},
+		REPORT_DT = SYSTIMESTAMP
+		WHERE REPORT_NO = #{reportNo}
+	</update>
 	
 	
+	<!-- 첨부파일정보삭제 -->
+	<delete id="deleteFile" parameterType="map">
+		DELETE FROM REPORT_FILE
+		WHERE REPORT_NO = #{reportNo}
+		AND FILE_LEVEL IN ( ${deleteImages} )
+	</delete>
+	
+	<!-- 청부파일 정보수정 -->
+	<update id="updateFile" parameterType="ReportFile">
+		UPDATE REPORT_FILE SET
+		FILE_NAME = #{fileName}
+		WHERE REPORT_NO = #{reportNo}
+		AND FILE_LEVEL = #{fileLevel}
+	</update>
+	
+	<!-- 파일정보삽입 -->
+	<insert id="insertFile" parameterType="ReportFile">
+		INSERT INTO REPORT_FILE VALUES
+		(SEQ_FNO.NEXTVAL, #{filePath}, #{fileName},#{fileLevel},#{reportNo})
+	</insert>
 	
 </mapper>

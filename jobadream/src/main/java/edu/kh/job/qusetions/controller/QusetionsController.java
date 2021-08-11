@@ -17,8 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.job.member.model.vo.Member;
 import edu.kh.job.qusetions.model.service.QusetionsService;
+import edu.kh.job.qusetions.model.service.ReplyService;
 import edu.kh.job.qusetions.model.vo.Pagination;
 import edu.kh.job.qusetions.model.vo.Qusetions;
+import edu.kh.job.qusetions.model.vo.Reply;
 import edu.kh.job.qusetions.model.vo.Search;
 
 @Controller
@@ -27,6 +29,7 @@ public class QusetionsController {
 
 	@Autowired
 	private QusetionsService service;
+	
 
 	// 게시글목록조회
 	@RequestMapping(value = "/qusetions/qusetionsList", method = RequestMethod.GET)
@@ -63,7 +66,8 @@ public class QusetionsController {
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 
 		Qusetions qusetions = service.selectQusetions(qusetionsNo);
-		System.out.println("확인 : " + qusetions);
+		//System.out.println("확인 : " + qusetions);
+	
 		model.addAttribute("qusetions", qusetions);
 
 		return "qusetions/qusetionsView";

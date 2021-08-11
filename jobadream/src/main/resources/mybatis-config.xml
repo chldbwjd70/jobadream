@@ -18,11 +18,15 @@
 	<typeAlias type="edu.kh.job.notice.model.vo.Pagination" alias="NoticePagination" />
 	<typeAlias type="edu.kh.job.qusetions.model.vo.Qusetions" alias="Qusetions" />
 	<typeAlias type="edu.kh.job.qusetions.model.vo.Pagination" alias="QusetionsPagination" />
+	<typeAlias type="edu.kh.job.qusetions.model.vo.Reply" alias="Reply" />
 	<typeAlias type="edu.kh.job.notice.model.vo.Search" alias="NoticeSearch" />
 	<typeAlias type="edu.kh.job.qusetions.model.vo.Search" alias="QusetionsSearch" />
 	<typeAlias type="edu.kh.job.report.model.vo.Report" alias="Report" />
 	<typeAlias type="edu.kh.job.report.model.vo.ReportCategory" alias="ReportCategory" />
 	<typeAlias type="edu.kh.job.report.model.vo.Pagination" alias="ReportPagination" />
+	<typeAlias type="edu.kh.job.report.model.vo.Search" alias="ReportSearch" />
+	<typeAlias type="edu.kh.job.report.model.vo.ReportFile" alias="ReportFile" />
+	
 
 	<typeAlias type="edu.kh.job.board.model.vo.Pagination" alias="Pagination" />
 	
@@ -37,6 +41,7 @@
 	<mapper resource="/mappers/notice-mapper.xml" />
 	<mapper resource="/mappers/qusetions-mapper.xml" />
 	<mapper resource="/mappers/report-mapper.xml" />
+	<mapper resource="/mappers/reply-mapper.xml" />
 	
 	</mappers>
 </configuration>

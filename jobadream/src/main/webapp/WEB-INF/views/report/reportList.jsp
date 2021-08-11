@@ -58,19 +58,24 @@
 
 						<%-- 검색 상태 유지를 위한 쿼리스트링용 변수 선언 --%>
 						<c:if test="${!empty param.sk}">
-							<!-- sv가 파라미터에 있다면 -->
-							<c:if test="${ !empty param.sv &&  param.sv != '' }">
+							<!-- ct가 파라미터에 있다면 -->
+							<c:if test="${!empty paramValues.ct }">
+								<c:forEach items="${paramValues.ct }" var="code">
+									<c:set var="category" value="${category}&ct=${code}" />
+								</c:forEach>
+							</c:if>
 
+							<c:if test="${ !empty param.sv &&  param.sv != '' }">
 								<c:set var="searchValue" value="&sv=${param.sv}" />
 							</c:if>
-							<c:set var="searchStr" value="&sk=${param.sk}${searchValue}" />
+							<c:set var="searchStr"
+								value="${category}&sk=${param.sk}${searchValue}" />
 						</c:if>
 
 						<%-- 게시글 목록 --%>
 						<tbody>
 							<c:choose>
-								<%-- 조회된 게시글 목록이 없는 경우 --%>
-								<c:when test="${empty reportList}">
+								<c:when test="${empty reportList || loginMember.memberNo == report.memberNo}">
 									<tr>
 										<td colspan="6">게시글이 존재하지 않습니다.</td>
 									</tr>
@@ -78,6 +83,7 @@
 								<%-- 조회된 게시글 목록이 있을 경우 --%>
 								<c:otherwise>
 									<c:forEach items="${reportList}" var="re">
+										<c:if test="${loginMember.memberNo == re.memberNo }">
 										<tr>
 											<%-- 글 번호 --%>
 											<td>${re.reportNo }</td>
@@ -105,14 +111,15 @@
 													</c:otherwise>
 												</c:choose></td>
 										</tr>
+										</c:if>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
 						</tbody>
 					</table>
 				</div>
-			</div>
 
+			</div>
 			<br>
 			<%-- 회원일경우에만 글쓰기 버튼 노출 --%>
 			<c:if test="${!empty loginMember}">
@@ -132,6 +139,7 @@
 
 
 			<div class="my-5">
+				<c:if test="${!empty reportList && loginMember.memberNo == report.memberNo}">
 				<ul class="pagination">
 
 					<%-- 현재 페이지가 10페이지 초과인 경우 --%>
@@ -146,8 +154,8 @@
 					</c:if>
 
 
-
 					<%-- 페이지 목록 --%>
+				
 					<c:forEach var="p" begin="${pagination.startPage}"
 						end="${pagination.endPage}">
 
@@ -162,6 +170,7 @@
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
+					
 
 					<%-- 현재 페이지가 마지막 페이지 미만인 경우 --%>
 					<c:if test="${pagination.currentPage < pagination.maxPage }">
@@ -176,16 +185,82 @@
 					</c:if>
 
 				</ul>
+				</c:if>
 			</div>
 			<%---------------------- Pagination end----------------------%>
 			<!-- 검색창 -->
-			
+			<div class="my-5">
+				<form action="list" method="GET" class="text-center" id="searchForm">
 
+					<span> 카테고리(다중 선택 가능)<br> 
+					<label for="board">게시판</label><input type="checkbox" name="ct" value="1" id="board">&nbsp; 
+					<label for="chat">채팅</label> <input type="checkbox" name="ct" value="2" id="chat"> &nbsp; 
+					<label for="deal">거래</label> <input type="checkbox" name="ct" value="3" id="deal"> &nbsp;
+					</span>
 
-
+					<select name="sk" class="form-control"
+						style="width: 100px; display: inline-block;">
+						<option value="title">글제목</option>
+						<option value="content">내용</option>
+						<option value="titcont">제목+내용</option>
+					</select> <input type="text" name="sv" class="form-control"
+						style="width: 25%; display: inline-block;">
+					<button class="form-control btn btn-primary"
+						style="width: 100px; display: inline-block;">검색</button>
+				</form>
+			</div>
 		</div>
+
+
+
 	</div>
 
 	<jsp:include page="../common/footer.jsp"></jsp:include>
+	<script>
+			// 검색 내용이 있을 경우 검색창에 해당 내용을 작성해두는 기능
+			(function(){
+				var searchKey = "${param.sk}"; 
+				// 파라미터 중 sk가 있을 경우   ex)  "abc"
+				// 파라미터 중 sk가 없을 경우   ex)  ""
+				var searchValue = "${param.sv}";
+				
+				// 검색창 select의 option을 반복 접근
+				$("select[name=sk] > option").each(function(index, item){
+					// index : 현재 접근중인 요소의 인덱스
+					// item : 현재 접근중인 요소
+								// content            content
+					if( $(item).val() == searchKey  ){
+						$(item).prop("selected", true);
+					}
+				});		
+				
+				// 검색어 입력창에 searcValue 값 출력
+				$("input[name=sv]").val(searchValue);
+				
+				
+				// 쿼리스트링에 카테고리가 있을 경우 체크하기
+				
+				// ** <script> 태그 내부에 EL, JSTL 사용 가능
+				// 단, 이클립스가 인식을 못함
+				// JSP에서 언어 해석 순서 : 1. EL/JSTL ,  2. HTML,  3. JS
+				<c:forEach  items="${paramValues.ct}"  var="code" >
+					
+					// name 속성값이 ct인 요소들을 반복 접근
+					$.each( $("[name='ct']") ,  function(){
+						
+						// this : 현재 반복 접근한 요소
+						if( $(this).val() == "${code}"    ){
+							
+							$(this).prop("checked", true);
+						}
+						
+					})
+				
+				</c:forEach>
+				
+				
+			})();
+			
+	</script>
 </body>
 </html>

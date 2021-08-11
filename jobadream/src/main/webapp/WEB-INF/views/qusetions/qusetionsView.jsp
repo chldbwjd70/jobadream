@@ -53,6 +53,9 @@
 #deletesBtn {
 	background-color: #4161c8;
 }
+#quViewReturn {
+	background-color: #4161c8;
+}
 </style>
 </head>
 <body>
@@ -85,6 +88,7 @@
 				</div>
 				<hr>
 				<br> <br>
+				<jsp:include page="../qusetions/reply.jsp"/>
 				<div class="row">
 					<div class="col-md-12 mt-4 mb-4">
 
@@ -99,7 +103,7 @@
 						<c:set var="searchStr" 
 							value="&sk=${param.sk}&sv=${param.sv}"  />
 					</c:if>
-					<a href="qusetionsList?&cp=${param.cp}${searchStr}" class="btn btn-primary float-left mr-2">목록으로</a>
+					<a href="qusetionsList?&cp=${param.cp}${searchStr}" class="btn btn-primary float-right mr-2" id="quViewReturn">목록으로</a>
 				</div>
 				
 					</div>

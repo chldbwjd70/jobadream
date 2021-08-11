@@ -19,7 +19,6 @@ import edu.kh.job.member.model.vo.Member;
 import edu.kh.job.notice.model.service.NoticeService;
 import edu.kh.job.notice.model.vo.Notice;
 import edu.kh.job.notice.model.vo.Pagination;
-import edu.kh.job.qusetions.model.vo.Qusetions;
 import edu.kh.job.qusetions.model.vo.Search;
 
 @Controller
