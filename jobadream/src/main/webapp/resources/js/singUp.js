@@ -8,8 +8,7 @@ const checkObj = {
 	"name": false,
 	"phone2": false,
 	"email": false,
-	
-	"address" : false
+	"address" : false,
 };
 
 // 아이디 유효성 검사  
@@ -122,10 +121,11 @@ $(".phone").on("input", function(){
 	if ($(this).val().length > 4) {
 		$(this).val( $(this).val().slice(0, 4));
 	}
-
+ 	
     const regExp1 = /^[0-9]{4}$/; 
     const regExp2 = /^[0-9]{4}$/; 
 
+	
     const ph2 = $("#phone2").val();
     const ph3 = $("#phone3").val();
 
@@ -151,11 +151,9 @@ $("#address1,  #address2").on("input", function(){
 	}
 });
 
-
-
 // 회원 가입 버튼 클릭 시 전체 유효성 검사 여부 확인
 function validate(){
-
+	
     for(const key in checkObj ){
 
         if( !checkObj[key] ){ 
@@ -179,12 +177,10 @@ function validate(){
 			case "email":
 				msg = "이메일이 올바르지 않습니다.";
 				break;
-					
 			case "address" :
 				msg="주소를 입력해수세요";	
 				break;	
 		} 
-
             // msg에 담긴 내용 출력
             swal(msg).then(function(){ 
 
@@ -200,7 +196,6 @@ function validate(){
     
     const phone = $("[name='phone']"); // name 속성 값이 phone인 요소를 모두 얻어와 배열로 저장
     const address = $("[name='address']"); // name 속성 값이 address인 요소를 모두 얻어와 배열로 저장
-    
     // 요소에 저장된 value만 얻어와 합치기
     const memberPhone = $(phone[0]).val() + "-" + $(phone[1]).val() + "-" + $(phone[2]).val();
     const memberAddress = $(address[0]).val() + "," + $(address[1]).val() + "," + $(address[2]).val();
@@ -212,7 +207,15 @@ function validate(){
     
     // append() : 선택된 요소의 마지막 자식으로 추가
     $("form[name='signUpForm']").append(inputPhone).append(inputAddress);
+    
+    
+    
+    
+    
+    
+    
 }
+// -------------------------------------------------------------------------------------------------------------------------
 
 
 
