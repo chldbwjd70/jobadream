@@ -34,10 +34,9 @@
 									<p>${chatRoom.boardTitle}</p>
 								</div>
 								<div class="join-box">
-									<button class="btn join">참여</button>
+									<button class="btn join" onclick="location.href='${contextPath}/chat/room/${chatRoom.chatRoomNo}' ">참여</button>
 								</div>
 							</div>
-
 						</c:forEach>
             		</c:otherwise>
             	</c:choose>
