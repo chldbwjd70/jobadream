@@ -73,7 +73,7 @@
 
             <div class="request">
                 <button class="btn request-btn">요청하기</button>
-                <a href="list?cpage=${param.cpage}${searchStr}" class="btn" id="prv">이전으로</a>
+                <a href="${contextPath}/board/${board.categoryCode}/list?cpage=${param.cpage}${searchStr}" class="btn" id="prv">이전으로</a>
             </div>
         </form>
 
