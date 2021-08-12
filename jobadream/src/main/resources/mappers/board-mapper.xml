@@ -107,13 +107,19 @@
 			BOARD_CONTENT = #{boardContent}
 		WHERE BOARD_NO = #{boardNo}
 	</update>
+	<!-- 지원하기 클릭 시 게시판 상태 변경 -->
+	<update id="boardUpdateStatus" parameterType="_int">
+		UPDATE BOARD SET
+			BOARD_STATUS = 'I'
+			WHERE BOARD_NO = #{boardNo}
+	</update>
 	
 	<!-- 진행 삽입 -->
 	<insert id="boardProgress" parameterType="BoardProgress">
 		INSERT INTO PROGRESS VALUES(	
 			#{memberNo},
 			#{boardNo},
-			DEFAULT, DEFAULT
+			'I', DEFAULT
 		)
 	</insert>
 	

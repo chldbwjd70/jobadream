@@ -122,7 +122,7 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int boardUpdateStatus(int boardNo) {
-		return dao.boardDelete(boardNo);
+		return dao.boardUpdateStatus(boardNo);
 	}
 
 	// 진행 삽입
