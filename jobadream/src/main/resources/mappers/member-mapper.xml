@@ -19,6 +19,14 @@
  		<result property="memberIntroduce" column="MEMBER_INTRODUCE"/>	 
 	 </resultMap>
 	 
+ 	<resultMap type="ChatAlarm" id="chatalarm_rm">
+		<id property="alarmNo" column="CA_NO"/>
+ 		<result property="alarmMessage" column="ALARM_MESSAGE"/>
+ 		<result property="memberNo" column="MEMBER_NO"/>
+ 		<result property="alarmStatus" column="ALARM_STATUS"/>
+ 		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	 
 	 <!-- 로그인   -->
 	 <select id="login" parameterType="string" resultMap="member_rm">
 		SELECT * FROM MEMBER
@@ -102,6 +110,13 @@
 		MEMBER_INTRODUCE = NULL
 		WHERE MEMBER_NO = #{memberNo}
   	</update>
+  	
+  	<!-- 알람 리스트 조회 -->
+  	<select id="selectAlarm" resultMap="chatalarm_rm">
+ 		SELECT * FROM CHAT_ALARM
+		WHERE ALARM_STATUS = 'N'
+		AND MEMBER_NO = #{memberNo}
+  	</select>
 
 
 </mapper>

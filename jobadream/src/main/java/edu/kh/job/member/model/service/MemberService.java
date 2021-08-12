@@ -1,7 +1,10 @@
 package edu.kh.job.member.model.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
+import edu.kh.job.chat.model.vo.ChatAlarm;
 import edu.kh.job.member.model.vo.Member;
 
 public interface MemberService {
@@ -33,6 +36,12 @@ public interface MemberService {
 	int sendEmail(Member findMemberPw);
 
 	void certifiedPhoneNumber(String memberPhone, String numStr);
+
+	/** 알람 리스트 조회
+	 * @param memberNo
+	 * @return
+	 */
+	List<ChatAlarm> selectAlarm(int memberNo);
 
 
 
