@@ -71,7 +71,7 @@ public class MemberController {
 				cookie.setPath( request.getContextPath() ); 
 				response.addCookie(cookie);
 				ra.addFlashAttribute("title", "job아드림");
-				ra.addFlashAttribute("text", loginMember.getMemberId()+"님 환영합니다.");
+				ra.addFlashAttribute("text", loginMember.getMemberName()+"님 환영합니다.");
 				
 				
 			}else {

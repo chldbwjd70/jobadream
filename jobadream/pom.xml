@@ -12,6 +12,14 @@
 		<org.aspectj-version>1.9.4</org.aspectj-version>
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
+	
+	<repositories>
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+	
 	<dependencies>
 		<!-- 파일업로드  -->
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
@@ -42,6 +50,14 @@
          <artifactId>javaSDK</artifactId>
          <version>2.2</version>
       </dependency>
+      
+      	<!-- 아임포트 결제 -->
+		<!-- https://mvnrepository.com/artifact/com.github.iamport/iamport-rest-client-java -->
+		<dependency>
+			<groupId>com.github.iamport</groupId>
+			<artifactId>iamport-rest-client-java</artifactId>
+			<version>0.2.14</version>
+		</dependency>
 	
 	
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
