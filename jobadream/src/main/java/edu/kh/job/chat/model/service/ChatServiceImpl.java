@@ -49,6 +49,7 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	// 채팅방 개설 알림 테이블 삽입
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int alarmInsert(ChatAlarm alarm) {
 		return dao.alarmInsert(alarm);
@@ -74,11 +75,19 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	// 채팅 메세지 삽입
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertMessage(ChatMessage cm) {
 		
 		cm.setMessage(BoardServiceImpl.replaceParameter(cm.getMessage()));
-		
+
 		return dao.insertMessage(cm);
+	}
+
+	// 알람 확인 상태로 변경
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateAlarmStatus(int chatRoomNo) {
+		return dao.updateAlarmStatus(chatRoomNo);
 	}
 }

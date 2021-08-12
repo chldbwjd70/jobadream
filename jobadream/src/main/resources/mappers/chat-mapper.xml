@@ -17,6 +17,7 @@
  		<result property="memberNo" column="MEMBER_NO"/>
  		<result property="alarmStatus" column="ALARM_STATUS"/>
  		<result property="memberNo" column="MEMBER_NO"/>
+ 		<result property="chatRoomNo" column="CHAT_ROOM_NO"/>
 	</resultMap>
 	
 	<resultMap type="ChatMessage" id="chatmessage_rm">
@@ -63,7 +64,7 @@
 	<!-- 채팅방 개설 알림 테이블 삽입 -->
 	<insert id="alarmInsert" parameterType="ChatAlarm">
 		INSERT INTO CHAT_ALARM VALUES(
-			SEQ_CA_NO.NEXTVAL, #{alarmMessage}, DEFAULT, #{memberNo}
+			SEQ_CA_NO.NEXTVAL, #{alarmMessage}, DEFAULT, #{memberNo}, #{chatRoomNo}
 		)
 	</insert>
 	
@@ -95,4 +96,11 @@
 			SEQ_CM_NO.NEXTVAL, #{message}, DEFAULT, #{memberNo}, #{chatRoomNo}
 		)
 	</insert>
+	
+	<!-- 알림 확인 상태 변경 -->
+	<update id="updateAlarmStatus" parameterType="_int">
+		UPDATE CHAT_ALARM SET
+		ALARM_STATUS = 'Y'
+		WHERE CHAT_ROOM_NO = #{chatRoomNo}
+	</update>
 </mapper>

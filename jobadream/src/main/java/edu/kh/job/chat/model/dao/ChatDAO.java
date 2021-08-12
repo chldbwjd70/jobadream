@@ -80,4 +80,12 @@ public class ChatDAO {
 		return sqlSession.insert("chatMapper.insertMessage", cm);
 	}
 
+	/** 알림 확인 상태로 변경
+	 * @param chatRoomNo
+	 * @return
+	 */
+	public int updateAlarmStatus(int chatRoomNo) {
+		return sqlSession.update("chatMapper.updateAlarmStatus",chatRoomNo);
+	}
+
 }

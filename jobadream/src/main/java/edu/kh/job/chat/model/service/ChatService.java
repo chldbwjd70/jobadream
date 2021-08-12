@@ -57,4 +57,11 @@ public interface ChatService {
 	 */
 	int insertMessage(ChatMessage cm);
 
+	
+	/** 알람 확인 상태로 변경
+	 * @param chatRoomNo
+	 * @return
+	 */
+	int updateAlarmStatus(int chatRoomNo);
+
 }

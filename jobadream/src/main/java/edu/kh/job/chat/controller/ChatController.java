@@ -71,18 +71,19 @@ public class ChatController {
 				String message = loginMember.getMemberName() + "님이 " + room.getBoardTitle() + "지원 관련 채팅방을 개설하였습니다.";
 				alarm.setAlarmMessage(message);
 				alarm.setMemberNo(boardMemberNo);
+				alarm.setChatRoomNo(chatRoomNo);
 				
 				result = service.alarmInsert(alarm);
 				
 				if(result > 0) { // 알림 테이블 삽입 성공
 					
 					// 알림 테이블에 STATUS='N'인것만 SESSION에 올리기
-					List<ChatAlarm> alarmList = service.selectAlarm();
+					//List<ChatAlarm> alarmList = service.selectAlarm();
 					
-					System.out.println(alarmList);
+					//System.out.println(alarmList);
 					System.out.println(chatRoomNo);
 					
-					model.addAttribute("alarmList", alarmList);
+					//model.addAttribute("alarmList", alarmList);
 					model.addAttribute("chatRoomNo", chatRoomNo);
 					
 					path += "room/" + chatRoomNo;

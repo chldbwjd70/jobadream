@@ -6,6 +6,8 @@ public class ChatAlarm {
 	private String alarmStatus;
 	private int memberNo;
 	private String memberName;
+	private int chatRoomNo;
+	
 	
 	public ChatAlarm() {}
 
@@ -48,11 +50,21 @@ public class ChatAlarm {
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
+	
+
+	public int getChatRoomNo() {
+		return chatRoomNo;
+	}
+
+	public void setChatRoomNo(int chatRoomNo) {
+		this.chatRoomNo = chatRoomNo;
+	}
 
 	@Override
 	public String toString() {
 		return "ChatAlarm [alarmNo=" + alarmNo + ", alarmMessage=" + alarmMessage + ", alarmStatus=" + alarmStatus
-				+ ", memberNo=" + memberNo + ", memberName=" + memberName + "]";
+				+ ", memberNo=" + memberNo + ", memberName=" + memberName + ", chatRoomNo=" + chatRoomNo + "]";
 	}
+
 	
 }

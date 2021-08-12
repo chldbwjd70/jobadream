@@ -79,6 +79,19 @@ textarea {
 <body>
 	<div class="container">
 		<div class="header">
+			<c:if test="${ !empty alarmList }">
+				
+				<c:forEach items="${alarmList}" var="alarm">
+				    <div class="alert" role="alert" id="alart1">
+				        <strong>채팅방 개설 알림</strong><br>
+				         	${alarm.alarmMessage}
+				         <div class="alartBtn-box">
+				             <button class="btn" id="chatRoomGo" onClick="chatRoomGo(${alarm.chatRoomNo})">채팅방으로 이동</button>
+				             <button class="btn" id="alartOk" onClick="closeAlarm(${alarm.chatRoomNo})">확인</button>
+				         </div>
+				      </div>
+				</c:forEach>
+			</c:if>
 			<!-- 로그인,회원가입 박스 -->
 			<div class="hd-1">
 				<!-- 로그인,회원가입 글 -->
@@ -108,7 +121,6 @@ textarea {
 							<a href="#"><img
 								src="${contextPath}/resources/images/main/sc.png"></a>
 						</div>
-
 					</div>
 				</div>
 				<div class="col-sm-3 btn-box">
@@ -248,5 +260,46 @@ textarea {
             $('#memberPw').attr('type',"password");
         });
     </script>
+    <script>
+    	function chatRoomGo(chatRoomNo){
+    		const addr = "${contextPath}/chat/room/"+chatRoomNo;
+    		location.href = addr;
+    		
+    		alarmUpdateStatus(chatRoomNo);
+    		
+    	}
+    	
+    	function closeAlarm(chatRoomNo){
+    		const addr = "${contextPath}"
+    			location.reload()
+    		alarmUpdateStatus(chatRoomNo);
+    		
+    	}
+    	
+    	function alarmUpdateStatus(chatRoomNo){
+    		
+ 		   $.ajax({
+				url : "${contextPath}/chat/alarmOk",
+				data : {"chatRoomNo" : chatRoomNo},
+				type : "GET",
+				dataType : "JSON", 
+				success : function(result){
+					if(result > 0){
+					
+						console.log("알림 확인 성공")
+					}else{
+						console.log("알림 확인 실패")
+					}
+				},
+				error : function(){
+					console.log("알림 변경 자체 실패");
+				}
+			});
+    	}
+    
+    
+    
+    </script>
+    
 </body>
 </html>
