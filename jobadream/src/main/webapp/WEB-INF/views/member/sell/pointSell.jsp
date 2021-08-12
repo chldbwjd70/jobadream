@@ -62,6 +62,13 @@
             border-left: 1px solid gray;
             box-shadow: 3px 3px 3px 3px gray;
         }
+                .nav-item a {
+            color: black !important;
+        }
+
+        .nav-item .active {
+            color: #4161c8 !important;
+        }
 
         input[type="number"]::-webkit-outer-spin-button,
         input[type="number"]::-webkit-inner-spin-button {
@@ -84,8 +91,8 @@
                 </div>
             </div>
             <ul class="nav nav-tabs">
-                <li class="nav-item col-md-4">
-                    <a class="nav-link active  text-center text1 text2" href="pointSell">포인트 결제</a>
+               <li class="nav-item col-md-4">
+                    <a class="nav-link active text-center text1 text2" href="pointSell">포인트 결제</a>
                 </li>
                 <li class="nav-item col-md-4">
                     <a class="nav-link text-center text1 text2" href="usageHistory">이용 내역</a>

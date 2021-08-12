@@ -85,112 +85,6 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	margin: 0;
 }
 
-/*  ---------------------------------------------------------------- */
-.pagination {
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	--ddim: 10px;
-	--rd: 15px;
-	--rdim: calc(var(--rd)*2);
-	--pm: #354686;
-}
-
-.pgpp {
-	content: '';
-	margin: 0 10px;
-	height: var(--ddim);
-	width: var(--ddim);
-	background: #3eafe6;
-	cursor: pointer;
-}
-
-.rpgpp {
-	content: '';
-	margin: 0 10px;
-	height: var(--ddim);
-	width: var(--ddim);
-	border: 1px solid #3eafe6;
-	cursor: pointer;
-}
-
-.pgpp:first-child {margin-left: 0;}
-.pgpp:last-child {margin-right: 0;}
-.pgpp2 {display: none;}
-
-.pacman {
-	content: '';
-	position: absolute;
-	top: calc(-1*var(--ddim));
-	left: calc(-1*var(--ddim)/2);
-	height: var(--rdim);
-	width: var(--rdim);
-	transition: transform 250ms linear;
-}
-
-.pacman:before,
-.pacman:after {
-	content: '';
-	position: absolute;
-	height: var(--rd);
-	width: var(--rdim);
-	left: 0;
-	background: var(--pm);
-	transition: inherit;
-}
-
-.pacman:before {
-	top: 0px;
-	border-top-left-radius: var(--rdim);
-	border-top-right-radius: var(--rdim);
-	transform-origin: bottom center;
-	transform: rotate(-45deg);
-}
-
-.pacman:after {
-	bottom: 0px;
-	border-bottom-left-radius: var(--rdim);
-	border-bottom-right-radius: var(--rdim);
-	transform-origin: top center;
-	transform: rotate(45deg);
-}
-
-@keyframes waka {
-	0% {}
-	50% {transform: rotate(0);}
-	100% {}
-}
-
-input[type="radio"]:hover ~ .pacman:before,
-input[type="radio"]:hover ~ .pacman:after {
-	animation: waka 500ms infinite;
-}
-
-input[id="dot-1"]:checked ~ .pacman {transform: translateX(var(--ddim));}
-input[id="dot-2"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)));}
-input[id="dot-3"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*2));}
-input[id="dot-4"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*3));}
-input[id="dot-5"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*4));}
-input[id="dot-6"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*5));}
-input[id="dot-7"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*6));}
-input[id="dot-8"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*7));}
-
-input[id="dot-12"]:checked ~ .pacman {transform: translateX(var(--ddim));}
-input[id="dot-22"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)));}
-input[id="dot-32"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*2));}
-input[id="dot-42"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*3));}
-input[id="dot-52"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*4));}
-input[id="dot-62"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*5));}
-input[id="dot-72"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*6));}
-input[id="dot-82"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*7));}
-
-#pgp{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-}
-}
 
 </style>
 </head>
@@ -206,21 +100,26 @@ input[id="dot-82"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + v
 				</div>
 			</div>
 			<ul class="nav nav-tabs">
-                <li class="nav-item col-md-4">
-                    <a class="nav-link text-center text1 text2" href="pointSell">포인트 결제</a>
-                </li>
-                <li class="nav-item col-md-4">
-                    <a class="nav-link active text-center text1 text2" href="usageHistory">이용 내역</a>
-                </li>
-                <li class="nav-item col-md-4">
-                    <a class="nav-link  text-center text1 text2" href="sellHistory">결제 내역</a>
-                </li>
-            </ul>
+				<li class="nav-item col-md-4"><a
+					class="nav-link text-center text1 text2" href="pointSell">포인트
+						결제</a></li>
+				<li class="nav-item col-md-4"><a
+					class="nav-link active text-center text1 text2" href="usageHistory">이용
+						내역</a></li>
+				<li class="nav-item col-md-4"><a
+					class="nav-link  text-center text1 text2" href="sellHistory">결제
+						내역</a></li>
+			</ul>
 			<div class="tab-content">
 				<div class="tab-pane fade show active ">
-					<form method="POST" action="usageHistory"  name="usageHistory"  onsubmit="return ss();" class="form-horizontal" role="form">
+					<form method="POST" action="usageHistory" name="usageHistory"
+						onsubmit="return ss();" class="form-horizontal" role="form">
 						<div class="style1">
-							<br><br><br><br><br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
 							<div class="row">
 								<div class="col-md-12">
 									<div class="row">
@@ -245,57 +144,106 @@ input[id="dot-82"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + v
 													</tr>
 												</thead>
 												<tbody>
-												<c:choose>
-													<c:when test="${empty jobBordList }">
-														<tr class="td">
-															<td colspan="5">job아준적이 없습니다.</td>
-														</tr>
-													</c:when>
-													<c:otherwise>
-														<c:forEach items="${jobBordList}" var="borad">
+													<c:choose>
+														<c:when test="${empty jobBordList }">
 															<tr class="td">
-																<td>
-																	<a id="modal-400265" href="#modal-container-33" role="button" class="btn " data-toggle="modal">user01</a>
-																</td>
-																<td>1000</td>
-																<td>내용입니다</td>
-																<td>21-07-23</td>
-																<td>
-																	<button type="submit" class="btn btn-sm btn-color1"> 진행 완료</button>
-																</td>
+																<td colspan="5">job아준적이 없습니다.</td>
 															</tr>
-														</c:forEach>
-													</c:otherwise>
-												</c:choose>
+														</c:when>
+														<c:otherwise>
+															<c:forEach items="${jobBordList}" var="borad">
+																<tr class="td">
+																	<td><a id="modal-400265"
+																		href="#modal-container-33" role="button" class="btn "
+																		data-toggle="modal">user01</a></td>
+																	<td>1000</td>
+																	<td>내용입니다</td>
+																	<td>21-07-23</td>
+																	<c:if test="PROGRESS_STATUS = n">
+																		<td>
+																			진행완료
+																		</td>
+																	</c:if>
+																	<c:if test="PROGRESS_STATUS = y">
+																		<td>
+																			<a id="modal-400265" href="#modal-container-33" 
+																			role="button" class="btn btn-sm btn-color1">진행완료</a>
+																		</td>
+																	</c:if>
+																	
+																</tr>
+															</c:forEach>
+														</c:otherwise>
+													</c:choose>
 												</tbody>
 											</table>
-											<div id="pgp">
-												<div class="pagination ">	
-													<input class ="pgpp2" id="dot-1" type="radio" name="dots">	
-													<label class ="rpgpp"  for="dot-1"></label>	
-													<input class ="pgpp2"id="dot-2" type="radio" name="dots">
-													<label class ="pgpp"  for="dot-2"></label>	
-													<input class ="pgpp2"id="dot-3" type="radio" name="dots" checked="checked">
-													<label class ="pgpp"  for="dot-3"></label>	
-													<input class ="pgpp2"id="dot-4" type="radio" name="dots">
-													<label class ="pgpp"  for="dot-4"></label>	
-													<input class ="pgpp2"id="dot-5" type="radio" name="dots">
-													<label class ="pgpp"  for="dot-5"></label>	
-													<input class ="pgpp2"id="dot-6" type="radio" name="dots">
-													<label class ="pgpp"  for="dot-6"></label>	
-													<input class ="pgpp2"id="dot-7" type="radio" name="dots">
-													<label class ="pgpp"  for="dot-7"></label>	
-													<input class ="pgpp2"id="dot-8" type="radio" name="dots">
-													<label class ="rpgpp"  for="dot-8"></label>
-													<div class="pacman"></div>
-												</div>
+											<%---------------------- Pagination start----------------------%>
+											<%-- 페이징 처리 시 주소를 쉽게 작성할 수 있도록 필요한 변수를 미리 선언 --%>
+
+											<c:set var="pageURL" value="list" />
+
+											<c:set var="prev"
+												value="${pageURL}?cp=${pagination.prevPage}${searchStr}" />
+											<c:set var="next"
+												value="${pageURL}?cp=${pagination.nextPage}${searchStr}" />
+
+
+											<div class="my-5">
+												<ul class="pagination pg">
+
+													<%-- 현재 페이지가 10페이지 초과인 경우 --%>
+													<c:if
+														test="${pagination.currentPage > pagination.pageSize }">
+														<li><a class="page-link" href="${prev}">&lt;&lt;</a></li>
+													</c:if>
+
+													<%-- 현재 페이지가 2페이지 초과인 경우 --%>
+													<c:if test="${pagination.currentPage > 2 }">
+														<li><a class="page-link"
+															href="${pageURL}?cp=${pagination.currentPage - 1}${searchStr}">&lt;</a></li>
+													</c:if>
+
+
+
+													<%-- 페이지 목록 --%>
+													<c:forEach var="p" begin="${pagination.startPage}"
+														end="${pagination.endPage}">
+
+														<c:choose>
+															<c:when test="${p == pagination.currentPage }">
+																<li class="page-item active"><a class="page-link">${p}</a></li>
+															</c:when>
+
+															<c:otherwise>
+																<li><a class="page-link"
+																	href="${pageURL}?cp=${p}${searchStr}">${p}</a></li>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+
+													<%-- 현재 페이지가 마지막 페이지 미만인 경우 --%>
+													<c:if
+														test="${pagination.currentPage < pagination.maxPage }">
+														<li><a class="page-link"
+															href="${pageURL}?cp=${pagination.currentPage + 1}${searchStr}">&gt;</a></li>
+													</c:if>
+
+													<%-- 현재 페이지가 마지막 페이지가 아닌 경우 --%>
+													<c:if
+														test="${pagination.currentPage - pagination.maxPage + pagination.pageSize < 0}">
+														<li><a class="page-link" href="${next}">&gt;&gt;</a></li>
+													</c:if>
+
+												</ul>
 											</div>
+											<%---------------------- Pagination end----------------------%>
 										</div>
 										<div class="col-md-2"></div>
 									</div>
 								</div>
 							</div>
 							<br> <br>
+							<!-- ************************************************************************************************************ -->
 							<div class="row">
 								<div class="col-md-12">
 									<div class="row">
@@ -316,52 +264,99 @@ input[id="dot-82"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + v
 														<th>제목</th>
 														<th>날짜</th>
 														<th></th>
+
 													</tr>
 												</thead>
 												<tbody>
 													<c:choose>
-													<c:when test="${empty jobBordList }">
-														<tr class="td">
-															<td colspan="5">job아간적이 없습니다.</td>
-														</tr>
-													</c:when>
-													<c:otherwise>
-														<c:forEach items="${jobBordList}" var="borad">
+														<c:when test="${empty jobBordList }">
 															<tr class="td">
-																<td>
-																	<a id="modal-400265" href="#modal-container-33" role="button" class="btn " data-toggle="modal">user01</a>
-																</td>
-																<td>1000</td>
-																<td>내용입니다</td>
-																<td>21-07-23</td>
-																<td>진행 완료</td>
+																<td colspan="5">job아간적이 없습니다.</td>
 															</tr>
-														</c:forEach>
-													</c:otherwise>
-												</c:choose>
+														</c:when>
+														<c:otherwise>
+															<c:forEach items="${jobBordList}" var="borad">
+																<tr class="td">
+																	<td>user01</td>
+																	<td>1000</td>
+																	<td>내용입니다</td>
+																	<td>21-07-23</td>
+																	<c:if test="PROGRESS_STATUS = n">
+																		<td>
+																			진행완료
+																		</td>
+																	</c:if>
+																	<c:if test="PROGRESS_STATUS = y">
+																		<td>
+																			진행 중
+																		</td>
+																	</c:if>
+																</tr>
+															</c:forEach>
+														</c:otherwise>
+													</c:choose>
 												</tbody>
 											</table>
-											<div id="pgp">
-												<div class="pagination ">	
-													<input class ="pgpp2" id="dot-12" type="radio" name="dots2" >	
-													<label class ="rpgpp"  for="dot-12"></label>
-													<input class ="pgpp2"id="dot-22" type="radio" name="dots2">
-													<label class ="pgpp"  for="dot-22"></label>	
-													<input class ="pgpp2"id="dot-32" type="radio" name="dots2" checked="checked">
-													<label class ="pgpp"  for="dot-32"></label>	
-													<input class ="pgpp2"id="dot-42" type="radio" name="dots2">
-													<label class ="pgpp"  for="dot-42"></label>	
-													<input class ="pgpp2"id="dot-52" type="radio" name="dots2">
-													<label class ="pgpp"  for="dot-52"></label>	
-													<input class ="pgpp2"id="dot-62" type="radio" name="dots2">
-													<label class ="pgpp"  for="dot-62"></label>	
-													<input class ="pgpp2"id="dot-72" type="radio" name="dots2">
-													<label class ="pgpp"  for="dot-72"></label>	
-													<input class ="pgpp2"id="dot-82" type="radio" name="dots2">
-													<label class ="rpgpp"  for="dot-82"></label>
-													<div class="pacman"></div>
-												</div>
+											<%---------------------- Pagination start----------------------%>
+											<%-- 페이징 처리 시 주소를 쉽게 작성할 수 있도록 필요한 변수를 미리 선언 --%>
+
+											<c:set var="pageURL" value="list" />
+
+											<c:set var="prev"
+												value="${pageURL}?cp=${pagination.prevPage}${searchStr}" />
+											<c:set var="next"
+												value="${pageURL}?cp=${pagination.nextPage}${searchStr}" />
+
+
+											<div class="my-5">
+												<ul class="pagination pg">
+
+													<%-- 현재 페이지가 10페이지 초과인 경우 --%>
+													<c:if
+														test="${pagination.currentPage > pagination.pageSize }">
+														<li><a class="page-link" href="${prev}">&lt;&lt;</a></li>
+													</c:if>
+
+													<%-- 현재 페이지가 2페이지 초과인 경우 --%>
+													<c:if test="${pagination.currentPage > 2 }">
+														<li><a class="page-link"
+															href="${pageURL}?cp=${pagination.currentPage - 1}${searchStr}">&lt;</a></li>
+													</c:if>
+
+
+
+													<%-- 페이지 목록 --%>
+													<c:forEach var="p" begin="${pagination.startPage}"
+														end="${pagination.endPage}">
+
+														<c:choose>
+															<c:when test="${p == pagination.currentPage }">
+																<li class="page-item active"><a class="page-link">${p}</a></li>
+															</c:when>
+
+															<c:otherwise>
+																<li><a class="page-link"
+																	href="${pageURL}?cp=${p}${searchStr}">${p}</a></li>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+
+													<%-- 현재 페이지가 마지막 페이지 미만인 경우 --%>
+													<c:if
+														test="${pagination.currentPage < pagination.maxPage }">
+														<li><a class="page-link"
+															href="${pageURL}?cp=${pagination.currentPage + 1}${searchStr}">&gt;</a></li>
+													</c:if>
+
+													<%-- 현재 페이지가 마지막 페이지가 아닌 경우 --%>
+													<c:if
+														test="${pagination.currentPage - pagination.maxPage + pagination.pageSize < 0}">
+														<li><a class="page-link" href="${next}">&gt;&gt;</a></li>
+													</c:if>
+
+												</ul>
 											</div>
+											<%---------------------- Pagination end----------------------%>
 										</div>
 										<div class="col-md-2"></div>
 									</div>
