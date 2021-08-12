@@ -95,7 +95,7 @@ public class boardController {
 	}
 	
 	// 게시판 등록 화면 전환 Controller
-	@RequestMapping(value = "{categoryCode}/insert", method=RequestMethod.GET)
+	@RequestMapping(value = "/insert", method=RequestMethod.GET)
 	public String boardForm(Model model) {
 		
 		// DB에서 CATEGORY 테이블 내용을 모두 조회해오기
@@ -109,7 +109,7 @@ public class boardController {
 	}
 	
 	// 게시판 등록
-	@RequestMapping(value = "{categoryCode}/insert", method=RequestMethod.POST)
+	@RequestMapping(value = "/insert", method=RequestMethod.POST)
 	public String boardInsert(@ModelAttribute Board board,
 								@ModelAttribute("loginMember") Member loginMember,
 								HttpServletRequest request,
@@ -121,7 +121,7 @@ public class boardController {
 		String path = null;
 		if(boardNo > 0) {
 			
-			path = "redirect:" + boardNo;
+			path = "redirect:" + board.getCategoryCode() + "/" + boardNo;
 			ra.addFlashAttribute("icon", "success");
 			ra.addFlashAttribute("title", "해주세요 등록 성공");
 		}else {

@@ -99,7 +99,7 @@
         </div>
         <c:if test="${loginMember != null}">
 	       	<div class="btn-box">   
-	            <a class="btn" id="register" href='insert'>해주세요 등록</a>
+	            <a class="btn" id="register" href='${contextPath}/board/insert'>해주세요 등록</a>
 	        </div>
         </c:if>
        	<%---------------------- Pagination start----------------------%>
