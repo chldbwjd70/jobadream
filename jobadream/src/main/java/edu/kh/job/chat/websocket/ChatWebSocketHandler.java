@@ -45,7 +45,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 		
 		// JSON 형태의 문자열을 JsonObject로 변경하여 값을 꺼내쓸 수 있는 형태로 변환
 		JsonObject convertedObj = new Gson().fromJson(message.getPayload(), JsonObject.class);
-		
+		System.out.println(convertedObj);
 		// 변경된 JsonObject에서 값 추출
 		// JsonObject.get("key") -> (Object)value 반환
 		String memberName = convertedObj.get("memberName").toString();
@@ -54,9 +54,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 		memberName = memberName.substring(1, memberName.length()-1);
 		chat = chat.substring(1, chat.length()-1);
 		
-		
-		System.out.println("채팅 입력자 : " + memberName);
-		System.out.println("채팅 내용 : " + chat);
+
+		//System.out.println("채팅 입력자 : " + memberName);
+		//System.out.println("채팅 내용 : " + chat);
 		
 		// 채팅 내용 DB 삽입 구문
 		
@@ -77,8 +77,10 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 		// 채팅 메세지를 DB에 삽입하는 Service 호출
 		int result = service.insertMessage(cm);
 		
+		convertedObj.remove("chat");
+		convertedObj.addProperty("chat", cm.getMessage());
+		
 		if(result > 0) {
-			
 			// 채팅이 이루어진 시간을 만들어서 convertedObj에 추가
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss");
 			convertedObj.addProperty("creatDate", sdf.format(new Date()));
@@ -88,7 +90,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 			for(WebSocketSession s : sessions) {
 				
 				// 각 회원이 가지고 있는 session 값 중 "chatRoomNo"를 얻어오기
-				// System.out.println("handleTextMessage : " + (Integer)s.getAttributes().get("chatRoomNo"));
 				int joinChatRoomNo = ((Integer)s.getAttributes().get("chatRoomNo"));
 				
 				// 채팅방 페이지에 접속한 회원의 방번호와

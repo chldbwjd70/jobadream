@@ -27,6 +27,7 @@
 	
 	<context:component-scan base-package="edu.kh.job" />
 	
+	<!-- 채팅 -->
 	<beans:bean id="chatHandler" class="edu.kh.job.chat.websocket.ChatWebSocketHandler" />
 	
 	<websocket:handlers>
@@ -37,6 +38,18 @@
 		
 		<websocket:sockjs/>
 	</websocket:handlers>
+	
+	<!-- 알람 -->
+	<!--<beans:bean id="alarmHandler" class="edu.kh.job.chat.websocket.AlarmWebSocketHandler" />
+	
+		<websocket:handlers>
+		<websocket:mapping handler="alarmHandler" path="/alarm"/>
+		<websocket:handshake-interceptors>
+		  <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		
+		<websocket:sockjs/>
+	</websocket:handlers>  -->
 	
 	
 </beans:beans>
