@@ -104,7 +104,6 @@
                             </div>
                             <div class="col-md-2">
                             </div>
-    
                             <div class="col-md-7 offset-md-4">
                                 <span id="checkPwd2">&nbsp;</span>
                             </div>
@@ -183,7 +182,7 @@
                             <div class="col-md-4">
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" id="inputCertifiedNumber" name="inputCertifiedNumber" autocomplete="off" placeholder="인증번호">
+                                <input type="text" class="form-control" id="inputCertifiedNumber" name="inputCertifiedNumber" autocomplete="off" placeholder="인증번호" required>
                             </div>
                             <div class="col-md-3">
                             <button type="button" id="checkBtn" name="checkBtn" class="btn btn-color2" >인증</button>
@@ -256,7 +255,7 @@
         });
     </script>
     <script>
-    $('#sendPhoneNumber').click(function() {
+$("#sendPhoneNumber").click(function() {
     	
     	const phone = $("[name='phone']");
     	let memberPhone =  $(phone[0]).val() + "-" + $(phone[1]).val() + "-" + $(phone[2]).val();
@@ -273,7 +272,7 @@
     		success: function(res) {
     			console.log(res)
     			 $('#checkBtn').click(function(){
-    	              if($.trim(res) ==$('#inputCertifiedNumber').val()){
+    	              if($.trim(res) ==$("#inputCertifiedNumber").val()){
     		              	swal({
     		              		icon: "success",
     		              		title: "인증이 완료되었습니다.",
@@ -283,7 +282,6 @@
     		              		icon: "warning",
     		              		title: "인증번호가 일치하지 않습니다.",
     		              	})
-    		              	return false;
     					}
     				})
     		},error : function(e){
@@ -292,8 +290,6 @@
     	})
     });
     </script>
-    
-    
 <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
