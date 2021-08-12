@@ -3,6 +3,7 @@ package edu.kh.job.chat.model.service;
 import java.util.List;
 
 import edu.kh.job.chat.model.vo.ChatAlarm;
+import edu.kh.job.chat.model.vo.ChatMessage;
 import edu.kh.job.chat.model.vo.ChatRoom;
 import edu.kh.job.chat.model.vo.ChatRoomJoin;
 
@@ -37,5 +38,23 @@ public interface ChatService {
 	 * @return
 	 */
 	List<ChatAlarm> selectAlarm();
+
+	/** 해당 채팅방 참여 시 채팅 메세지 조회
+	 * @param chatRoomNo
+	 * @return mList
+	 */
+	List<ChatMessage> joinChatRoom(int chatRoomNo);
+
+	/** 채팅 상대 이름 조회
+	 * @param join
+	 * @return memberName
+	 */
+	String selectChatWith(ChatRoomJoin join);
+
+	/** 채팅 메세지 삽입
+	 * @param cm
+	 * @return
+	 */
+	int insertMessage(ChatMessage cm);
 
 }

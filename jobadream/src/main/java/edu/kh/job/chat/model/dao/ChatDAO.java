@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.job.chat.model.vo.ChatAlarm;
+import edu.kh.job.chat.model.vo.ChatMessage;
 import edu.kh.job.chat.model.vo.ChatRoom;
 import edu.kh.job.chat.model.vo.ChatRoomJoin;
 
@@ -53,6 +54,30 @@ public class ChatDAO {
 	 */
 	public List<ChatAlarm> selectAlarm() {
 		return sqlSession.selectList("chatMapper.selectAlarm");
+	}
+
+	/** 해당 채팅방 참여 시 채팅 메세지 조회
+	 * @param chatRoomNo
+	 * @return
+	 */
+	public List<ChatMessage> joinChatRoom(int chatRoomNo) {
+		return sqlSession.selectList("chatMapper.joinChatRoom", chatRoomNo);
+	}
+
+	/** 채팅 상대 조회
+	 * @param join
+	 * @return
+	 */
+	public String selectChatWith(ChatRoomJoin join) {
+		return sqlSession.selectOne("chatMapper.selectChatWith",join);
+	}
+
+	/** 채팅 메세지 삽입
+	 * @param cm
+	 * @return
+	 */
+	public int insertMessage(ChatMessage cm) {
+		return sqlSession.insert("chatMapper.insertMessage", cm);
 	}
 
 }

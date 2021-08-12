@@ -47,6 +47,7 @@
 	<mapper resource="/mappers/qusetions-mapper.xml" />
 	<mapper resource="/mappers/report-mapper.xml" />
 	<mapper resource="/mappers/reply-mapper.xml" />
+	<mapper resource="/mappers/chat-mapper.xml" />
 	
 	</mappers>
 </configuration>

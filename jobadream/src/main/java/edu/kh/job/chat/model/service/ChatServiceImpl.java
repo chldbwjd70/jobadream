@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.kh.job.board.model.service.BoardServiceImpl;
 import edu.kh.job.chat.model.dao.ChatDAO;
 import edu.kh.job.chat.model.vo.ChatAlarm;
+import edu.kh.job.chat.model.vo.ChatMessage;
 import edu.kh.job.chat.model.vo.ChatRoom;
 import edu.kh.job.chat.model.vo.ChatRoomJoin;
 
@@ -56,5 +58,27 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public List<ChatAlarm> selectAlarm() {
 		return dao.selectAlarm();
+	}
+
+	// 해당 채팅방 참여 시 채팅 메세지 조회
+	@Override
+	public List<ChatMessage> joinChatRoom(int chatRoomNo) {
+		return dao.joinChatRoom(chatRoomNo);
+	}
+	
+	// 채팅 상대 이름 얻어오기
+	@Override
+	public String selectChatWith(ChatRoomJoin join) {
+		// TODO Auto-generated method stub
+		return dao.selectChatWith(join);
+	}
+
+	// 채팅 메세지 삽입
+	@Override
+	public int insertMessage(ChatMessage cm) {
+		
+		cm.setMessage(BoardServiceImpl.replaceParameter(cm.getMessage()));
+		
+		return dao.insertMessage(cm);
 	}
 }
