@@ -131,4 +131,12 @@ public class BoardDAO {
 
 	}
 
+	/** 지원하기 클릭 시 게시판 상태 변경
+	 * @param boardNo
+	 * @return
+	 */
+	public int boardUpdateStatus(int boardNo) {
+		return sqlSession.update("boardMapper.boardUpdateStatus", boardNo);
+	}
+
 }
