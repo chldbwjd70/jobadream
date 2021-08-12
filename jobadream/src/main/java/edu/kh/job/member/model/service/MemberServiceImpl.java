@@ -1,6 +1,7 @@
 package edu.kh.job.member.model.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.kh.job.chat.model.vo.ChatAlarm;
 import edu.kh.job.member.model.dao.MemberDAO;
 import edu.kh.job.member.model.vo.Member;
 import net.nurigo.java_sdk.api.Message;
@@ -235,6 +237,12 @@ public class MemberServiceImpl implements MemberService{
         }
 
     }
+
+	// 알람 리스트 조회
+	@Override
+	public List<ChatAlarm> selectAlarm(int memberNo) {
+		return dao.selectAlarm(memberNo);
+	}
 
 	
 

@@ -1,5 +1,7 @@
 package edu.kh.job.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,12 +20,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.job.chat.model.service.ChatService;
+import edu.kh.job.chat.model.service.ChatServiceImpl;
+import edu.kh.job.chat.model.vo.ChatAlarm;
 import edu.kh.job.member.model.service.MemberService;
 import edu.kh.job.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/member/*")
-@SessionAttributes({"loginMember"})
+@SessionAttributes({"loginMember", "alarmList"})
 public class MemberController {
 	
 	@Autowired
@@ -51,6 +56,9 @@ public class MemberController {
 		
 		if(loginMember != null) { 
 			if(loginMember.getMemberStatus().equals("Y")) {
+				
+				List<ChatAlarm> alarmList = service.selectAlarm(loginMember.getMemberNo());
+				model.addAttribute("alarmList", alarmList);
 				model.addAttribute("loginMember", loginMember); 
 				
 				Cookie cookie = new Cookie("saveId", loginMember.getMemberId());

@@ -1,9 +1,12 @@
 package edu.kh.job.member.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.job.chat.model.vo.ChatAlarm;
 import edu.kh.job.member.model.vo.Member;
 
 @Repository
@@ -60,6 +63,11 @@ public class MemberDAO {
 	// 임시 비밀번호로 회원 정보 변경
 	public int changePwd2(Member findMemberPw) {
 		return sqlSession.update("memberMapper.changePwd2",findMemberPw);
+	}
+
+	// 알람 리스트 조회
+	public List<ChatAlarm> selectAlarm(int memberNo) {
+		return sqlSession.selectList("memberMapper.selectAlarm", memberNo);
 	}
 
 }
