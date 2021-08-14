@@ -69,9 +69,10 @@
 	</insert>
 	
 	<!-- 확인 안한 알람 리스트 조회 -->
-	<select id="selectAlarm" resultMap="chatalarm_rm">
+	<select id="selectAlarm" parameterType="_int" resultMap="chatalarm_rm">
 		SELECT * FROM CHAT_ALARM
 		WHERE ALARM_STATUS = 'N'
+		AND MEMBER_NO = #{memberNo}
 	</select>
 
 	<!-- 해당 채팅방 참여 시 채팅 메세지 조회 -->
