@@ -52,28 +52,22 @@ public interface MemberService {
 	Pagination getPagination(Pagination pg, int memberNo);
 
 	// 잡아줌 목록조회
-	List<Board> selectajumList(Pagination pagination, int memberNo);
+	List<Board> selectajumList(Pagination pagination, int memberNo, int memberNo2);
 
 	// 잡아감 조회
 	Pagination2 getPagination2(Pagination2 pg2, int memberNo);
 
 	// 잡아감 목록 조회
-	List<Board> selectagamList(Pagination2 pagination2, int memberNo);
+	List<Board> selectagamList(Pagination2 pagination2, int memberNo, int memberNo2);
 
 	// 점수 등록
-	int avgPoint(int rating, int boardNo);
+	int avgPoint(int rating, int boardNo, Member countMember);
 
-	// 포인트 차감
-	int updatePoint(Member countMember);
+	// 포인트 감소
+	Member changPoint(int memberNo);
 
-
-
-
-
-
-
-
-	
+	// 상대 포인트 추가
+	int plusPoint(Member changePoint);
 
 
 

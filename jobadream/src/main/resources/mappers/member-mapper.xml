@@ -52,8 +52,9 @@
 		<result property="boardPay" column="BOARD_PAY"/>
 		<result property="boardContent" column="BOARD_CONTENT"/>
 		
-		<result property="progressStatus" column="PROGRESS_STATUS"/>
 		<result property="memberName" column="MEMBER_NM"/>
+		<result property="progressStatus" column="PROGRESS_STATUS"/>
+		<result property="memberPoint" column="MEMBER_POINT"/>
 	</resultMap>
 	
 	<!-- 진행 테이블 -->
@@ -169,7 +170,7 @@
      
        <!-- 아줌 게시글 목록 -->
      <select id="selectajumList" parameterType="Member" resultMap="board_rm">
-         SELECT *
+         SELECT C.MEMBER_POINT, C.MEMBER_NM, CATEGORY_CD,BOARD_PAY, BOARD_TITLE, CREATE_DT, BOARD_STATUS, PROGRESS_STATUS, C.MEMBER_NO, A.BOARD_NO
          FROM BOARD A
          LEFT JOIN PROGRESS B ON(A.BOARD_NO = B.BOARD_NO)
          LEFT JOIN MEMBER C ON(C.MEMBER_NO = B.MEMBER_NO)
@@ -217,6 +218,23 @@
 		                                        AND BOARD_NO = #{boardNo})
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!-- 조회 -->
+	<select id="changPoint" parameterType="Member" resultMap="member_rm">
+		SELECT MEMBER_POINT FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	 <!-- 포인트 추가 -->
+	<update id="plusPoint" parameterType="Member">
+		UPDATE MEMBER SET
+		MEMBER_POINT = #{memberPoint} + (SELECT BOARD_PAY FROM
+		                            BOARD
+		                            WHERE BOARD_NO = #{boardNo})
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	
 
 
 </mapper>

@@ -265,8 +265,8 @@ public class MemberServiceImpl implements MemberService{
 
 	// 잡아줌 목록 조회
 	@Override
-	public List<Board> selectajumList(Pagination pagination, int memberNo) {
-		return dao.selectajumList(pagination, memberNo);
+	public List<Board> selectajumList(Pagination pagination, int memberNo, int memberNo2) {
+		return dao.selectajumList(pagination, memberNo, memberNo2);
 	}
 
 	// 아감게시글수
@@ -279,29 +279,38 @@ public class MemberServiceImpl implements MemberService{
 
 	// 잡아감 목록 조회
 	@Override
-	public List<Board> selectagamList(Pagination2 pagination2, int memberNo) {
-		return dao.selectagamList(pagination2, memberNo);
+	public List<Board> selectagamList(Pagination2 pagination2, int memberNo, int memberNo2) {
+		return dao.selectagamList(pagination2, memberNo, memberNo2);
 	}
 
 	// 진행완료 버튼
 	@Override
-	public int avgPoint(int rating, int boardNo) {
+	public int avgPoint(int rating, int boardNo, Member countMember) {
 		
 		Progress progress = new Progress();
 		
 		progress.setMemberScore(rating);
 		progress.setBoardNo(boardNo);
 		
-		return dao.avgPoint(progress);
-	}
-
-	// 포인트 차감
-	@Override
-	public int updatePoint(Member countMember) {
+		int teste =  dao.avgPoint(progress);
 		
-		return dao.updatePoint(countMember);
+		return dao.updatePoint(countMember, teste);
 	}
 
+	// 포인트 감소
+	@Override
+	public Member changPoint(int memberNo) {
+		return dao.changPoint(memberNo);
+	}
+
+	// 포인트 추가
+	@Override
+	public int plusPoint(Member changePoint) {
+		return dao.plusPoint(changePoint);
+	}
+	
+
+	
 	
 
 }
