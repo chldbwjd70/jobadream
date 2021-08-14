@@ -18,6 +18,23 @@ public class Board {
 	
 	private String progressStatus;
 	private String memberName;
+	private String memberPoint;
+	
+	
+	public Board() {}
+	
+	
+	
+	public String getMemberPoint() {
+		return memberPoint;
+	}
+
+
+
+	public void setMemberPoint(String memberPoint) {
+		this.memberPoint = memberPoint;
+	}
+
 
 	public String getProgressStatus() {
 		return progressStatus;
@@ -123,13 +140,14 @@ public class Board {
 		this.memberName = memberName;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", readCount=" + readCount + ", createDate="
 				+ createDate + ", boardStatus=" + boardStatus + ", memberNo=" + memberNo + ", categoryCode="
 				+ categoryCode + ", boardTime=" + boardTime + ", boardPlace=" + boardPlace + ", boardPay=" + boardPay
 				+ ", boardContent=" + boardContent + ", progressStatus=" + progressStatus + ", memberName=" + memberName
-				+ "]";
+				+ ", memberPoint=" + memberPoint + "]";
 	}
-	
+
 }

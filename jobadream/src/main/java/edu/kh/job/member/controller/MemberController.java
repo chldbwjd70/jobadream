@@ -321,7 +321,7 @@ public class MemberController {
 	
 	// 마이페이지 -- 결제 ---------------------------------------------------------------------------------------------------
 	
-	// 탈퇴 전환
+	// ??
 	@RequestMapping(value="pointSell", method=RequestMethod.GET)
 	public String pointSell() {
 		return "member/sell/pointSell";
@@ -336,6 +336,7 @@ public class MemberController {
 	// 잡아줌 목록조회
 	@RequestMapping(value = "usageHistory", method = RequestMethod.GET)
 	public String ajumList(Model model, Pagination pg,  Pagination2 pg2,/* 페이징처리 */  @ModelAttribute("loginMember") Member loginMember,
+			Board board,
 			@RequestParam(value = "jp", required = false, defaultValue = "1") int jp ,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
 		
@@ -343,6 +344,7 @@ public class MemberController {
 		pg2.setCurrentPage(cp);
 		
 		int memberNo = loginMember.getMemberNo();
+		int memberNo2 = board.getMemberNo();
 		
 		Pagination pagination = null;
 		List<Board> ajumList = null;
@@ -351,14 +353,10 @@ public class MemberController {
 		List<Board> agamList = null;
 
 		pagination = service.getPagination(pg, memberNo);
-		ajumList = service.selectajumList(pagination, memberNo);
+		ajumList = service.selectajumList(pagination, memberNo, memberNo2);
 		
 		pagination2 = service.getPagination2(pg2, memberNo);
-		agamList = service.selectagamList(pagination2, memberNo);
-		
-		System.out.println("pagination : " + pagination);
-		System.out.println("pagination2 : " + pagination2);
-		
+		agamList = service.selectagamList(pagination2, memberNo, memberNo2);
 		
 		model.addAttribute("ajumList", ajumList);
 		model.addAttribute("pagination", pagination);

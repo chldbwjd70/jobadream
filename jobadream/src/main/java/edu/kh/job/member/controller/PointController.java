@@ -1,6 +1,5 @@
 package edu.kh.job.member.controller;
 
-import org.apache.maven.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,25 +18,38 @@ public class PointController {
 	@Autowired
 	private MemberService service;
 	
-	//휴대폰 인증
+	//이용내역
 	@RequestMapping(value="avgPoint",method=RequestMethod.POST)
 	public int avgPoint(@RequestParam("rating") int rating, @RequestParam(value="boardNo",required=false)int boardNo,
-						@ModelAttribute("loginMember") Member loginMember, Member countMember, Model model ) {
-		
-		countMember.setMemberNo(loginMember.getMemberNo());
-		countMember.setMemberPoint(loginMember.getMemberPoint());
-		
-		countMember.setBoardNo(boardNo);
-		
-	 	int ponit =  service.updatePoint(countMember);
-	 	
-	 	System.out.println(countMember);
+						@RequestParam(value="memberNo2",required=false)int memberNo2, @RequestParam(value="memberPoint",required=false)int memberPoint,
+						@ModelAttribute("loginMember") Member loginMember, Member countMember, Member PulsePoint ) {
 		
 		System.out.println("입력한 점수 : "+ rating);
 		System.out.println("게시글 번호 : "+ boardNo);
-	
-		int result = service.avgPoint(rating, boardNo);
+		System.out.println("지원한 회원 번호 : " + memberNo2);
+		System.out.println("지원한 회원 포인트 : " + memberPoint);
 		
+		countMember.setMemberNo(loginMember.getMemberNo());
+		countMember.setMemberPoint(loginMember.getMemberPoint());
+		countMember.setBoardNo(boardNo);
+	
+		int result = service.avgPoint(rating, boardNo, countMember);
+		
+		
+		
+		// -----------------------------------------------------------------------------
+		
+		PulsePoint.setMemberNo(memberNo2);
+		PulsePoint.setMemberPoint(memberPoint);
+		PulsePoint.setBoardNo(boardNo);
+		
+		int result2 = service.plusPoint(PulsePoint);
+		
+		Member changePoint = service.changPoint(loginMember.getMemberNo());
+		
+		if(result > 0) {
+			loginMember.setMemberPoint(changePoint.getMemberPoint());
+		}
        return result;
     }
 	

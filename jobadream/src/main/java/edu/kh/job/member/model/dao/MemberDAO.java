@@ -81,7 +81,7 @@ public class MemberDAO {
 	}
 
 	// 아줌게시글목록
-	public List<Board> selectajumList(Pagination pagination, int memberNo) {
+	public List<Board> selectajumList(Pagination pagination, int memberNo, int memberNo2) {
 		// RowBounds사용
 		int offset = (pagination.getCurrentPage() - 1)*pagination.getLimit();
 		RowBounds rowBouns = new RowBounds(offset, pagination.getLimit());
@@ -94,11 +94,11 @@ public class MemberDAO {
 	}
 
 	// 아감 게시글목록
-	public List<Board> selectagamList(Pagination2 pagination2, int memberNo) {
+	public List<Board> selectagamList(Pagination2 pagination2, int memberNo, int memberNo2) {
 		// RowBounds사용
 		int offset = (pagination2.getCurrentPage() - 1)*pagination2.getLimit();
 		RowBounds rowBouns = new RowBounds(offset, pagination2.getLimit());
-		return sqlSession.selectList("memberMapper.selectagamList", memberNo, rowBouns);
+		return sqlSession.selectList("memberMapper.selectagamList", memberNo, rowBouns );
 	}
 
 	// 진행완료 버튼
@@ -107,9 +107,19 @@ public class MemberDAO {
 	}
 
 	// 포인트 차감
-	public int updatePoint(Member countMember) {
+	public int updatePoint(Member countMember, int teste) {
 		return sqlSession.update("memberMapper.updatePoint", countMember);
 		 
+	}
+
+	// 조회
+	public Member changPoint(int memberNo) {
+		return sqlSession.selectOne("memberMapper.changPoint", memberNo);
+	}
+
+	// 포인트 추가
+	public int plusPoint(Member changePoint) {
+		return sqlSession.update("memberMapper.plusPoint", changePoint);
 	}
 
 }

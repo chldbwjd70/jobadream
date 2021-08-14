@@ -114,8 +114,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 					class="nav-link text-center text1 text2" href="pointSell">포인트
 						결제</a></li>
 				<li class="nav-item col-md-4"><a
-					class="nav-link active text-center text1 text2" href="usageHistory">이용
-						내역</a></li>
+					class="nav-link active text-center text1 text2" href="usageHistory">이용 내역</a></li>
 				<li class="nav-item col-md-4"><a
 					class="nav-link  text-center text1 text2" href="sellHistory">결제
 						내역</a></li>
@@ -145,11 +144,12 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 													<th>제목</th>
 													<th>날짜</th>
 													<th>진행</th>
-
 												</tr>
 											</thead>
 											<tbody>
 												<input type="hidden" id="b" value="">
+												<input type="hidden" id="cc" value="">
+												<input type="hidden" id="pp" value="">
 												<c:choose>
 													<c:when test="${empty ajumList}">
 														<tr class="tr">
@@ -157,7 +157,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 														</tr>
 													</c:when>
 													<c:otherwise>
-														<c:forEach items="${ajumList}" var="board" varStatus="x">
+														<c:forEach items="${ajumList}" var="board" >
 															<div>
 																<tr class="tr">
 																	<c:choose>
@@ -210,12 +210,15 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 																		</c:if>
 																		<c:if test ="${board.boardPay lt loginMember.memberPoint}">
 																			<td><a id="modal-400265" href="#modal-container-33" role="button" class="btn btn-sm btn-color1"
-																			 data-toggle="modal" onclick="a(${board.boardNo});">진행완료</a></td>
+																			 data-toggle="modal" onclick="a(${board.boardNo} , ${board.memberNo}, ${board.memberPoint});">진행완료</a></td>
 																		</c:if>
 																		<input type="hidden" id="jobboardNo"
-																			value="${board.boardNo }">
+																			value="${board.boardNo}">
+																		<input type="hidden" id="jobboardNo2"
+																			value="${board.memberNo}">
+																		<input type="hidden" id="jobboardNo3"
+																			value="${board.memberPoint}">
 																	</c:if>
-
 																</tr>
 															</div>
 															<!-- 모달 -->
@@ -262,19 +265,31 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 																</div>
 															</div>
 															<script>
-																function a(xx) {
+																function a(xx, cdc, dwd) {
 																	console.log(xx);
 																	$("#b").val(xx);
 																	console.log("som"+$("#b").val());
+																	
+																	console.log(cdc);
+																	$("#cc").val(cdc);
+																	console.log("sdom : "+$("#cc").val());
+																	
+																	console.log(dwd);
+																	$("#pp").val(dwd);
+																	console.log("sdddom : "+$("#pp").val());
 																}
 																
 															function jobbtn() {
 													
 																console.log($(this).parent().children('#jobboardNo').val());
+																console.log($(this).parent().children('#jobboardNo2').val());
+																console.log($(this).parent().children('#jobboardNo3').val());
 																
 																const regExp = /^[0-9]{1}$/;
 																const rating = $("#rating").val().trim();
 																const boardNo = $("#b").val();
+																const memberNo2 = $("#cc").val();
+																const memberPoint = $("#pp").val();
 													
 																if (regExp.test(rating)) {
 																	console.log(rating);
@@ -292,7 +307,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 																		url : "${contextPath}/avgPoint",
 																		data : {
 																			"rating" : rating,
-																			"boardNo" : boardNo
+																			"boardNo" : boardNo,
+																			"memberNo2" : memberNo2,
+																			"memberPoint" : memberPoint
 																		}
 																	})
 																	
