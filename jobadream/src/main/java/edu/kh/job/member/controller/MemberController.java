@@ -24,7 +24,11 @@ import edu.kh.job.chat.model.service.ChatService;
 import edu.kh.job.chat.model.service.ChatServiceImpl;
 import edu.kh.job.chat.model.vo.ChatAlarm;
 import edu.kh.job.member.model.service.MemberService;
+import edu.kh.job.member.model.vo.Board;
 import edu.kh.job.member.model.vo.Member;
+import edu.kh.job.member.model.vo.Pagination;
+import edu.kh.job.member.model.vo.Pagination2;
+import edu.kh.job.qusetions.model.vo.Search;
 
 @Controller
 @RequestMapping("/member/*")
@@ -324,8 +328,44 @@ public class MemberController {
 	}
 	
 	// 이용 내역 전환
-	@RequestMapping(value="usageHistory", method=RequestMethod.GET)
-	public String usageHistory() {
+	/*
+	 * @RequestMapping(value="usageHistory", method=RequestMethod.GET) public String
+	 * usageHistory() { return "member/sell/usageHistory"; }
+	 */
+	
+	// 잡아줌 목록조회
+	@RequestMapping(value = "usageHistory", method = RequestMethod.GET)
+	public String ajumList(Model model, Pagination pg,  Pagination2 pg2,/* 페이징처리 */  @ModelAttribute("loginMember") Member loginMember,
+			@RequestParam(value = "jp", required = false, defaultValue = "1") int jp ,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		pg.setCurrentPage(jp);
+		pg2.setCurrentPage(cp);
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		Pagination pagination = null;
+		List<Board> ajumList = null;
+		
+		Pagination2 pagination2 = null;
+		List<Board> agamList = null;
+
+		pagination = service.getPagination(pg, memberNo);
+		ajumList = service.selectajumList(pagination, memberNo);
+		
+		pagination2 = service.getPagination2(pg2, memberNo);
+		agamList = service.selectagamList(pagination2, memberNo);
+		
+		System.out.println("pagination : " + pagination);
+		System.out.println("pagination2 : " + pagination2);
+		
+		
+		model.addAttribute("ajumList", ajumList);
+		model.addAttribute("pagination", pagination);
+		
+		model.addAttribute("agamList", agamList);
+		model.addAttribute("pagination2", pagination2);
+
 		return "member/sell/usageHistory";
 	}
 	

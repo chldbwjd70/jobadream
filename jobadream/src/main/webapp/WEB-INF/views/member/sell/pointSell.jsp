@@ -38,6 +38,10 @@
         .text5{
            line-height: 50px;
         }
+        
+        .textcolor{
+        	color : red;
+        }
 
         .text3:hover {
             color: white;
@@ -103,10 +107,19 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade show active ">
+                
                    <form method="POST" action="pointSell"  name="pointSell"  onsubmit="return ss();" class="form-horizontal" role="form">
                         <div class="style1">
-                            <br><br><br><br><br>
+                        <br>
+                        <div class="alert alert-dismissable text-center">
+                            <button type="button" class="close " data-dismiss="alert" aria-hidden="true">
+                                <h5>x</h5>
+                            </button>
+                             <strong class="text2 textcolor">충전 포인트는 1000원부터 가능합니다.</strong>
+                        </div>
+                            <br><br><br><br>
                             <div class="row">
+                            
                                 <div class="col-md-2">
                                 </div>
                                 <div class="col-md-3 ">

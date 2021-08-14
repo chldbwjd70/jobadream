@@ -2,12 +2,17 @@ package edu.kh.job.member.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.job.chat.model.vo.ChatAlarm;
+import edu.kh.job.member.model.vo.Board;
 import edu.kh.job.member.model.vo.Member;
+import edu.kh.job.member.model.vo.Pagination;
+import edu.kh.job.member.model.vo.Pagination2;
+import edu.kh.job.member.model.vo.Progress;
 
 @Repository
 public class MemberDAO {
@@ -68,6 +73,43 @@ public class MemberDAO {
 	// 알람 리스트 조회
 	public List<ChatAlarm> selectAlarm(int memberNo) {
 		return sqlSession.selectList("memberMapper.selectAlarm", memberNo);
+	}
+
+	// 아줌게시글수
+	public Pagination getajumListCount(int memberNo) {
+		return sqlSession.selectOne("memberMapper.getajumListCount", memberNo);
+	}
+
+	// 아줌게시글목록
+	public List<Board> selectajumList(Pagination pagination, int memberNo) {
+		// RowBounds사용
+		int offset = (pagination.getCurrentPage() - 1)*pagination.getLimit();
+		RowBounds rowBouns = new RowBounds(offset, pagination.getLimit());
+		return sqlSession.selectList("memberMapper.selectajumList", memberNo, rowBouns);
+	}
+
+	// 아감 게시글수
+	public Pagination2 getagamListCount(int memberNo) {
+		return sqlSession.selectOne("memberMapper.getagamListCount", memberNo);
+	}
+
+	// 아감 게시글목록
+	public List<Board> selectagamList(Pagination2 pagination2, int memberNo) {
+		// RowBounds사용
+		int offset = (pagination2.getCurrentPage() - 1)*pagination2.getLimit();
+		RowBounds rowBouns = new RowBounds(offset, pagination2.getLimit());
+		return sqlSession.selectList("memberMapper.selectagamList", memberNo, rowBouns);
+	}
+
+	// 진행완료 버튼
+	public int avgPoint(Progress progress) {
+		 return sqlSession.update("memberMapper.avgPoint", progress);
+	}
+
+	// 포인트 차감
+	public int updatePoint(Member countMember) {
+		return sqlSession.update("memberMapper.updatePoint", countMember);
+		 
 	}
 
 }
