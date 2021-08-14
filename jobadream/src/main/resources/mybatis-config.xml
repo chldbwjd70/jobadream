@@ -12,8 +12,10 @@
 	<typeAlias type="edu.kh.job.member.model.vo.Member" alias="Member" />
 	<typeAlias type="edu.kh.job.member.model.vo.Pagination" alias="MemberPagination" />
 	<typeAlias type="edu.kh.job.member.model.vo.Pagination2" alias="MemberPagination2" />
+	<typeAlias type="edu.kh.job.member.model.vo.Pagination3" alias="MemberPagination3" />
 	<typeAlias type="edu.kh.job.member.model.vo.Progress" alias="Progress" />
 	<typeAlias type="edu.kh.job.member.model.vo.Board" alias="MemberBoard" />
+	<typeAlias type="edu.kh.job.member.model.vo.Import" alias="Import" />
 	
 	<typeAlias type="edu.kh.job.board.model.vo.Board" alias="Board" />
 	<typeAlias type="edu.kh.job.board.model.vo.Category" alias="Category" />

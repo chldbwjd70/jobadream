@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
@@ -7,198 +8,208 @@
 <meta charset="UTF-8">
 <title>포인트 결제</title>
 <jsp:include page="../../common/header.jsp" />
-  <!-- import -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<!-- import -->
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript"
+	src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <style>
-
-        #title1 {
+#title1 {
 	font-family: 'Pretendard-Regular';
 	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
 	color: transparent;
 	-webkit-background-clip: text;
 }
 
-        .text1 {
-            font-weight: bold;
-        }
+.text1 {
+	font-weight: bold;
+}
 
-        .text2 {
-            font-size: 20px;
-        }
+.text2 {
+	font-size: 20px;
+}
 
-        .text3 {
-            color: white;
-        }
+.text3 {
+	color: white;
+}
 
-        .text4 {
-            font-size: 25px;
-        }
-        .text5{
-           line-height: 50px;
-        }
-        
-        .textcolor{
-        	color : red;
-        }
+.text4 {
+	font-size: 25px;
+}
 
-        .text3:hover {
-            color: white;
-            text-decoration: none;
-        }
+.text5 {
+	line-height: 50px;
+}
 
-        .btn-color1 {
-            background-color: #4161c8;
-            color: white;
-            font-weight: bold;
-        }
+.textcolor {
+	color: red;
+}
 
-        .btn-color2 {
-            background-color: #354686;
-            color: white;
-            font-weight: bold;
-        }
+.text3:hover {
+	color: white;
+	text-decoration: none;
+}
 
-        .style1 {
-            border-bottom: 1px solid gray;
-            border-right: 1px solid gray;
-            border-left: 1px solid gray;
-            box-shadow: 3px 3px 3px 3px gray;
-        }
-                .nav-item a {
-            color: black !important;
-        }
+.btn-color1 {
+	background-color: #4161c8;
+	color: white;
+	font-weight: bold;
+}
 
-        .nav-item .active {
-            color: #4161c8 !important;
-        }
+.btn-color2 {
+	background-color: #354686;
+	color: white;
+	font-weight: bold;
+}
 
-        input[type="number"]::-webkit-outer-spin-button,
-        input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        #point2{
-            text-align: center;
-            font-size: 25px;
-        }
-    </style>
+.style1 {
+	border-bottom: 1px solid gray;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+	box-shadow: 3px 3px 3px 3px gray;
+}
+
+.nav-item a {
+	color: black !important;
+}
+
+.nav-item .active {
+	color: #4161c8 !important;
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+#point2 {
+	text-align: center;
+	font-size: 25px;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <br>
-                    <h1 class="text1" id="title1">포인트 결제</h1> <br>
-                </div>
-            </div>
-            <ul class="nav nav-tabs">
-               <li class="nav-item col-md-4">
-                    <a class="nav-link active text-center text1 text2" href="pointSell">포인트 결제</a>
-                </li>
-                <li class="nav-item col-md-4">
-                    <a class="nav-link text-center text1 text2" href="usageHistory">이용 내역</a>
-                </li>
-                <li class="nav-item col-md-4">
-                    <a class="nav-link  text-center text1 text2" href="sellHistory">결제 내역</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane fade show active ">
-                
-                   <form method="POST" action="pointSell"  name="pointSell"  onsubmit="return ss();" class="form-horizontal" role="form">
-                        <div class="style1">
-                        <br>
-                        <div class="alert alert-dismissable text-center">
-                            <button type="button" class="close " data-dismiss="alert" aria-hidden="true">
-                                <h5>x</h5>
-                            </button>
-                             <strong class="text2 textcolor">충전 포인트는 1000원부터 가능합니다.</strong>
-                        </div>
-                            <br><br><br><br>
-                            <div class="row">
-                            
-                                <div class="col-md-2">
-                                </div>
-                                <div class="col-md-3 ">
-                                    <h3 class=" text1 text4"> 보유 포인트</h3>
-                                </div>
-                                <div class="col-md-3">
-                                    <h3 class="text-center text1 text4" id="pont1">${loginMember.memberPoint}</h3>
-                                </div>
-                                <div class="col-md-2">
-                                    <h3 class="text-right text1 text4"> 원 </h3>
-                                </div>
-                                <div class="col-md-2">
-                                </div>
-                            </div>
-                            <br><br>
-                            <div class="row">
-                                <div class="col-md-2">
-                                </div>
-                                <div class="col-md-3">
-                                    <h3 class=" text1 text4 text5"> 충전 포인트</h3>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" class="form-control" id="point2" name="point2" required>
-                                </div>
-                                <div class="col-md-2">
-                                    <h3 class="text-right text1 text4"> 원 </h3>
-                                </div>
-                                <div class="col-md-2">
-                                </div>
-                            </div>
-                            <br><br><br><br>
-                            <div class="row">
-                                <div class="col-md-2">
-                                </div>
-                                <div class="col-md-3">
-                                    <h3 class=" text1 text4"> 충전 후 포인트</h3>
-                                </div>
-                                <div class="col-md-3">
-                                    <h3 class="text-center text1 text4" id="result"></h3>
-                                </div>
-                                <div class="col-md-2">
-                                    <h3 class="text-right text1 text4"> 원 </h3>
-                                </div>
-                                <div class="col-md-2">
-                                </div>
-                            </div>
-                            <br><br><br>
-                            <div class="row">
-                                <div class="col-md-2">
-                                </div>
-                                <div class="col-md-8">
-                                    <button type="button" class="btn btn-block btn-color1 text4" id="check_module">
-                                        충전하기
-                                    </button>
-                                </div>
-                                <div class="col-md-2">
-                                </div>
-                            </div>
-                            <br><br><br><br><br>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-10">
-                                <a href="myPage">
-                                    <button type="button" class="btn float-left btn-lg btn-color2">
-                                        <label class="text3">
-                                            < 목록으로</label>
-                                    </button>
-                                </a>
-                            </div>
-                            <div class="col-md-2">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
+	<div class="container">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<br>
+					<h1 class="text1" id="title1">포인트 결제</h1>
+					<br>
+				</div>
+			</div>
+			<ul class="nav nav-tabs">
+				<li class="nav-item col-md-4"><a
+					class="nav-link active text-center text1 text2" href="pointSell">포인트
+						결제</a></li>
+				<li class="nav-item col-md-4"><a
+					class="nav-link text-center text1 text2" href="usageHistory">이용
+						내역</a></li>
+				<li class="nav-item col-md-4"><a
+					class="nav-link  text-center text1 text2" href="sellHistory">결제
+						내역</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane fade show active ">
+
+					<form method="POST" action="pointSell" name="pointSell"
+						onsubmit="return ss();" class="form-horizontal" role="form">
+						<div class="style1">
+							<br>
+							<div class="alert alert-dismissable text-center">
+								<button type="button" class="close " data-dismiss="alert"
+									aria-hidden="true">
+									<h5>x</h5>
+								</button>
+								<strong class="text2 textcolor">충전 포인트는 1000원부터 가능합니다.</strong>
+							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<div class="row">
+
+								<div class="col-md-2"></div>
+								<div class="col-md-3 ">
+									<h3 class=" text1 text4">보유 포인트</h3>
+								</div>
+								<div class="col-md-3">
+									<h3 class="text-center text1 text4" id="pont1">${loginMember.memberPoint}</h3>
+								</div>
+								<div class="col-md-2">
+									<h3 class="text-right text1 text4">원</h3>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+							<br>
+							<br>
+							<div class="row">
+								<div class="col-md-2"></div>
+								<div class="col-md-3">
+									<h3 class=" text1 text4 text5">충전 포인트</h3>
+								</div>
+								<div class="col-md-3">
+									<input type="number" class="form-control" id="point2"
+										name="point2" required>
+								</div>
+								<div class="col-md-2">
+									<h3 class="text-right text1 text4">원</h3>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<div class="row">
+								<div class="col-md-2"></div>
+								<div class="col-md-3">
+									<h3 class=" text1 text4">충전 후 포인트</h3>
+								</div>
+								<div class="col-md-3">
+									<h3 class="text-center text1 text4" id="result"></h3>
+								</div>
+								<div class="col-md-2">
+									<h3 class="text-right text1 text4">원</h3>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+							<br>
+							<br>
+							<br>
+							<div class="row">
+								<div class="col-md-2"></div>
+								<div class="col-md-8">
+									<button type="button" class="btn btn-block btn-color1 text4"
+										id="check_module">충전하기</button>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-md-10">
+								<a href="myPage">
+									<button type="button" class="btn float-left btn-lg btn-color2">
+										<label class="text3"> < 목록으로</label>
+									</button>
+								</a>
+							</div>
+							<div class="col-md-2"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
         // 결제 총 금액 보이기
         $('#point2').focusout(function () {
         	console.log(${loginMember.memberPoint});
@@ -215,6 +226,9 @@
         $("#check_module").click(function () {
             const point2 = Number(document.getElementById("point2").value);
             console.log("결제 금액"+point2);
+            
+            console.log("sdom : "+$("#point2").val());
+            const inputPoint = $("#point2").val();
 
             if(point2 >= 1000){
                 IMP.init('imp24016346');
@@ -232,9 +246,23 @@
                 }, function (rsp) {
                     console.log(rsp);
                     if (rsp.success) {
-                        swal("결제 성공", "포인트가 충전되었습니다.", "success");
+                    	swal({
+							title : "결제 성공",
+							text : point2 + "포인트가 충전되었습니다.",
+							icon : "success",
+							closeOnClickOutside : false
+						}).then(function(){
+							document.location.reload(true);
+						});
+                        $.ajax({
+                            type: "POST", 
+                            url: "${contextPath}/pointUpdate",
+                            data: {
+                                "inputPoint" : inputPoint
+                            },
+                        });
                     } else {
-                       // swal("결제 실패", "실패가 지속될 경우 관리자에게 문의 바랍니다.", "error");
+                       swal("결제 취소", "포인트 충전을 취소하셨습니다.", "warning");
                     }
                 });
             }else{

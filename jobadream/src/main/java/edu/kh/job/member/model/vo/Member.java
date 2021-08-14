@@ -18,10 +18,27 @@ public class Member {
 	
 	private int boardNo;
 	
+	private int inputPoint;
+	
+	private int memberscore;
+	
 	
 	public Member() { }
-
 	
+	public int getMemberscore() {
+		return memberscore;
+	}
+	public void setMemberscore(int memberscore) {
+		this.memberscore = memberscore;
+	}
+
+	public int getInputPoint() {
+		return inputPoint;
+	}
+	public void setInputPoint(int inputPoint) {
+		this.inputPoint = inputPoint;
+	}
+
 	public int getBoardNo() {
 		return boardNo;
 	}

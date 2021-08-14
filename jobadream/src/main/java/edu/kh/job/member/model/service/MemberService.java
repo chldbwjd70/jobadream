@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.kh.job.chat.model.vo.ChatAlarm;
 import edu.kh.job.member.model.vo.Board;
+import edu.kh.job.member.model.vo.Import;
 import edu.kh.job.member.model.vo.Member;
 import edu.kh.job.member.model.vo.Pagination;
 import edu.kh.job.member.model.vo.Pagination2;
+import edu.kh.job.member.model.vo.Pagination3;
 
 public interface MemberService {
 
@@ -68,7 +70,24 @@ public interface MemberService {
 
 	// 상대 포인트 추가
 	int plusPoint(Member changePoint);
+	
+	// 결제 내역 조회
+	Pagination3 getPagination3(Pagination pg, int memberNo);
 
+	// 결제 내역 목록 조회
+	List<Import> sellHistory(Pagination3 pagination3, int memberNo);
+
+	// 포인트 충전 -1
+	int pointUpdate(Import pointMember);
+
+	// 포인트 충전 -2
+	int pointadd(Member addPoint);
+	
+	// 새로 조회 
+	Member checkPoint(int memberNo);
+
+	// 평균 조회
+	Import memberScore(int memberNo);
 
 
 }

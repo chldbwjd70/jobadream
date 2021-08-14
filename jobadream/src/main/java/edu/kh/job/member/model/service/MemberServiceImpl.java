@@ -18,9 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.kh.job.chat.model.vo.ChatAlarm;
 import edu.kh.job.member.model.dao.MemberDAO;
 import edu.kh.job.member.model.vo.Board;
+import edu.kh.job.member.model.vo.Import;
 import edu.kh.job.member.model.vo.Member;
 import edu.kh.job.member.model.vo.Pagination;
 import edu.kh.job.member.model.vo.Pagination2;
+import edu.kh.job.member.model.vo.Pagination3;
 import edu.kh.job.member.model.vo.Progress;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -150,7 +152,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	// ------------------------------------------------------------------------------------------------------------- 마이페이지
-
+	
 	// 회원 정보 수정
 	@Transactional(rollbackFor = Exception.class)
 	@Override
@@ -161,6 +163,14 @@ public class MemberServiceImpl implements MemberService{
 		return dao.updateMember(inputMember);
 	}
 	
+	// 평균
+	@Override
+	public Import memberScore( int memberNo) {
+		
+		System.out.println("memberNos" + memberNo);
+		return dao.memberScore(memberNo);
+	}
+
 	// 비밀번호 변경
 	@Transactional(rollbackFor = Exception.class)
 	@Override
@@ -308,8 +318,36 @@ public class MemberServiceImpl implements MemberService{
 	public int plusPoint(Member changePoint) {
 		return dao.plusPoint(changePoint);
 	}
-	
 
+	// 결제 내역 수
+	@Override
+	public Pagination3 getPagination3(Pagination pg, int memberNo) {
+
+		Pagination3 selectpoint = dao.getpointListCount(memberNo);
+		return new Pagination3(pg.getCurrentPage(), selectpoint.getListCount());
+	}
+
+	// 결제 목록 조회
+	@Override
+	public List<Import> sellHistory(Pagination3 pagination3, int memberNo) {
+		return dao.sellHistory(pagination3, memberNo);
+	}
+
+	// 포인트 충전 -1
+	@Override
+	public int pointUpdate(Import pointMember) {
+		return dao.pointUpdate(pointMember);
+	}
+
+	// 포인트 충전 -2
+	@Override
+	public int pointadd(Member addPoint) {
+		return dao.pointadd(addPoint);
+	}
+
+	// 새로고침
+	@Override public Member checkPoint(int memberNo) 
+	{ return dao.plusPoint(memberNo); }
 	
 	
 
