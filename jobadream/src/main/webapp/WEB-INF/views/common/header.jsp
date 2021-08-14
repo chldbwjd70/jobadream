@@ -79,6 +79,7 @@ textarea {
 <body>
 	<div class="container">
 		<div class="header">
+			<div class="alarm-box">
 			<c:if test="${ !empty alarmList }">
 				
 				<c:forEach items="${alarmList}" var="alarm">
@@ -92,6 +93,7 @@ textarea {
 				      </div>
 				</c:forEach>
 			</c:if>
+			</div>
 			<!-- 로그인,회원가입 박스 -->
 			<div class="hd-1">
 				<!-- 로그인,회원가입 글 -->
@@ -270,9 +272,8 @@ textarea {
     	}
     	
     	function closeAlarm(chatRoomNo){
-    		const addr = "${contextPath}"
-    			location.reload()
     		alarmUpdateStatus(chatRoomNo);
+    			location.reload()
     		
     	}
     	
@@ -297,7 +298,53 @@ textarea {
 			});
     	}
     
-    
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script>
+    	let alarmSock = new SockJS("<c:url value='/alarm' />");
+    	alarmSock.onmessage = function(event){
+			const obj = JSON.parse(event.data);
+			const memberNo = obj.memberNo;
+			console.log(obj);
+			console.log(memberNo);
+			
+			   $.ajax({
+					url : "${contextPath}/chat/selectAlarmList",
+					type : "POST",
+					data : {"memberNo" : memberNo},
+					dataType : "JSON", 
+					success : function(newAlarmList){
+						console.log(newAlarmList);
+						console.log("성공");
+							$(".alarm-box").html("");
+						$.each(newAlarmList, function(index, item){
+							
+							var div1 = $("<div>").addClass("alert").attr("role", "alert").attr("id", "alart1");
+							var divTxt1 = "<strong>채팅방 개설 알림</strong><br>" + item.alarmMessage;
+							
+							var fn1 = "chatRoomGo("+item.chatRoomNo+");";
+							var fn2 = "closeAlarm("+item.chatRoomNo+");";
+							var div2 = $("<div>").addClass("alartBtn-box")
+							var btn1 = $("<button>").addClass("btn").attr("id", "chatRoomGo").attr("onClick", fn1).text("채팅방으로 이동");
+							var btn2 = $("<button>").addClass("btn").attr("id", "alartOk").attr("onClick", fn2).text("확인");
+							
+							div2.append(btn1).append(btn2);
+							div1.text(divTxt1);
+							div1.append(div2);
+							$(".alarm-box").append(div1);
+							
+						});
+						location.href
+					},
+					error : function(){
+						console.log("알림리스트 조회 실패");
+					}
+				});
+
+			
+	
+		}	
     
     </script>
     

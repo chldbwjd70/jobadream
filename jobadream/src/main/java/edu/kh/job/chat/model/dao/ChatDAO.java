@@ -50,10 +50,11 @@ public class ChatDAO {
 	}
 
 	/** 알림 확인 안한 리스트 조회
+	 * @param memberNo 
 	 * @return alarmList
 	 */
-	public List<ChatAlarm> selectAlarm() {
-		return sqlSession.selectList("chatMapper.selectAlarm");
+	public List<ChatAlarm> selectAlarm(int memberNo) {
+		return sqlSession.selectList("chatMapper.selectAlarm", memberNo);
 	}
 
 	/** 해당 채팅방 참여 시 채팅 메세지 조회

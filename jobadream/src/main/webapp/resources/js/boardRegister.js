@@ -29,6 +29,12 @@ function validate(){
 	    $("#boardPay").focus();
 	    return false;
 	 }
+	 
+	 if ($("#boardPay").val().trim() < 1000){
+		alert("최소 지급 페이는 1000원 입니다.");
+		$("#boardPay").focus();
+	    return false;
+	}
 	
 	const address = $("[name='address']");
 	console.log($(address[0]).val());

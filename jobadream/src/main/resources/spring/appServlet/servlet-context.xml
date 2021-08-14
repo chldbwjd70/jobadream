@@ -40,16 +40,16 @@
 	</websocket:handlers>
 	
 	<!-- 알람 -->
-	<!--<beans:bean id="alarmHandler" class="edu.kh.job.chat.websocket.AlarmWebSocketHandler" />
+	<beans:bean id="alarmHandler" class="edu.kh.job.chat.websocket.AlarmWebSocketHandler" />
 	
-		<websocket:handlers>
+	<websocket:handlers>
 		<websocket:mapping handler="alarmHandler" path="/alarm"/>
 		<websocket:handshake-interceptors>
 		  <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>
 		
 		<websocket:sockjs/>
-	</websocket:handlers>  -->
+	</websocket:handlers>  
 	
 	
 </beans:beans>
