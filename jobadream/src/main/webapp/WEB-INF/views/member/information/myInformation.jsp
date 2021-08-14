@@ -258,7 +258,15 @@ input, select {
 									<label class=" text1 text2"> 평점 </label>
 								</div>
 								<div class="col-md-6">
-									<label class=" text1 text2"> 0.0 </label>
+									<c:choose>
+										<c:when test="${empty memberS }">
+											<label class=" text1 text2"> 조회할 평점이 없습니다. </label>
+										</c:when>
+										<c:otherwise>
+											<label class=" text1 text2"> ${memberS} </label>
+										</c:otherwise>
+									</c:choose>
+								
 								</div>
 								<div class="col-md-2"></div>
 							</div>

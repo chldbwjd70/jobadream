@@ -3,30 +3,33 @@
 <mapper namespace="memberMapper">
 
 	<resultMap type="Member" id="member_rm">
-	 	<id property="memberNo" column="MEMBER_NO"/>
-	 	
-	 	<result property="memberId" column="MEMBER_ID"/>
-	 	<result property="memberPw" column="MEMBER_PW"/>
- 		<result property="memberName" column="MEMBER_NM"/>
- 		<result property="memberPhone" column="MEMBER_PHONE"/>
- 		<result property="memberEmail" column="MEMBER_EMAIL"/>
- 		<result property="memberAddress" column="MEMBER_ADDR"/>
- 		<result property="enrollDate" column="ENROLL_DATE"/>
- 		<result property="memberStatus" column="MEMBER_STATUS"/>
- 		<result property="memberGrade" column="MEMBER_GRADE"/>	 
- 		<result property="memberPoint" column="MEMBER_POINT"/>	 
- 		<result property="memberIntroduce" column="MEMBER_INTRODUCE"/>	 
-	 </resultMap>
-	 
-	 <!-- 채팅알람 -->
- 	<resultMap type="ChatAlarm" id="chatalarm_rm">
-		<id property="alarmNo" column="CA_NO"/>
- 		<result property="alarmMessage" column="ALARM_MESSAGE"/>
- 		<result property="memberNo" column="MEMBER_NO"/>
- 		<result property="alarmStatus" column="ALARM_STATUS"/>
- 		<result property="chatRoomNo" column="CHAT_ROOM_NO"/>
+		<id property="memberNo" column="MEMBER_NO" />
+
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberName" column="MEMBER_NM" />
+		<result property="memberPhone" column="MEMBER_PHONE" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberAddress" column="MEMBER_ADDR" />
+		<result property="enrollDate" column="ENROLL_DATE" />
+		<result property="memberStatus" column="MEMBER_STATUS" />
+		<result property="memberGrade" column="MEMBER_GRADE" />
+		<result property="memberPoint" column="MEMBER_POINT" />
+		<result property="inputPoint" column="MEMBER_POINT" />
+		<result property="memberIntroduce" column="MEMBER_INTRODUCE" />
+		
+		<result property="memberscore" column="MEMBER_SCORE" />
 	</resultMap>
-	
+
+	<!-- 채팅알람 -->
+	<resultMap type="ChatAlarm" id="chatalarm_rm">
+		<id property="alarmNo" column="CA_NO" />
+		<result property="alarmMessage" column="ALARM_MESSAGE" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="alarmStatus" column="ALARM_STATUS" />
+		<result property="chatRoomNo" column="CHAT_ROOM_NO" />
+	</resultMap>
+
 	<!-- 내역 조회용 -->
 	<!-- Pagination ResultMap -->
 	<resultMap type="MemberPagination" id="mpg_rm">
@@ -35,206 +38,263 @@
 	<resultMap type="MemberPagination2" id="mpg_rm2">
 		<result property="listCount" column="CNT" />
 	</resultMap>
-	
-	<!-- 게시글 목록 조회 resultMap -->
-	<resultMap type ="MemberBoard" id="board_rm">
-		<id property="boardNo" column="BOARD_NO"/>
-		
-		<result property="boardTitle" column="BOARD_TITLE"/>
-		<result property="readCount" column="READ_COUNT"/>
-		<result property="createDate" column="CREATE_DT"/>
-		
-		<result property="boardStatus" column="BOARD_STATUS"/>
-		<result property="memberNo" column="MEMBER_NO"/>
-		<result property="categoryCode" column="CATEGORY_CD"/>
-		<result property="boardTime" column="BOARD_TIME"/>
-		<result property="boardPlace" column="BOARD_PLACE"/>
-		<result property="boardPay" column="BOARD_PAY"/>
-		<result property="boardContent" column="BOARD_CONTENT"/>
-		
-		<result property="memberName" column="MEMBER_NM"/>
-		<result property="progressStatus" column="PROGRESS_STATUS"/>
-		<result property="memberPoint" column="MEMBER_POINT"/>
+	<resultMap type="MemberPagination3" id="mpg_rm3">
+		<result property="listCount" column="CNT" />
 	</resultMap>
-	
+
+	<!-- 게시글 목록 조회 resultMap -->
+	<resultMap type="MemberBoard" id="board_rm">
+		<id property="boardNo" column="BOARD_NO" />
+
+		<result property="boardTitle" column="BOARD_TITLE" />
+		<result property="readCount" column="READ_COUNT" />
+		<result property="createDate" column="CREATE_DT" />
+
+		<result property="boardStatus" column="BOARD_STATUS" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="categoryCode" column="CATEGORY_CD" />
+		<result property="boardTime" column="BOARD_TIME" />
+		<result property="boardPlace" column="BOARD_PLACE" />
+		<result property="boardPay" column="BOARD_PAY" />
+		<result property="boardContent" column="BOARD_CONTENT" />
+
+		<result property="memberName" column="MEMBER_NM" />
+		<result property="progressStatus" column="PROGRESS_STATUS" />
+		<result property="memberPoint" column="MEMBER_POINT" />
+	</resultMap>
+
 	<!-- 진행 테이블 -->
 	<resultMap type="Progress" id="progress_rm">
-		<id property="memberNo" column="MEMBER_NO"/>
-		
-		<result property="boardNo" column="BOARD_NO"/>
-		<result property="progressStatus" column="PROGRESS_STATUS"/>
-		<result property="memberScore" column="MEMBER_SCORE"/>
+		<id property="memberNo" column="MEMBER_NO" />
+
+		<result property="boardNo" column="BOARD_NO" />
+		<result property="progressStatus" column="PROGRESS_STATUS" />
+		<result property="memberScore" column="MEMBER_SCORE" />
 	</resultMap>
 
-	 
-	 <!-- 로그인   -->
-	 <select id="login" parameterType="string" resultMap="member_rm">
-		SELECT * FROM MEMBER
+	<!-- 결제 -->
+	<resultMap type="Import" id="import_rm">
+		<id property="importNo" column="IMPORT_NO" />
+
+		<result property="importMoney" column="IMPORT_MONEY" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="importDt" column="IMPROT_DT" />
+	</resultMap>
+
+
+	<!-- 로그인 -->
+	<select id="login" parameterType="string" resultMap="member_rm">
+		SELECT *
+		FROM MEMBER
 		WHERE MEMBER_STATUS IN ('Y', 'S')
-		AND MEMBER_ID = #{memberId}
+		AND MEMBER_ID =
+		#{memberId}
 	</select>
-	
+
 	<!-- 회원가입 -->
-	<insert id="signUp" parameterType="Member" >
-		INSERT INTO MEMBER VALUES
-		(SEQ_MEM.NEXTVAL, #{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberAddress},
-		DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
-  	</insert>
-  	
-  	<!-- 아이디 중복 검사 -->
-  	<select id="idDupCheck"  parameterType="string"  resultType="_int" >
+	<insert id="signUp" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES
+		(SEQ_MEM.NEXTVAL, #{memberId}, #{memberPw}, #{memberName},
+		#{memberPhone}, #{memberEmail}, #{memberAddress},
+		DEFAULT, DEFAULT,
+		DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+
+	<!-- 아이디 중복 검사 -->
+	<select id="idDupCheck" parameterType="string" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 		WHERE MEMBER_STATUS = 'Y'
-		AND MEMBER_ID = #{id}
-  	</select>
-  	
-  	<!-- 아이디 찾기 -->
-  	<select id="findId" parameterType="Member" resultType="string">
-  	   SELECT MEMBER_ID FROM MEMBER
-        WHERE MEMBER_NM = #{memberName}
-        AND MEMBER_EMAIL = #{memberEmail}
-        AND MEMBER_STATUS = 'Y'
-  	</select>
+		AND MEMBER_ID =
+		#{id}
+	</select>
 
-  	<!-- 비밀번호 찾기 - 조회 -->
-  	<select id="findPw" parameterType="Member" resultType="_int">
-  	   SELECT COUNT(*) FROM MEMBER
-        WHERE MEMBER_NM = #{memberName}
-        AND MEMBER_EMAIL = #{memberEmail}
-        AND MEMBER_ID = #{memberId}
-        AND MEMBER_STATUS = 'Y'
-  	</select>
-  	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="Member" resultType="string">
+		SELECT MEMBER_ID FROM MEMBER
+		WHERE MEMBER_NM = #{memberName}
+		AND MEMBER_EMAIL = #{memberEmail}
+		AND MEMBER_STATUS = 'Y'
+	</select>
+
+	<!-- 비밀번호 찾기 - 조회 -->
+	<select id="findPw" parameterType="Member" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE MEMBER_NM = #{memberName}
+		AND MEMBER_EMAIL = #{memberEmail}
+		AND MEMBER_ID = #{memberId}
+		AND MEMBER_STATUS = 'Y'
+	</select>
+
 	<!-- 임시 비밀번호 -->
 	<update id="changePwd2" parameterType="Member">
 		UPDATE MEMBER SET
 		MEMBER_PW = #{memberPw}
 		WHERE MEMBER_ID = #{memberId}
-		AND MEMBER_NM = #{memberName}
+		AND MEMBER_NM =
+		#{memberName}
 		AND MEMBER_EMAIL = #{memberEmail}
 	</update>
-	
-  	<!-- 회원 정보 수정 -->
-  	<update id="updateMember"  parameterType="Member" >
-  		UPDATE MEMBER SET
-  		MEMBER_EMAIL = #{memberEmail},
-  		MEMBER_PHONE = #{memberPhone},
-  		MEMBER_INTRODUCE = #{memberIntroduce},
-  		MEMBER_ADDR = #{memberAddress}
-  		WHERE MEMBER_NO = #{memberNo}
-  	</update>
-  	
-  	<!-- 비밀번호 조회 -->
-  <select id="selectPassword" parameterType="_int" resultType="string">
-  	SELECT MEMBER_PW FROM MEMBER
-  	WHERE MEMBER_NO = #{memberNo}
-  </select>
-  
-  <!-- 비밀번호 변경 -->
-  <update id="changPwd" parameterType="Member">
-  	UPDATE MEMBER SET
-  	MEMBER_PW = #{memberPw}
-  	WHERE MEMBER_NO = #{memberNo}
-  </update>
-  	
-  <!-- 회원 탈퇴 -->
-  <update id="secession" parameterType="_int">
-  	UPDATE MEMBER SET
-  	MEMBER_STATUS = 'N'
-  	WHERE MEMBER_NO = #{memberNo}
-  </update>
-  
-  <!-- 내소개 수정 -->
-  	<update id="deleteMy"  parameterType="Member">
-  		UPDATE MEMBER SET
+
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER SET
+		MEMBER_EMAIL = #{memberEmail},
+		MEMBER_PHONE = #{memberPhone},
+		MEMBER_INTRODUCE = #{memberIntroduce},
+		MEMBER_ADDR = #{memberAddress}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+	<!-- 비밀번호 조회 -->
+	<select id="selectPassword" parameterType="_int"
+		resultType="string">
+		SELECT MEMBER_PW FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+
+	<!-- 비밀번호 변경 -->
+	<update id="changPwd" parameterType="Member">
+		UPDATE MEMBER SET
+		MEMBER_PW = #{memberPw}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+	<!-- 회원 탈퇴 -->
+	<update id="secession" parameterType="_int">
+		UPDATE MEMBER SET
+		MEMBER_STATUS = 'N'
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+	<!-- 내소개 수정 -->
+	<update id="deleteMy" parameterType="Member">
+		UPDATE MEMBER SET
 		MEMBER_INTRODUCE = NULL
 		WHERE MEMBER_NO = #{memberNo}
-  	</update>
-  	
-  	<!-- 알람 리스트 조회 -->
-  	<select id="selectAlarm" resultMap="chatalarm_rm">
- 		SELECT * FROM CHAT_ALARM
+	</update>
+
+	<!-- 알람 리스트 조회 -->
+	<select id="selectAlarm" resultMap="chatalarm_rm">
+		SELECT * FROM CHAT_ALARM
 		WHERE ALARM_STATUS = 'N'
 		AND MEMBER_NO = #{memberNo}
-  	</select>
-  	
-  	<!-- 아줌 게시글 수 -->
-     <select id="getajumListCount" resultMap="mpg_rm"  parameterType="Member">
-      SELECT COUNT(*) CNT
-      FROM BOARD A
-      LEFT JOIN PROGRESS B ON(A.BOARD_NO = B.BOARD_NO)
-      LEFT JOIN MEMBER C ON(C.MEMBER_NO = B.MEMBER_NO)
-      WHERE A.MEMBER_NO = #{memberNo}
-      AND BOARD_STATUS IN('I', 'Y')
-     </select>
-     
-       <!-- 아줌 게시글 목록 -->
-     <select id="selectajumList" parameterType="Member" resultMap="board_rm">
-         SELECT C.MEMBER_POINT, C.MEMBER_NM, CATEGORY_CD,BOARD_PAY, BOARD_TITLE, CREATE_DT, BOARD_STATUS, PROGRESS_STATUS, C.MEMBER_NO, A.BOARD_NO
-         FROM BOARD A
-         LEFT JOIN PROGRESS B ON(A.BOARD_NO = B.BOARD_NO)
-         LEFT JOIN MEMBER C ON(C.MEMBER_NO = B.MEMBER_NO)
-         WHERE A.MEMBER_NO = #{memberNo}
-         AND BOARD_STATUS IN('I', 'Y')
-         ORDER BY CREATE_DT DESC
-     </select>
-     
-     <!-- 아감 게시글 수 -->
-     <select id="getagamListCount" resultMap="mpg_rm2"  parameterType="Member">
-      SELECT COUNT(*) CNT
-      FROM BOARD
-      JOIN MEMBER USING(MEMBER_NO)
-      JOIN PROGRESS A USING(BOARD_NO)
-      WHERE A.MEMBER_NO = #{memberNo}
-      AND BOARD_STATUS = 'I'
-     </select>
-     
-       <!-- 아감 게시글 목록 -->
-     <select id="selectagamList" parameterType="Member" resultMap="board_rm">
-         SELECT *
-         FROM BOARD
-         JOIN MEMBER USING(MEMBER_NO)
-         JOIN PROGRESS A USING(BOARD_NO)
-         WHERE A.MEMBER_NO = #{memberNo}
-         AND BOARD_STATUS = 'I'
-        ORDER BY CREATE_DT DESC
-     </select>
-     
-      
-    <!-- 상태변경 -->
+	</select>
+
+	<!-- 아줌 게시글 수 -->
+	<select id="getajumListCount" resultMap="mpg_rm" parameterType="Member">
+		SELECT COUNT(*) CNT
+		FROM BOARD A
+		LEFT JOIN PROGRESS B ON(A.BOARD_NO = B.BOARD_NO)
+		LEFT JOIN MEMBER C ON(C.MEMBER_NO = B.MEMBER_NO)
+		WHERE A.MEMBER_NO = #{memberNo}
+		AND BOARD_STATUS IN('I', 'Y')
+	</select>
+
+	<!-- 아줌 게시글 목록 -->
+	<select id="selectajumList" parameterType="Member" resultMap="board_rm">
+		SELECT C.MEMBER_POINT, C.MEMBER_NM, CATEGORY_CD,BOARD_PAY, BOARD_TITLE,
+		CREATE_DT, BOARD_STATUS, PROGRESS_STATUS, C.MEMBER_NO, A.BOARD_NO
+		FROM BOARD A
+		LEFT JOIN PROGRESS B ON(A.BOARD_NO = B.BOARD_NO)
+		LEFT JOIN MEMBER C ON(C.MEMBER_NO = B.MEMBER_NO)
+		WHERE A.MEMBER_NO = #{memberNo}
+		AND BOARD_STATUS IN('I', 'Y')
+		ORDER BY CREATE_DT DESC
+	</select>
+
+	<!-- 아감 게시글 수 -->
+	<select id="getagamListCount" resultMap="mpg_rm2"
+		parameterType="Member">
+		SELECT COUNT(*) CNT
+		FROM BOARD
+		JOIN MEMBER USING(MEMBER_NO)
+		JOIN PROGRESS A USING(BOARD_NO)
+		WHERE A.MEMBER_NO = #{memberNo}
+		AND BOARD_STATUS = 'I'
+	</select>
+
+	<!-- 아감 게시글 목록 -->
+	<select id="selectagamList" parameterType="Member"
+		resultMap="board_rm">
+		SELECT *
+		FROM BOARD
+		JOIN MEMBER USING(MEMBER_NO)
+		JOIN PROGRESS A USING(BOARD_NO)
+		WHERE A.MEMBER_NO = #{memberNo}
+		AND BOARD_STATUS = 'I'
+		ORDER BY CREATE_DT DESC
+	</select>
+
+	<!-- 상태변경 -->
 	<update id="avgPoint" parameterType="Progress">
 		UPDATE PROGRESS SET
 		PROGRESS_STATUS = 'Y',
 		MEMBER_SCORE = #{memberScore}
-		WHERE BOARD_NO= #{boardNo}
+		WHERE BOARD_NO=
+		#{boardNo}
 	</update>
-	  	
-    <!-- 포인트 차감 -->
+
+	<!-- 포인트 차감 -->
 	<update id="updatePoint" parameterType="Member">
 		UPDATE MEMBER SET
 		MEMBER_POINT = #{memberPoint} - (SELECT BOARD_PAY FROM
-		                                        BOARD
-		                                        WHERE MEMBER_NO = #{memberNo}
-		                                        AND BOARD_NO = #{boardNo})
+		BOARD
+		WHERE MEMBER_NO = #{memberNo}
+		AND BOARD_NO = #{boardNo})
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
-	
+
 	<!-- 조회 -->
-	<select id="changPoint" parameterType="Member" resultMap="member_rm">
+	<select id="changPoint" parameterType="Member"
+		resultMap="member_rm">
 		SELECT MEMBER_POINT FROM MEMBER
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
-	
-	 <!-- 포인트 추가 -->
+
+	<!-- 포인트 추가 -->
 	<update id="plusPoint" parameterType="Member">
 		UPDATE MEMBER SET
 		MEMBER_POINT = #{memberPoint} + (SELECT BOARD_PAY FROM
-		                            BOARD
-		                            WHERE BOARD_NO = #{boardNo})
+		BOARD
+		WHERE BOARD_NO = #{boardNo})
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+	<!-- 결제 게시글 수 -->
+	<select id="getpointListCount" resultMap="mpg_rm3" parameterType="Import">
+		SELECT COUNT(*) CNT
+		FROM IMPORT
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+
+	<!-- 결제 게시글 목록 -->
+	<select id="sellHistory" parameterType="Import" resultMap="import_rm">
+		SELECT * FROM IMPORT
+		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY IMPROT_DT DESC
+	</select>
+	
+	<!-- 포인트 추가 -1 -->
+	<insert id="pointUpdate" parameterType="Member">
+		INSERT INTO IMPORT VALUES (SEQ_IPN.NEXTVAL, #{importMoney}, #{memberNo}, DEFAULT)
+	</insert>
+	
+	<!-- 포인트 추가 -2 -->
+	<update id="pointadd" parameterType="Member">
+		UPDATE MEMBER SET
+		MEMBER_POINT = #{memberPoint} + #{inputPoint}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
-	
+	<!-- 평균 -->
+	<select id="memberScore" parameterType="Import" resultMap="import_rm">
+		SELECT ROUND(AVG(MEMBER_SCORE),1)
+		FROM PROGRESS
+		WHERE MEMBER_NO = #{memberNo}
+		AND PROGRESS_STATUS = 'Y'
+	</select>
+
 
 
 </mapper>

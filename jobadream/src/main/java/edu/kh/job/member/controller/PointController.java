@@ -35,7 +35,11 @@ public class PointController {
 	
 		int result = service.avgPoint(rating, boardNo, countMember);
 		
+		Member changePoint = service.changPoint(loginMember.getMemberNo());
 		
+		if(result > 0) {
+			loginMember.setMemberPoint(changePoint.getMemberPoint());
+		}
 		
 		// -----------------------------------------------------------------------------
 		
@@ -45,11 +49,7 @@ public class PointController {
 		
 		int result2 = service.plusPoint(PulsePoint);
 		
-		Member changePoint = service.changPoint(loginMember.getMemberNo());
-		
-		if(result > 0) {
-			loginMember.setMemberPoint(changePoint.getMemberPoint());
-		}
+	
        return result;
     }
 	

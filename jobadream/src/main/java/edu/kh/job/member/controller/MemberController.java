@@ -1,4 +1,4 @@
-package edu.kh.job.member.controller;
+	package edu.kh.job.member.controller;
 
 import java.util.List;
 
@@ -20,14 +20,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.job.board.model.service.BoardService;
 import edu.kh.job.chat.model.service.ChatService;
 import edu.kh.job.chat.model.service.ChatServiceImpl;
 import edu.kh.job.chat.model.vo.ChatAlarm;
 import edu.kh.job.member.model.service.MemberService;
 import edu.kh.job.member.model.vo.Board;
+import edu.kh.job.member.model.vo.Import;
 import edu.kh.job.member.model.vo.Member;
 import edu.kh.job.member.model.vo.Pagination;
 import edu.kh.job.member.model.vo.Pagination2;
+import edu.kh.job.member.model.vo.Pagination3;
 import edu.kh.job.qusetions.model.vo.Search;
 
 @Controller
@@ -37,6 +40,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private BoardService service2;
 	
 	// 오류화면
 	@RequestMapping(value="error", method=RequestMethod.GET)  
@@ -227,11 +233,17 @@ public class MemberController {
 	// 마이페이지 - 내정보 -------------------------------------------------------------------------------
 	
 	@RequestMapping(value="myInformation", method=RequestMethod.GET)
-	public String myInformation() {
+	public String myInformation( @ModelAttribute("loginMember") Member loginMember, Model model) {
+		
+		Import memberS = service.memberScore(loginMember.getMemberNo());
+		
+		
+		System.out.println("memberSd :" + memberS);
+		model.addAttribute("memberS", memberS);
+		System.out.println("memberSs :" + memberS);
+		
 		return "member/information/myInformation";
 	}
-	
-	// 회원 정보 수정 Controller
 	@RequestMapping(value="update", method=RequestMethod.POST)
 	public String updateMember( @ModelAttribute("loginMember") Member loginMember,
 								String inputEmail, String inputPhone, String inputAddress, String inputIntroduce,
@@ -367,11 +379,48 @@ public class MemberController {
 		return "member/sell/usageHistory";
 	}
 	
-	// 결제 내역전환
+	// 결제 목록 조회
 	@RequestMapping(value="sellHistory", method=RequestMethod.GET)
-	public String sellHistory() {
+	public String sellHistory(Model model, Pagination pg,/* 페이징처리 */  @ModelAttribute("loginMember") Member loginMember,
+							Board board, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
+		pg.setCurrentPage(cp);
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		Pagination3 pagination3 = null;
+		List<Import> pointList = null;
+		
+		pagination3 = service.getPagination3(pg, memberNo);
+		pointList = service.sellHistory(pagination3, memberNo);
+		
+		model.addAttribute("pointList", pointList);
+		model.addAttribute("pagination3", pagination3);
+		
 		return "member/sell/sellHistory";
 	}
+	
+	// 게시판 상세조회
+	@RequestMapping("{categoryCode}/{boardNo}")
+	public String boardDetail(@PathVariable("categoryCode") int categoryCode,
+			@PathVariable("boardNo") int boardNo,
+			@RequestParam(value = "cpage" ,required = false, defaultValue = "1" ) int cpage,
+			Model model,
+			RedirectAttributes ra) {
+		
+		edu.kh.job.board.model.vo.Board board = service2.selectBoard(boardNo);
+		//System.out.println(board);
+		
+		if(board != null) { // 상세 조회 성공 시
+			
+			model.addAttribute("board", board);
+			return "board/boardDetail";
+		}else { 
+			
+			return "redirect:list";
+		}
+	}
+	
 	
 	// SweetAlert를 이용한 메세지 전달용 메소드
 	public static void swalSetMessage(RedirectAttributes ra, String icon, String title, String text) {

@@ -12,6 +12,11 @@
 <jsp:include page="../../common/header.jsp" />
 
 <style>
+.pointHover:hover{
+	cursor: pointer;
+}
+
+
 .modal:before {
 	display: inline-block;
 	vertical-align: middle;
@@ -184,7 +189,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 																		<td>기타</td>
 																	</c:if>
 																	<td>${board.boardPay}</td>
-																	<td>${board.boardTitle}</td>
+																	<td class="pointHover" onClick="titleClick(${board.categoryCode},${board.boardNo})">${board.boardTitle}</td>
 																	<td><fmt:formatDate var="createDate"
 																			value="${board.createDate}" pattern="yyyy-MM-dd" />
 																		<fmt:formatDate var="today"
@@ -444,7 +449,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 																	<td>기타</td>
 																</c:if>
 																<td>${board.boardPay}</td>
-																<td>${board.boardTitle}</td>
+																<td class="pointHover" onClick="titleClick(${board.categoryCode},${board.boardNo})">${board.boardTitle}</td>
 																<td><fmt:formatDate var="createDate"
 																		value="${board.createDate}" pattern="yyyy-MM-dd" /> <fmt:formatDate
 																		var="today" value="<%=new java.util.Date()%>"
@@ -551,6 +556,14 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 			</div>
 		</div>
 	</div>
+	<script>
+    	function titleClick(categoryCode, boardNo){
+    		console.log(boardNo);
+    		const addr = "${contextPath}/board/"+categoryCode+"/"+boardNo+ "?cpage=${pagination.currentPage}${searchStr}";
+    		console.log(addr);
+    			location.href = addr;
+    	}
+    </script>
 	<jsp:include page="../../common/footer.jsp" />
 </body>
 
