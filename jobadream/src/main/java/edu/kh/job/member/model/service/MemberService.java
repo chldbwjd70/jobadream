@@ -5,7 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.kh.job.chat.model.vo.ChatAlarm;
+import edu.kh.job.member.model.vo.Board;
 import edu.kh.job.member.model.vo.Member;
+import edu.kh.job.member.model.vo.Pagination;
+import edu.kh.job.member.model.vo.Pagination2;
 
 public interface MemberService {
 
@@ -33,8 +36,10 @@ public interface MemberService {
 	// 비밀번호 찾기-조회
 	int findPw(Member findMemberPw);
 	
+	// 이메일 전송
 	int sendEmail(Member findMemberPw);
 
+	// 핸드폰 전송
 	void certifiedPhoneNumber(String memberPhone, String numStr);
 
 	/** 알람 리스트 조회
@@ -42,6 +47,24 @@ public interface MemberService {
 	 * @return
 	 */
 	List<ChatAlarm> selectAlarm(int memberNo);
+
+	// 잡아줌 조회
+	Pagination getPagination(Pagination pg, int memberNo);
+
+	// 잡아줌 목록조회
+	List<Board> selectajumList(Pagination pagination, int memberNo);
+
+	// 잡아감 조회
+	Pagination2 getPagination2(Pagination2 pg2, int memberNo);
+
+	// 잡아감 목록 조회
+	List<Board> selectagamList(Pagination2 pagination2, int memberNo);
+
+	// 점수 등록
+	int avgPoint(int rating, int boardNo);
+
+	// 포인트 차감
+	int updatePoint(Member countMember);
 
 
 

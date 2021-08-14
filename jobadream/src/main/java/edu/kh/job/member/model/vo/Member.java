@@ -16,7 +16,19 @@ public class Member {
 	private int memberPoint; 		// 회원 포인트
 	private String memberIntroduce; // 회원 소개
 	
+	private int boardNo;
+	
+	
 	public Member() { }
+
+	
+	public int getBoardNo() {
+		return boardNo;
+	}
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
+	}
+
 
 	public int getMemberNo() {
 		return memberNo;
@@ -102,11 +114,15 @@ public class Member {
 		this.memberIntroduce = memberIntroduce;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberName="
 				+ memberName + ", memberPhone=" + memberPhone + ", memberEmail=" + memberEmail + ", memberAddress="
 				+ memberAddress + ", enrollDate=" + enrollDate + ", memberStatus=" + memberStatus + ", memberGrade="
-				+ memberGrade + ", memberPoint=" + memberPoint + ", memberIntroduce=" + memberIntroduce + "]";
+				+ memberGrade + ", memberPoint=" + memberPoint + ", memberIntroduce=" + memberIntroduce + ", boardNo="
+				+ boardNo + "]";
 	}
+
+
 }

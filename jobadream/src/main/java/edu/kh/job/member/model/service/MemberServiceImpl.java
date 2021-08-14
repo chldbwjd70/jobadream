@@ -17,7 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.job.chat.model.vo.ChatAlarm;
 import edu.kh.job.member.model.dao.MemberDAO;
+import edu.kh.job.member.model.vo.Board;
 import edu.kh.job.member.model.vo.Member;
+import edu.kh.job.member.model.vo.Pagination;
+import edu.kh.job.member.model.vo.Pagination2;
+import edu.kh.job.member.model.vo.Progress;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
@@ -89,61 +93,63 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	// 이메일 보내기
-		@Transactional(rollbackFor = Exception.class)
-		@Override
-		public int sendEmail(Member inputMember) {
-			
-			
-			int leftLimit = 65; // letter 'a'
-			int rightLimit = 122; // letter 'z'
-			int targetStringLength = 10;
-			Random random = new Random();
-			StringBuilder buffer = new StringBuilder(targetStringLength);
-			for (int i = 0; i < targetStringLength; i++) {
-			    int randomLimitedInt = leftLimit + (int)
-			            (random.nextFloat() * (rightLimit - leftLimit + 1));
-			    buffer.append((char) randomLimitedInt);
-			}
-			String garbagePassword = buffer.toString();
-			String encPwd = bCryptPasswordEncoder.encode(garbagePassword.toString());
-			
-			inputMember.setMemberPw(encPwd);
-			
-			int result = dao.changePwd2(inputMember);
-			
-			if (result > 0) {
-				
-				String setfrom = "khjobadream@gmail.com"; // 보내는 서버 이메일
-				String tomail = inputMember.getMemberEmail(); // 받는 사람 이메일
-				String title = "job아드림 임시 비밀번호입니다."; // 제목
-				
-				String  content="";
-				content += "<h3> job아드림 임시 비밀번호 입니다.";
-				content += "<div font-family: 'Pretendard-Regular';>";
-				content += "</h3> <h2> "+ garbagePassword + "</h2>"; // 내용
-				content +=  "<h3 style='color:red;'>로그인 후 비밀번호를 변경해주시기 바랍니다.</h3></div>";
-				
-				try {
-					
-					MimeMessage message = mailSender.createMimeMessage();
-					MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-					
-					messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
-					messageHelper.setTo(tomail); // 받는사람 이메일
-					messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-					messageHelper.setText(content, true); // 메일 내용
-					
-					mailSender.send(message);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}else {
-				result = -1;
-			}
-			
-			return result;
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int sendEmail(Member inputMember) {
+		
+		
+		int leftLimit = 65; // letter 'a'
+		int rightLimit = 122; // letter 'z'
+		int targetStringLength = 10;
+		Random random = new Random();
+		StringBuilder buffer = new StringBuilder(targetStringLength);
+		for (int i = 0; i < targetStringLength; i++) {
+		    int randomLimitedInt = leftLimit + (int)
+		            (random.nextFloat() * (rightLimit - leftLimit + 1));
+		    buffer.append((char) randomLimitedInt);
 		}
+		String garbagePassword = buffer.toString();
+		String encPwd = bCryptPasswordEncoder.encode(garbagePassword.toString());
+		
+		inputMember.setMemberPw(encPwd);
+		
+		int result = dao.changePwd2(inputMember);
+		
+		if (result > 0) {
+			
+			String setfrom = "khjobadream@gmail.com"; // 보내는 서버 이메일
+			String tomail = inputMember.getMemberEmail(); // 받는 사람 이메일
+			String title = "job아드림 임시 비밀번호입니다."; // 제목
+			
+			String  content="";
+			content += "<h3> job아드림 임시 비밀번호 입니다.";
+			content += "<div font-family: 'Pretendard-Regular';>";
+			content += "</h3> <h2> "+ garbagePassword + "</h2>"; // 내용
+			content +=  "<h3 style='color:red;'>로그인 후 비밀번호를 변경해주시기 바랍니다.</h3></div>";
+			
+			try {
+				
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+				
+				messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+				messageHelper.setTo(tomail); // 받는사람 이메일
+				messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+				messageHelper.setText(content, true); // 메일 내용
+				
+				mailSender.send(message);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			result = -1;
+		}
+		
+		return result;
+	}
+	
+	// ------------------------------------------------------------------------------------------------------------- 마이페이지
 
 	// 회원 정보 수정
 	@Transactional(rollbackFor = Exception.class)
@@ -210,6 +216,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	
+	
 	// 휴대폰 인증
 	@Override
     public void certifiedPhoneNumber(String memberPhone, String numStr) {
@@ -244,7 +251,56 @@ public class MemberServiceImpl implements MemberService{
 		return dao.selectAlarm(memberNo);
 	}
 
+
+	// --------------------------------------------------------------------------------------------------------------------- 결제
 	
+	
+	// 아줌게시글수
+	@Override
+	public Pagination getPagination(Pagination pg, int memberNo) {
+
+		Pagination selectajumPg = dao.getajumListCount(memberNo);
+		return new Pagination(pg.getCurrentPage(), selectajumPg.getListCount());
+	}
+
+	// 잡아줌 목록 조회
+	@Override
+	public List<Board> selectajumList(Pagination pagination, int memberNo) {
+		return dao.selectajumList(pagination, memberNo);
+	}
+
+	// 아감게시글수
+	@Override
+	public Pagination2 getPagination2(Pagination2 pg2, int memberNo) {
+		
+		Pagination2 selectajumPg = dao.getagamListCount(memberNo);
+		return new Pagination2(pg2.getCurrentPage(), selectajumPg.getListCount());
+	}
+
+	// 잡아감 목록 조회
+	@Override
+	public List<Board> selectagamList(Pagination2 pagination2, int memberNo) {
+		return dao.selectagamList(pagination2, memberNo);
+	}
+
+	// 진행완료 버튼
+	@Override
+	public int avgPoint(int rating, int boardNo) {
+		
+		Progress progress = new Progress();
+		
+		progress.setMemberScore(rating);
+		progress.setBoardNo(boardNo);
+		
+		return dao.avgPoint(progress);
+	}
+
+	// 포인트 차감
+	@Override
+	public int updatePoint(Member countMember) {
+		
+		return dao.updatePoint(countMember);
+	}
 
 	
 
