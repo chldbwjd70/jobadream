@@ -138,5 +138,11 @@ public class BoardServiceImpl implements BoardService {
 		return dao.realTimeSelect();
 	}
 
+	// 평점 조회
+	@Override
+	public double selectMemberScore(int memberNo) {
+		return dao.selectMemberScore(memberNo);
+	}
+
 
 }

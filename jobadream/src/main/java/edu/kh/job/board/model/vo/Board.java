@@ -18,7 +18,7 @@ public class Board {
 	private int categoryCode;
 	private String categoryTitle;
 	
-	private int memberScore;
+	private double memberScore;
 	private String memberIntroduce;
 	
 	
@@ -124,20 +124,21 @@ public class Board {
 	
 	
 
-	public int getMemberScore() {
-		return memberScore;
-	}
-
-	public void setMemberScore(int memberScore) {
-		this.memberScore = memberScore;
-	}
-
 	public String getMemberIntroduce() {
 		return memberIntroduce;
 	}
 
 	public void setMemberIntroduce(String memberIntroduce) {
 		this.memberIntroduce = memberIntroduce;
+	}
+
+	
+	public double getMemberScore() {
+		return memberScore;
+	}
+
+	public void setMemberScore(double memberScore) {
+		this.memberScore = memberScore;
 	}
 
 	@Override
@@ -149,6 +150,7 @@ public class Board {
 				+ ", memberIntroduce=" + memberIntroduce + "]";
 	}
 
+	
 
 	
 }

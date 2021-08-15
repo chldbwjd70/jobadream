@@ -98,5 +98,12 @@ public interface BoardService {
 	List<Board> realTimeSelect();
 
 
+	/** 평점 조회
+	 * @param memberNo
+	 * @return
+	 */
+	double selectMemberScore(int memberNo);
+
+
 
 }

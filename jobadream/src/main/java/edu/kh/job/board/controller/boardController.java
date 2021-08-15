@@ -82,16 +82,21 @@ public class boardController {
 			RedirectAttributes ra) {
 		
 		Board board = service.selectBoard(boardNo);
-		//System.out.println(board);
+		
+		// 평점 조회
+		double memberScore = service.selectMemberScore(board.getMemberNo());
+		
+		board.setMemberScore(memberScore);
 		
 		if(board != null) { // 상세 조회 성공 시
 			
 			model.addAttribute("board", board);
 			return "board/boardDetail";
-		}else { 
 			
+		}else{ 
 			return "redirect:list";
 		}
+		
 	}
 	
 	// 게시판 등록 화면 전환 Controller
