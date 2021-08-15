@@ -83,15 +83,15 @@ textarea {
 			<c:if test="${ !empty alarmList }">
 				
 				<c:forEach items="${alarmList}" var="alarm">
-				    <div class="alert" role="alert" id="alart1">
-				        <strong>채팅방 개설 알림</strong><br>
-				         	${alarm.alarmMessage}
-				         <div class="alartBtn-box">
-				             <button class="btn" id="chatRoomGo" onClick="chatRoomGo(${alarm.chatRoomNo})">채팅방으로 이동</button>
-				             <button class="btn" id="alartOk" onClick="closeAlarm(${alarm.chatRoomNo})">확인</button>
-				         </div>
-				      </div>
-				</c:forEach>
+						<div class="alert" role="alert" id="alart1">
+							<p class="alarm-title">채팅방 개설 알림</p>
+							<p class="alarm-msg">${alarm.alarmMessage}</p>
+							<div class="alartBtn-box">
+								<button class="btn" id="chatRoomGo" onClick="chatRoomGo(${alarm.chatRoomNo})">채팅방으로 이동</button>
+								<button class="btn" id="alartOk" onClick="closeAlarm(${alarm.chatRoomNo})">확인</button>
+							</div>
+						</div>
+					</c:forEach>
 			</c:if>
 			</div>
 			<!-- 로그인,회원가입 박스 -->
@@ -273,7 +273,7 @@ textarea {
     	
     	function closeAlarm(chatRoomNo){
     		alarmUpdateStatus(chatRoomNo);
-    			location.reload()
+    		location.href = location.href;
     		
     	}
     	
@@ -321,7 +321,10 @@ textarea {
 						$.each(newAlarmList, function(index, item){
 							
 							var div1 = $("<div>").addClass("alert").attr("role", "alert").attr("id", "alart1");
-							var divTxt1 = "<strong>채팅방 개설 알림</strong><br>" + item.alarmMessage;
+							
+							var p1 = $("<p>").addClass("alarm-title").html("채팅방 개설 알림");
+							var pTxt = item.alarmMessage;
+							var p2 = $("<p>").addClass("alarm-msg").html(pTxt);
 							
 							var fn1 = "chatRoomGo("+item.chatRoomNo+");";
 							var fn2 = "closeAlarm("+item.chatRoomNo+");";
@@ -330,8 +333,7 @@ textarea {
 							var btn2 = $("<button>").addClass("btn").attr("id", "alartOk").attr("onClick", fn2).text("확인");
 							
 							div2.append(btn1).append(btn2);
-							div1.text(divTxt1);
-							div1.append(div2);
+							div1.append(p1).append(p2).append(div2);
 							$(".alarm-box").append(div1);
 							
 						});

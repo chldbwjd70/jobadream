@@ -32,14 +32,13 @@ public class AlarmWebSocketHandler extends TextWebSocketHandler{
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		
 		sessions.add(session);
-		System.out.println(session.getId() + "연결됨");
+		//System.out.println(session.getId() + "연결됨");
 		
 	}
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
-		System.out.println("message" + message.getPayload());
 		
 		JsonObject convertedObj = new Gson().fromJson(message.getPayload(), JsonObject.class);
 		
@@ -53,9 +52,6 @@ public class AlarmWebSocketHandler extends TextWebSocketHandler{
 			// 각 회원이 가지고 있는 session 값 중 "chatRoomNo"를 얻어오기
 			int sessionMemberNo = ( (Member)s.getAttributes().get("loginMember") ).getMemberNo();
 			
-			System.out.println("세션: " +sessionMemberNo);
-			System.out.println("그냥" + memberNo);
-			System.out.println("==========================");
 			
 			// 채팅방 페이지에 접속한 회원의 방번호와
 			// 메세지를 보낸사람의 방번호가 같을 경우 == 같은 채팅방
