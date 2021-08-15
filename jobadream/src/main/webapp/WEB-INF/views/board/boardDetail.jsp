@@ -54,7 +54,7 @@
 	           <div class="workForm-5">
 	                <a class="btn" id="update" href="updateForm/${board.boardNo}">수정하기</a>
 	                <a class="btn" id="delete" href="${contextPath}/board/${board.categoryCode}/deleteFaq/${board.boardNo}" >삭제하기</a>
-	             	<a href="${contextPath}/board/${board.categoryCode}/list?cpage=${param.cpage}${searchStr}" class="btn" id="prv">이전으로</a>
+	             	<a href="javascript:history.back();" class="btn" id="prv">이전으로</a>
 	            </div>
             </c:if>
         </div>
