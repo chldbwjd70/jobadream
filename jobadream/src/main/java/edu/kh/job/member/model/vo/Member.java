@@ -20,18 +20,8 @@ public class Member {
 	
 	private int inputPoint;
 	
-	private int memberscore;
-	
-	
 	public Member() { }
 	
-	public int getMemberscore() {
-		return memberscore;
-	}
-	public void setMemberscore(int memberscore) {
-		this.memberscore = memberscore;
-	}
-
 	public int getInputPoint() {
 		return inputPoint;
 	}

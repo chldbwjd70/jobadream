@@ -259,11 +259,11 @@ input, select {
 								</div>
 								<div class="col-md-6">
 									<c:choose>
-										<c:when test="${empty memberS }">
+										<c:when test="${empty scoreMember }">
 											<label class=" text1 text2"> 조회할 평점이 없습니다. </label>
 										</c:when>
 										<c:otherwise>
-											<label class=" text1 text2"> ${memberS} </label>
+											<label class=" text1 text2"> ${scoreMember.pointAVG} / (${countMember.countMember} 명 참여) </label>
 										</c:otherwise>
 									</c:choose>
 								

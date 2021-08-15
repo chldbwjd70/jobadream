@@ -7,7 +7,25 @@ public class Progress {
 	private String progressStatus;
 	private int memberScore;
 	
+	private double pointAVG;
+	
+	private int countMember;
+	
 	public Progress() {}
+
+	public double getPointAVG() {
+		return pointAVG;
+	}
+	public void setPointAVG(double pointAVG) {
+		this.pointAVG = pointAVG;
+	}
+	
+	public int getCountMember() {
+		return countMember;
+	}
+	public void setCountMember(int countMember) {
+		this.countMember = countMember;
+	}
 
 	public int getMemberNo() {
 		return memberNo;
@@ -44,9 +62,7 @@ public class Progress {
 	@Override
 	public String toString() {
 		return "Progress [memberNo=" + memberNo + ", boardNo=" + boardNo + ", progressStatus=" + progressStatus
-				+ ", memberScore=" + memberScore + "]";
+				+ ", memberScore=" + memberScore + ", pointAVG=" + pointAVG + ", countMember=" + countMember + "]";
 	}
-	
-	
 	
 }

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>포인트 결제</title>
+<title>충전 내역</title>
 <jsp:include page="../../common/header.jsp" />
 <!-- import -->
 <script type="text/javascript"
@@ -15,6 +15,7 @@
 	src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <style>
+
 #title1 {
 	font-family: 'Pretendard-Regular';
 	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
@@ -82,6 +83,24 @@
 .pg {
 	justify-content: center;
 }
+
+.pg.pagination *{
+	border: 0px;
+	background-color: white;
+	font-weight: bold;
+	font-size: 20px;
+	color : black;
+
+}
+
+.pg.pagination > .active  > *{
+	background-color: white;
+	color: #3eafe6;
+	font-size: 22px;
+}
+
+
+
 </style>
 </head>
 <body>
@@ -90,7 +109,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<br>
-					<h1 class="text1" id="title1">결제 내역</h1>
+					<h1 class="text1" id="title1">충전 내역</h1>
 					<br>
 				</div>
 			</div>
@@ -102,8 +121,7 @@
 					class="nav-link text-center text1 text2" href="usageHistory">이용
 						내역</a></li>
 				<li class="nav-item col-md-4"><a
-					class="nav-link active text-center text1 text2" href="sellHistory">결제
-						내역</a></li>
+					class="nav-link active text-center text1 text2" href="sellHistory">충전 내역</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane fade show active ">
@@ -128,7 +146,7 @@
 												<%-- 조회된 게시글 목록이 없는 경우 --%>
 												<c:when test="${empty pointList}">
 													<tr class="tr">
-														<td colspan="2">결제하신 내역이 없습니다.</td>
+														<td colspan="2">충전하신 내역이 없습니다.</td>
 													</tr>
 												</c:when>
 												<c:otherwise>
@@ -167,7 +185,7 @@
 
 
 									<div class="my-5">
-										<ul class="pagination pg">
+										<ul class="pagination pg ">
 
 											<%-- 현재 페이지가 10페이지 초과인 경우 --%>
 											<c:if test="${pagination3.currentPage > pagination3.pageSize}">
@@ -176,7 +194,7 @@
 
 											<%-- 현재 페이지가 2페이지 초과인 경우 --%>
 											<c:if test="${pagination3.currentPage > 2 }">
-												<li><a class="page-link"
+												<li ><a class="page-link " id="pagecss"
 													href="${pageURL}?cp=${pagination3.currentPage - 1}${searchStr}">&lt;</a></li>
 											</c:if>
 											<%-- 페이지 목록 --%>

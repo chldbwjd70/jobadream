@@ -92,6 +92,22 @@
 	justify-content: center;
 }
 
+.pg.pagination *{
+	border: 0px;
+	background-color: white;
+	font-weight: bold;
+	font-size: 20px;
+	color : black;
+
+}
+
+.pg.pagination > .active  > *{
+	background-color: white;
+	color: #3eafe6;
+	font-size: 22px;
+}
+
+
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
 	{
 	-webkit-appearance: none;
@@ -121,7 +137,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				<li class="nav-item col-md-4"><a
 					class="nav-link active text-center text1 text2" href="usageHistory">이용 내역</a></li>
 				<li class="nav-item col-md-4"><a
-					class="nav-link  text-center text1 text2" href="sellHistory">결제
+					class="nav-link  text-center text1 text2" href="sellHistory">충전
 						내역</a></li>
 			</ul>
 			<div class="tab-content">

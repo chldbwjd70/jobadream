@@ -165,11 +165,19 @@ public class MemberServiceImpl implements MemberService{
 	
 	// 평균
 	@Override
-	public Import memberScore( int memberNo) {
+	public Progress scoreMember( int memberNo) {
 		
 		System.out.println("memberNos" + memberNo);
-		return dao.memberScore(memberNo);
+		
+		return dao.scoreMember(memberNo);
 	}
+	
+	// 인원 수 조회
+	@Override
+	public Progress countMember(int memberNo) {
+		return dao.countMember(memberNo);
+	}
+	
 
 	// 비밀번호 변경
 	@Transactional(rollbackFor = Exception.class)
