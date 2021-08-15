@@ -131,7 +131,7 @@ textarea {
 							<strong>1:1채팅</strong>
 						</button>
 					</c:if>
-					<button type="button" class="btn-location" id="btd-2"><strong>내주변 job</strong></button>
+					<button type="button" class="btn-location" onclick="location.href='${contextPath}/gps/search'" id="btd-2"><strong>내주변 job</strong></button>
 				</div>	
 			</div>
 

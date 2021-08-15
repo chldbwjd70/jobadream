@@ -38,7 +38,7 @@
 	<typeAlias type="edu.kh.job.report.model.vo.Pagination" alias="ReportPagination" />
 	<typeAlias type="edu.kh.job.report.model.vo.Search" alias="ReportSearch" />
 	<typeAlias type="edu.kh.job.report.model.vo.ReportFile" alias="ReportFile" />
-	
+	<typeAlias type="edu.kh.job.gps.model.vo.Board" alias="gpsBoad" />
 
 	<typeAlias type="edu.kh.job.board.model.vo.Pagination" alias="Pagination" />
 	
@@ -55,6 +55,6 @@
 	<mapper resource="/mappers/report-mapper.xml" />
 	<mapper resource="/mappers/reply-mapper.xml" />
 	<mapper resource="/mappers/chat-mapper.xml" />
-	
+	<mapper resource="/mappers/gps-mapper.xml" />
 	</mappers>
 </configuration>
