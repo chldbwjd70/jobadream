@@ -41,8 +41,6 @@
 	<typeAlias type="edu.kh.job.gps.model.vo.Board" alias="gpsBoad" />
 
 	<typeAlias type="edu.kh.job.board.model.vo.Pagination" alias="Pagination" />
-	
-
 
 	</typeAliases>
 	

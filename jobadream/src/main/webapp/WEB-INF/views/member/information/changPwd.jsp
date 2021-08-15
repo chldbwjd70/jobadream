@@ -132,7 +132,7 @@
 								</a>
 							</div>
 							<div class="col-md-2">
-								<button type="submit" class="btn float-right btn-lg btn-color1" >수정</button>
+								<button type="submit" class="btn float-right btn-lg btn-color1" >변경</button>
 							</div>
 						</div>
 					</form>

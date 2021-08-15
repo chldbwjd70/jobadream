@@ -11,6 +11,7 @@ import edu.kh.job.member.model.vo.Member;
 import edu.kh.job.member.model.vo.Pagination;
 import edu.kh.job.member.model.vo.Pagination2;
 import edu.kh.job.member.model.vo.Pagination3;
+import edu.kh.job.member.model.vo.Progress;
 
 public interface MemberService {
 
@@ -87,7 +88,10 @@ public interface MemberService {
 	Member checkPoint(int memberNo);
 
 	// 평균 조회
-	Import memberScore(int memberNo);
+	Progress scoreMember(int memberNo);
+
+	// 인원 수 조회
+	Progress countMember(int memberNo);
 
 
 }

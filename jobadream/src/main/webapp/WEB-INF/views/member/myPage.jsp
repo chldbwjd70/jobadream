@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>job아드림 회원 가입</title>
+<title>마이페이지 </title>
 
 <jsp:include page="../common/header.jsp"/>
 <style>
@@ -95,7 +95,7 @@
                         <div class="col-md-6">
                             <a href="pointSell">
                                 <button type="button" class="btn btn-block btn-outline bc-color  btnhover" id="sell" >
-                                    <img src="${contextPath}/resources/images/main/mypage2.png">
+                                    <img src="${contextPath}/resources/images/main/mypage.png">
                                 </button>
                             </a>
                             <h3 class="text-center text1" ><br>

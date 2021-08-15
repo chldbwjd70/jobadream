@@ -152,9 +152,15 @@ public class MemberDAO {
 	}
 
 	// 평균
-	public Import memberScore(int memberNo) {
+	public Progress scoreMember(int memberNo) {
 		System.out.println("memberNod : " + memberNo);
-		return sqlSession.selectOne("memberMapper.memberScore", memberNo);
+		
+		return sqlSession.selectOne("memberMapper.scoreMember", memberNo);
+	}
+
+	// 인원수
+	public Progress countMember(int memberNo) {
+		return sqlSession.selectOne("memberMapper.countMember", memberNo);
 	}
 
 }

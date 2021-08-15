@@ -31,6 +31,7 @@ import edu.kh.job.member.model.vo.Member;
 import edu.kh.job.member.model.vo.Pagination;
 import edu.kh.job.member.model.vo.Pagination2;
 import edu.kh.job.member.model.vo.Pagination3;
+import edu.kh.job.member.model.vo.Progress;
 import edu.kh.job.qusetions.model.vo.Search;
 
 @Controller
@@ -235,12 +236,16 @@ public class MemberController {
 	@RequestMapping(value="myInformation", method=RequestMethod.GET)
 	public String myInformation( @ModelAttribute("loginMember") Member loginMember, Model model) {
 		
-		Import memberS = service.memberScore(loginMember.getMemberNo());
+		Progress scoreMember = service.scoreMember(loginMember.getMemberNo());
+		
+		Progress countMember = service.countMember(loginMember.getMemberNo());
 		
 		
-		System.out.println("memberSd :" + memberS);
-		model.addAttribute("memberS", memberS);
-		System.out.println("memberSs :" + memberS);
+		model.addAttribute("scoreMember", scoreMember);
+		model.addAttribute("countMember", countMember);
+		
+		System.out.println("scoreMember :" + scoreMember);
+		System.out.println("countMember : " + countMember);
 		
 		return "member/information/myInformation";
 	}
@@ -292,7 +297,7 @@ public class MemberController {
 		
 		if(result > 0) { // 비밀번호 변경 성공
 			swalSetMessage(ra, "success", "비밀번호 변경이 완료되었습니다.", null);
-			path += "myPage";
+			path += "/";
 			
 		}else { // 실패
 			swalSetMessage(ra, "error", "기존 비밀번호가 일치 하지 않습니다.", null);
@@ -420,7 +425,6 @@ public class MemberController {
 			return "redirect:list";
 		}
 	}
-	
 	
 	// SweetAlert를 이용한 메세지 전달용 메소드
 	public static void swalSetMessage(RedirectAttributes ra, String icon, String title, String text) {

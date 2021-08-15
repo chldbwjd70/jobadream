@@ -17,8 +17,6 @@
 		<result property="memberPoint" column="MEMBER_POINT" />
 		<result property="inputPoint" column="MEMBER_POINT" />
 		<result property="memberIntroduce" column="MEMBER_INTRODUCE" />
-		
-		<result property="memberscore" column="MEMBER_SCORE" />
 	</resultMap>
 
 	<!-- 채팅알람 -->
@@ -70,6 +68,9 @@
 		<result property="boardNo" column="BOARD_NO" />
 		<result property="progressStatus" column="PROGRESS_STATUS" />
 		<result property="memberScore" column="MEMBER_SCORE" />
+		<result property="pointAVG" column="AVGPOINT" />
+		
+		<result property="countMember" column="COUNT_MEMBER" />
 	</resultMap>
 
 	<!-- 결제 -->
@@ -147,8 +148,7 @@
 	</update>
 
 	<!-- 비밀번호 조회 -->
-	<select id="selectPassword" parameterType="_int"
-		resultType="string">
+	<select id="selectPassword" parameterType="_int" resultType="string">
 		SELECT MEMBER_PW FROM MEMBER
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
@@ -204,8 +204,7 @@
 	</select>
 
 	<!-- 아감 게시글 수 -->
-	<select id="getagamListCount" resultMap="mpg_rm2"
-		parameterType="Member">
+	<select id="getagamListCount" resultMap="mpg_rm2" parameterType="Member">
 		SELECT COUNT(*) CNT
 		FROM BOARD
 		JOIN MEMBER USING(MEMBER_NO)
@@ -215,8 +214,7 @@
 	</select>
 
 	<!-- 아감 게시글 목록 -->
-	<select id="selectagamList" parameterType="Member"
-		resultMap="board_rm">
+	<select id="selectagamList" parameterType="Member" resultMap="board_rm">
 		SELECT *
 		FROM BOARD
 		JOIN MEMBER USING(MEMBER_NO)
@@ -246,8 +244,7 @@
 	</update>
 
 	<!-- 조회 -->
-	<select id="changPoint" parameterType="Member"
-		resultMap="member_rm">
+	<select id="changPoint" parameterType="Member" resultMap="member_rm">
 		SELECT MEMBER_POINT FROM MEMBER
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
@@ -288,8 +285,16 @@
 	</update>
 	
 	<!-- 평균 -->
-	<select id="memberScore" parameterType="Import" resultMap="import_rm">
-		SELECT ROUND(AVG(MEMBER_SCORE),1)
+	<select id="scoreMember" parameterType="Progress" resultMap="progress_rm" >
+		SELECT ROUND(AVG(MEMBER_SCORE),1) AVGPOINT
+		FROM PROGRESS
+		WHERE MEMBER_NO = #{memberNo}
+		AND PROGRESS_STATUS = 'Y'
+	</select>
+	
+	<!-- 인원 수 -->
+	<select id="countMember" parameterType="Progress" resultMap="progress_rm" >
+	 	SELECT COUNT(*) COUNT_MEMBER
 		FROM PROGRESS
 		WHERE MEMBER_NO = #{memberNo}
 		AND PROGRESS_STATUS = 'Y'
