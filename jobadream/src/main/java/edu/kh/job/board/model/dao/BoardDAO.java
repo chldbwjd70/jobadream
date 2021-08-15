@@ -139,4 +139,14 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.boardUpdateStatus", boardNo);
 	}
 
+	/** 평점 조회
+	 * @param memberNo
+	 * @return memberScore
+	 */
+	public double selectMemberScore(int memberNo) {
+		return sqlSession.selectOne("boardMapper.selectMemberScore", memberNo);
+		
+		
+	}
+
 }

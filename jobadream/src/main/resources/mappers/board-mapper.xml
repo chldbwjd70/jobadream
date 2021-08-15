@@ -131,4 +131,12 @@
 		    ORDER BY BOARD_NO DESC)
 	    WHERE ROWNUM BETWEEN 1 AND 5
 	</select>
+	
+	<!-- 평점 조회 -->
+	<select id="selectMemberScore" parameterType="_int"  resultType="double">
+		SELECT COALESCE(ROUND(AVG(MEMBER_SCORE),1), 0) AS MEMBER_SCORE
+		FROM PROGRESS
+		WHERE MEMBER_NO = #{memberNo}
+		AND PROGRESS_STATUS = 'Y'
+	</select>
 </mapper>

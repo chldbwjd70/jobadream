@@ -20,7 +20,7 @@
             <div class="workForm-1">
                 <div id="title">${board.boardTitle}</div>
                 <div id="writer">작성자 : ${board.memberName}</div>
-                <div id="writergood">작성자 평점 : </div>
+                <div id="writergood">작성자 평점 : ${board.memberScore} </div>
             </div>
             <div class="workForm-2">
                 <div class="form-control" id="requestContent">${board.boardContent}</div>
