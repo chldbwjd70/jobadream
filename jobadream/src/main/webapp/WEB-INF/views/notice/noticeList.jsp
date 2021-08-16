@@ -9,11 +9,24 @@
 <title>Notice</title>
 <style>
 .list-title {
-	color: #3eafe6;
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
 	font-weight: bold;
 	margin-top: 10px;
 	margin-bottom: 40px;
 }
+
+.boardTitleA:link {
+  color : black;
+  text-decoration: none;
+}
+.boardTitleA:visited {
+  color :  #8c59b9;
+  text-decoration: none;
+}
+
 
 .table {
 	text-align: center;
@@ -21,12 +34,16 @@
 
 #request-table-btn {
 	border-radius: 4px;
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 
 .pagination {
 	justify-content: center;
+	
 }
+
+
 
 #searchForm {
 	position: relative;
@@ -34,6 +51,11 @@
 
 #searchForm>* {
 	top: 0;
+}
+
+#noticeSearch{
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 </style>
 </head>
@@ -78,7 +100,7 @@
 											<%-- 글 번호 --%>
 											<td>${notice.noticeNo }</td>
 											<%-- 글제목 --%>
-											<td class="boardTitle"><a
+											<td class="boardTitle"><a class="boardTitleA"
 												href="${notice.noticeNo}?cp=${pagination.currentPage}${searchStr}">
 													${notice.noticeTitle} </a></td>
 											<%-- 작성자 --%>
@@ -126,7 +148,7 @@
 
 
 			<div class="my-5">
-				<ul class="pagination">
+				<ul class="pagination pg">
 
 					<%-- 현재 페이지가 10페이지 초과인 경우 --%>
 					<c:if test="${pagination.currentPage > pagination.pageSize}">
@@ -139,7 +161,23 @@
 							href="${pageURL}?cp=${pagination.currentPage - 1}${searchStr}">&lt;</a></li>
 					</c:if>
 
+					<style>
+					.pg.pagination *{
+						border: 0px;
+						background-color: white;
+						font-weight: bold;
+						font-size: 20px;
+						color : black;
+					
+					}
 
+					.pg.pagination > .active  > *{
+						background-color: white;
+						color: #3eafe6;
+						font-size: 22px;
+					}
+					
+					</style>
 
 					<%-- 페이지 목록 --%>
 					<c:forEach var="p" begin="${pagination.startPage}"
@@ -184,7 +222,7 @@
 						<option value="writer">작성자</option>
 					</select> <input type="text" name="sv" class="form-control"
 						style="width: 25%; display: inline-block;">
-					<button class="form-control btn btn-primary"
+					<button class="form-control btn btn-primary" id="noticeSearch"
 						style="width: 100px; display: inline-block;">검색</button>
 				</form>
 			</div>

@@ -9,7 +9,10 @@
 <title>공지사항</title>
 <style>
 .notice-line-view {
-	color: #3eafe6;
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
 	font-weight: bold;
 	margin-top: 10px;
 	margin-bottom: 40px;
@@ -34,15 +37,18 @@
 }
 
 #notice-deleteBtn {
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 
 #notice-updateBtn {
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 
 #notice-listBtn {
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 </style>
 </head>

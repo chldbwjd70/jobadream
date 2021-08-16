@@ -40,6 +40,12 @@
     font-weight: 400;
     font-style: normal;
 }
+
+/* 검색창 */
+.gps-btn{
+	border:none;
+	background-color: transparent;
+}
 /* 로그인 모달  */
 .text1 {
 	font-weight: bold;
@@ -117,12 +123,14 @@ textarea {
 				</div>
 				<div class="col-sm-5 sc">
 					<div id="sc-2">
-						<input type="text" id="search" size="40"
+						<form class="input-group" id="input-search" action="${contextPath}/gps/searchView" method="POST">
+						<input type="text" id="search" size="40" name="searchGps"  placeholder="Ex)서울특별시 노원구 "
 							style="border: 0 solid black">
 						<div class="icon">
-							<a href="#"><img
-								src="${contextPath}/resources/images/main/sc.png"></a>
+							<button class="gps-btn" type="submit"><img
+								src="${contextPath}/resources/images/main/sc.png"></button>
 						</div>
+						</form>
 					</div>
 				</div>
 				<div class="col-sm-3 btn-box">
@@ -131,7 +139,7 @@ textarea {
 							<strong>1:1채팅</strong>
 						</button>
 					</c:if>
-					<button type="button" class="btn-location" onclick="location.href='${contextPath}/gps/search'" id="btd-2"><strong>내주변 job</strong></button>
+					<button type="button" class="btn-location" onclick="location.href='${contextPath}/gps/list'" id="btd-2"><strong>내주변 job</strong></button>
 				</div>	
 			</div>
 
