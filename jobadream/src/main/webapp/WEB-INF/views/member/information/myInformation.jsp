@@ -263,7 +263,7 @@ input, select {
 											<label class=" text1 text2"> 조회할 평점이 없습니다. </label>
 										</c:when>
 										<c:otherwise>
-											<label class=" text1 text2"> ${scoreMember.pointAVG} / (${countMember.countMember} 명 참여) </label>
+											<label class=" text1 text2"> ${scoreMember.pointAVG} / (${countMember.countMember}번 참여) </label>
 										</c:otherwise>
 									</c:choose>
 								
