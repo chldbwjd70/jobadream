@@ -41,6 +41,7 @@ public class GpsController {
 	@RequestMapping(value = "search", method = RequestMethod.POST)
 	@ResponseBody
 	public String selectSearchList(@RequestParam("searchGps") String searchGps, Model model) {
+		System.out.println(searchGps);
 		// '구'라는 단어가 어디에 있는지 확인
 		int end = searchGps.indexOf("구");
 		
@@ -49,18 +50,9 @@ public class GpsController {
 		
 		// 서울시 동대문구 -> 공백으로 구를 추출
 		String[] gList = subSearch.split(" ");
-
-		//int index = searchGps.indexOf(" ");
-		//System.out.println("index"+index);
-		//String searchGu = searchGps.substring(index+1);
-		//System.out.println("ad"+searchGu);
 		
-		 //int guIndex = ad.indexOf("구 "); System.out.println("guIndex"+ guIndex);
-		  //String gu = ad.substring(0,guIndex+1); System.out.println("gu"+gu);
-		 
-		
-		
-		String searchGu = gList[1];
+		//String searchGu = gList[1];
+		String searchGu = searchGps.split(" ")[1];
 		  
 		 System.out.println(searchGu);
 		  

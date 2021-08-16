@@ -80,11 +80,11 @@
 	color: #4161c8 !important;
 }
 
-.pg {
+#pg {
 	justify-content: center;
 }
 
-.pg.pagination *{
+#pg.pagination *{
 	border: 0px;
 	background-color: white;
 	font-weight: bold;
@@ -93,7 +93,7 @@
 
 }
 
-.pg.pagination > .active  > *{
+#pg.pagination > .active  > *{
 	background-color: white;
 	color: #3eafe6;
 	font-size: 22px;
@@ -185,7 +185,7 @@
 
 
 									<div class="my-5">
-										<ul class="pagination pg ">
+										<ul class="pagination" id="pg">
 
 											<%-- 현재 페이지가 10페이지 초과인 경우 --%>
 											<c:if test="${pagination3.currentPage > pagination3.pageSize}">
