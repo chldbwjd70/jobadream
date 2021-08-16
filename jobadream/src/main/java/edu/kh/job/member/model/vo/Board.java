@@ -20,6 +20,8 @@ public class Board {
 	private String memberName;
 	private String memberPoint;
 	
+	private Timestamp progressDt;
+	
 	
 	public Board() {}
 	
@@ -140,6 +142,12 @@ public class Board {
 		this.memberName = memberName;
 	}
 
+	public Timestamp getProgressDt() {
+		return progressDt;
+	}
+	public void setProgressDt(Timestamp progressDt) {
+		this.progressDt = progressDt;
+	}
 
 	@Override
 	public String toString() {
@@ -147,7 +155,8 @@ public class Board {
 				+ createDate + ", boardStatus=" + boardStatus + ", memberNo=" + memberNo + ", categoryCode="
 				+ categoryCode + ", boardTime=" + boardTime + ", boardPlace=" + boardPlace + ", boardPay=" + boardPay
 				+ ", boardContent=" + boardContent + ", progressStatus=" + progressStatus + ", memberName=" + memberName
-				+ ", memberPoint=" + memberPoint + "]";
+				+ ", memberPoint=" + memberPoint + ", progressDt=" + progressDt + "]";
 	}
 
+	
 }
