@@ -154,7 +154,10 @@
     		const addr = "${contextPath}/board/"+categoryCode+"/"+boardNo+ "?cpage=${pagination.currentPage}${searchStr}";
     		console.log(addr);
     		if( "${loginMember}" == ""){
-    			alert("로그인 해주세요");
+    			swal({
+					"icon" : "warning",
+					"title" : "로그인을 해주세요."
+				})
     			$("#title").attr("href", "${contextPath}/board/${board.categoryCode}/list?cpage=${pagination.currentPage}${searchStr}");
     		}else{
     			location.href = addr;

@@ -80,6 +80,10 @@ public class ChatServiceImpl implements ChatService {
 	public int insertMessage(ChatMessage cm) {
 		
 		cm.setMessage(BoardServiceImpl.replaceParameter(cm.getMessage()));
+		
+		cm.setMessage(cm.getMessage().replace("\\n","<br>"));
+		
+		System.out.println("서비스에서 개행문자 처리 메세지 :" + cm.getMessage());
 
 		return dao.insertMessage(cm);
 	}

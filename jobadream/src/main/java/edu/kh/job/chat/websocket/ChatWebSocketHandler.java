@@ -78,6 +78,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 		int result = service.insertMessage(cm);
 		
 		convertedObj.remove("chat");
+		System.out.println("cm.getMessage() : "+ cm.getMessage());
 		convertedObj.addProperty("chat", cm.getMessage());
 		
 		if(result > 0) {

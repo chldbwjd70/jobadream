@@ -89,8 +89,9 @@
 			const p = $("<p class='chat'>");
 			const span = $("<span class='chatDate'>");
 			span.html(obj.createDate);
-			
-			const chat = obj.chat.replace(/\n/g, "<br>");	
+			console.log(obj.chat);
+			const chat = obj.chat.replace(/\\n/g, "<br>");	
+			console.log(chat);
 			p.html(chat);
 			
 			
