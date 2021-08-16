@@ -10,7 +10,10 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 <style>
 .report-insert-line {
-	color: #3eafe6;
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
 	font-weight: bold;
 	margin-top: 10px;
 	margin-bottom: 40px;
@@ -62,7 +65,8 @@
 }
 
 #report_insertBtn {
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 
 .boardImg {

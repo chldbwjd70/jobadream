@@ -9,7 +9,10 @@
 <title>1:1 문의</title>
 <style>
 .request-line {
-	color: #3eafe6;
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
 	font-weight: bold;
 	margin-top: 10px;
 	margin-bottom: 40px;
@@ -19,13 +22,13 @@
 	background-color: #f7f5f8;
 	font-weight: bold;
 	text-align: left;
-	padding-top: 13px;
+	padding-top: 3px;
 	height: 60px;
 }
 
 #request-top-co {
 	text-align: left;
-	padding-top: 13px;
+	padding-top: 10px;
 	height: 60px;
 }
 
@@ -48,13 +51,16 @@
 }
 
 #updateBtn {
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
-#deletesBtn {
-	background-color: #4161c8;
+#deleteBtn{
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 #quViewReturn {
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 </style>
 </head>

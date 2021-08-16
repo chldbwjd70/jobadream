@@ -9,7 +9,10 @@
 <title>공지사항</title>
 <style>
 .notice-update-line {
-	color: #3eafe6;
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
 	font-weight: bold;
 	margin-top: 10px;
 	margin-bottom: 40px;
@@ -19,13 +22,13 @@
 	background-color: #f7f5f8;
 	font-weight: bold;
 	text-align: left;
-	padding-top: 13px;
+	padding-top: 6px;
 	height: 60px;
 }
 
 #notice-update-con {
 	text-align: left;
-	padding-top: 13px;
+	padding-top: 2px;
 	height: 60px;
 }
 
@@ -34,7 +37,8 @@
 }
 
 #noUpdateBtn {
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 </style>
 </head>
@@ -70,7 +74,6 @@
 					<textarea class="form-control" id="noticeContent" name="noticeContent" rows="15" style="resize: none;">${notice.noticeContent }</textarea>
 				</div>
 				</div>
-				<hr>
 				<br>
 				<div class="row">
 					<div class="col-md-12 mt-4 mb-4">

@@ -9,11 +9,24 @@
 <title>신고하기</title>
 <style>
 .report-list-title {
-	color: #3eafe6;
+	font-family: 'Pretendard-Regular';
+	background: linear-gradient(to right top, #4160c8c0, #3eaee6d0);
+	color: transparent;
+	-webkit-background-clip: text;
 	font-weight: bold;
 	margin-top: 10px;
 	margin-bottom: 40px;
 }
+
+.reportTitleA:link {
+  color : black;
+  text-decoration: none;
+}
+.reportTitleA:visited {
+  color :  #8c59b9;
+  text-decoration: none;
+}
+
 
 .table {
 	text-align: center;
@@ -21,7 +34,8 @@
 
 #report-table-btn {
 	border-radius: 4px;
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 
 .pagination {
@@ -34,6 +48,11 @@
 
 #searchForm>* {
 	top: 0;
+}
+
+#reportSearch{
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 </style>
 </head>
@@ -90,7 +109,7 @@
 											<%-- 카테고리 --%>
 											<td>${re.rcategory.reportCategoryTitle }</td>
 											<%-- 글제목 --%>
-											<td class="reportTitle"><a
+											<td class="reportTitle"><a class="reportTitleA"
 												href="${re.reportNo}?cp=${pagination.currentPage}${searchStr}">
 													${re.reportTitle} </a></td>
 											<%-- 작성자 --%>
@@ -127,6 +146,24 @@
 					href='insert'>글쓰기</a>
 			</c:if>
 			<br>
+			
+			<style>
+				.pg.pagination *{
+					border: 0px;
+					background-color: white;
+					font-weight: bold;
+					font-size: 20px;
+					color : black;
+					
+				}
+
+				.pg.pagination > .active  > *{
+					background-color: white;
+					color: #3eafe6;
+					font-size: 22px;
+				}
+					
+				</style>
 			<%---------------------- Pagination start----------------------%>
 			<%-- 페이징 처리 시 주소를 쉽게 작성할 수 있도록 필요한 변수를 미리 선언 --%>
 
@@ -140,7 +177,7 @@
 
 			<div class="my-5">
 				<c:if test="${!empty reportList && loginMember.memberNo == report.memberNo}">
-				<ul class="pagination">
+				<ul class="pagination pg">
 
 					<%-- 현재 페이지가 10페이지 초과인 경우 --%>
 					<c:if test="${pagination.currentPage > pagination.pageSize}">
@@ -205,7 +242,7 @@
 						<option value="titcont">제목+내용</option>
 					</select> <input type="text" name="sv" class="form-control"
 						style="width: 25%; display: inline-block;">
-					<button class="form-control btn btn-primary"
+					<button class="form-control btn btn-primary" id="reportSearch"
 						style="width: 100px; display: inline-block;">검색</button>
 				</form>
 			</div>
