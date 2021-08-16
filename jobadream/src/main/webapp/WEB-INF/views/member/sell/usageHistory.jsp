@@ -183,7 +183,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 																<tr class="tr">
 																	<c:choose>
 																		<c:when test="${empty board.memberName}">
-																			<td>미지원</td>
+																			<td>미 지원</td>
 																		</c:when>
 																		<c:otherwise>
 																			<td>${board.memberName}</td>
@@ -206,19 +206,25 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 																	</c:if>
 																	<td>${board.boardPay}</td>
 																	<td class="pointHover" onClick="titleClick(${board.categoryCode},${board.boardNo})">${board.boardTitle}</td>
-																	<td><fmt:formatDate var="createDate"
-																			value="${board.createDate}" pattern="yyyy-MM-dd" />
-																		<fmt:formatDate var="today"
-																			value="<%=new java.util.Date()%>"
-																			pattern="yyyy-MM-dd" /> <c:choose>
-																			<c:when test="${createDate != today}">
-																				${createDate}
-																			</c:when>
-																			<c:otherwise>
-																				<fmt:formatDate value="${board.createDate}"
-																					pattern="HH:mm" />
-																			</c:otherwise>
-																		</c:choose></td>
+																	
+																	<c:if test="${!empty board.progressDt}">
+																		<td><fmt:formatDate var="createDate"
+																				value="${board.progressDt}" pattern="yyyy-MM-dd" />
+																			<fmt:formatDate var="today"
+																				value="<%=new java.util.Date()%>"
+																				pattern="yyyy-MM-dd" /> <c:choose>
+																				<c:when test="${createDate != today}">
+																					${createDate}
+																				</c:when>
+																				<c:otherwise>
+																					<fmt:formatDate value="${board.progressDt}"
+																						pattern="HH:mm" />
+																				</c:otherwise>
+																			</c:choose></td>
+																	</c:if>
+																	<c:if test="${empty board.progressDt}">
+																	<td>미 지원</td>
+																	</c:if>
 																	<c:if test="${board.boardStatus eq 'Y' }">
 																		<td>대기</td>
 																	</c:if>
@@ -467,14 +473,14 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 																<td>${board.boardPay}</td>
 																<td class="pointHover" onClick="titleClick1(${board.categoryCode},${board.boardNo})">${board.boardTitle}</td>
 																<td><fmt:formatDate var="createDate"
-																		value="${board.createDate}" pattern="yyyy-MM-dd" /> <fmt:formatDate
+																		value="${board.progressDt}" pattern="yyyy-MM-dd" /> <fmt:formatDate
 																		var="today" value="<%=new java.util.Date()%>"
 																		pattern="yyyy-MM-dd" /> <c:choose>
 																		<c:when test="${createDate != today}">
 																			${createDate}
 																		</c:when>
 																		<c:otherwise>
-																			<fmt:formatDate value="${board.createDate}"
+																			<fmt:formatDate value="${board.progressDt}"
 																				pattern="HH:mm" />
 																		</c:otherwise>
 																	</c:choose></td>

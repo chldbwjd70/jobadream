@@ -1,11 +1,14 @@
 package edu.kh.job.member.model.vo;
 
+import java.sql.Timestamp;
+
 public class Progress {
 	
 	private int memberNo;
 	private int boardNo;
 	private String progressStatus;
 	private int memberScore;
+	private Timestamp progressDt;
 	
 	private double pointAVG;
 	
@@ -58,11 +61,18 @@ public class Progress {
 	public void setMemberScore(int memberScore) {
 		this.memberScore = memberScore;
 	}
+	
+	public Timestamp getProgressDt() {
+		return progressDt;
+	}
+	public void setProgressDt(Timestamp progressDt) {
+		this.progressDt = progressDt;
+	}
 
 	@Override
 	public String toString() {
 		return "Progress [memberNo=" + memberNo + ", boardNo=" + boardNo + ", progressStatus=" + progressStatus
-				+ ", memberScore=" + memberScore + ", pointAVG=" + pointAVG + ", countMember=" + countMember + "]";
+				+ ", memberScore=" + memberScore + ", progressDt=" + progressDt + ", pointAVG=" + pointAVG
+				+ ", countMember=" + countMember + "]";
 	}
-	
 }

@@ -59,6 +59,8 @@
 		<result property="memberName" column="MEMBER_NM" />
 		<result property="progressStatus" column="PROGRESS_STATUS" />
 		<result property="memberPoint" column="MEMBER_POINT" />
+		
+		<result property="progressDt" column="PROGRESS_DT" />
 	</resultMap>
 
 	<!-- 진행 테이블 -->
@@ -69,8 +71,10 @@
 		<result property="progressStatus" column="PROGRESS_STATUS" />
 		<result property="memberScore" column="MEMBER_SCORE" />
 		<result property="pointAVG" column="AVGPOINT" />
+		<result property="progressDt" column="PROGRESS_DT" />
 		
 		<result property="countMember" column="COUNT_MEMBER" />
+		
 	</resultMap>
 
 	<!-- 결제 -->
@@ -194,13 +198,13 @@
 	<!-- 아줌 게시글 목록 -->
 	<select id="selectajumList" parameterType="Member" resultMap="board_rm">
 		SELECT C.MEMBER_POINT, C.MEMBER_NM, CATEGORY_CD,BOARD_PAY, BOARD_TITLE,
-		CREATE_DT, BOARD_STATUS, PROGRESS_STATUS, C.MEMBER_NO, A.BOARD_NO
+		PROGRESS_DT, BOARD_STATUS, PROGRESS_STATUS, C.MEMBER_NO, A.BOARD_NO
 		FROM BOARD A
 		LEFT JOIN PROGRESS B ON(A.BOARD_NO = B.BOARD_NO)
 		LEFT JOIN MEMBER C ON(C.MEMBER_NO = B.MEMBER_NO)
 		WHERE A.MEMBER_NO = #{memberNo}
 		AND BOARD_STATUS IN('I', 'Y')
-		ORDER BY CREATE_DT DESC
+		ORDER BY PROGRESS_DT DESC
 	</select>
 
 	<!-- 아감 게시글 수 -->
@@ -221,7 +225,7 @@
 		JOIN PROGRESS A USING(BOARD_NO)
 		WHERE A.MEMBER_NO = #{memberNo}
 		AND BOARD_STATUS = 'I'
-		ORDER BY CREATE_DT DESC
+		ORDER BY PROGRESS_DT DESC
 	</select>
 
 	<!-- 상태변경 -->
@@ -274,7 +278,7 @@
 	
 	<!-- 포인트 추가 -1 -->
 	<insert id="pointUpdate" parameterType="Member">
-		INSERT INTO IMPORT VALUES (SEQ_IPN.NEXTVAL, #{importMoney}, #{memberNo}, DEFAULT)
+		INSERT INTO IMPORT VALUES (SEQ_IPN.NEXTVAL, #{importMoney}, #{memberNo}, DEFAULT,DEFAULT )
 	</insert>
 	
 	<!-- 포인트 추가 -2 -->

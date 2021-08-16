@@ -121,7 +121,7 @@
 		INSERT INTO PROGRESS VALUES(	
 			#{memberNo},
 			#{boardNo},
-			DEFAULT, DEFAULT
+			DEFAULT, DEFAULT, DEFAULT
 		)
 	</insert>
 	
