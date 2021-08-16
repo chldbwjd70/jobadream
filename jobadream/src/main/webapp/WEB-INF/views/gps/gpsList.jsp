@@ -235,18 +235,16 @@
 			for (var i = 0; i < sList.length; i++) {
 				//console.log(sList[i].categoryTitle);
 				//console.log(sList[i].boardPlace);
+			
 				var categoryTitle = sList[i].categoryTitle;
 				var boardPay = sList[i].boardPay;
 				var boardNo = sList[i].boardNo;
-				const categoryCode = sList[i].categoryCode;
-				if(categoryCode==1){
-					var board1 = sList[i].boardTitle;
-				}
-				if(categoryCode==2){
-					var board2 = sList[i].boardTitle;
-				}
+				var categoryCode = sList[i].categoryCode;
+			
 				
 				var boardTitle = sList[i].boardTitle;
+				console.log("dd"+categoryCode);
+				console.log("ddd"+boardNo);
 			
 				getLocation(
 						function(latlng, categoryTitle) {
@@ -287,7 +285,7 @@
 					            var text3 = document.createTextNode("지원하러가기")
 					            link.appendChild(text3);
 					            link.target="_blank";
-					            link.href = "${contextPath}/board/list";
+					            link.href = "${contextPath}/board/"+categoryCode+"/"+boardNo;
 							    
 							    var closeBtn = document.createElement('button');
 							    closeBtn.innerHTML = 'x';
