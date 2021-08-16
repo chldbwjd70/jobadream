@@ -24,6 +24,8 @@
 		<result property="memberName" column="MEMBER_NM"/>
 		<result property="memberScore" column="MEMBER_SCORE"/>
 		<result property="memberIntroduce" column="MEMBER_INTRODUCE"/>
+		
+		<result property="boardStatus" column="BOARD_STATUS" />
 	</resultMap>
 	
 	<!-- 카테고리 조회 result Map -->

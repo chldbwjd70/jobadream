@@ -21,6 +21,8 @@ public class Board {
 	private double memberScore;
 	private String memberIntroduce;
 	
+	private String boardStatus;
+	
 	
 	public Board() {
 		
@@ -122,8 +124,6 @@ public class Board {
 		this.categoryTitle = categoryTitle;
 	}
 	
-	
-
 	public String getMemberIntroduce() {
 		return memberIntroduce;
 	}
@@ -132,13 +132,19 @@ public class Board {
 		this.memberIntroduce = memberIntroduce;
 	}
 
-	
 	public double getMemberScore() {
 		return memberScore;
 	}
 
 	public void setMemberScore(double memberScore) {
 		this.memberScore = memberScore;
+	}
+	
+	public String getBoardStatus() {
+		return boardStatus;
+	}
+	public void setBoardStatus(String boardStatus) {
+		this.boardStatus = boardStatus;
 	}
 
 	@Override
@@ -147,10 +153,7 @@ public class Board {
 				+ createDate + ", boardTime=" + boardTime + ", boardPlace=" + boardPlace + ", boardPay=" + boardPay
 				+ ", boardContent=" + boardContent + ", memberNo=" + memberNo + ", memberName=" + memberName
 				+ ", categoryCode=" + categoryCode + ", categoryTitle=" + categoryTitle + ", memberScore=" + memberScore
-				+ ", memberIntroduce=" + memberIntroduce + "]";
+				+ ", memberIntroduce=" + memberIntroduce + ", boardStatus=" + boardStatus + "]";
 	}
 
-	
-
-	
 }

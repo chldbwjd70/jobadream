@@ -44,17 +44,31 @@
                 </div>
             </div>
             <c:if test="${loginMember.memberNo != board.memberNo}">
-            <div class="workForm-5">
-                <a class="btn" id="chat" data-toggle="modal" href="#openChatRoom">채팅하기</a>
-                <a class="btn" id="support" href="progress/${board.boardNo}">지원하기</a>
-            	<a href="list?cpage=${param.cpage}${searchStr}" class="btn" id="prv">이전으로</a>
-            </div>
+	            <div class="workForm-5">
+		            <c:if test="${board.boardStatus eq 'Y' }">
+		                <a class="btn" id="chat" data-toggle="modal" href="#openChatRoom">채팅하기</a>
+		                <a class="btn" id="support" href="progress/${board.boardNo}">지원하기</a>
+		            	<a href="list?cpage=${param.cpage}${searchStr}" class="btn" id="prv">이전으로</a>
+		            </c:if>
+		            <c:if test="${board.boardStatus eq 'I' }">
+		                <a class="btn  btn-outline-secondary supportBtn" >채팅하기</a>
+		                <a class="btn  btn-outline-secondary supportBtn" >지원하기</a>
+		            	<a href="javascript:history.back();" class="btn" id="prv">이전으로</a>
+		            </c:if>
+	            </div>
             </c:if>
             <c:if test="${loginMember.memberNo == board.memberNo}">
 	           <div class="workForm-5">
+	              <c:if test="${board.boardStatus eq 'Y' }">
 	                <a class="btn" id="update" href="updateForm/${board.boardNo}">수정하기</a>
 	                <a class="btn" id="delete" href="${contextPath}/board/${board.categoryCode}/deleteFaq/${board.boardNo}" >삭제하기</a>
 	             	<a href="javascript:history.back();" class="btn" id="prv">이전으로</a>
+	              </c:if>
+	              <c:if test="${board.boardStatus eq 'I' }">
+	                <a class="btn btn-outline-secondary supportBtn">수정하기</a>
+	               	<a class="btn" id="delete" href="${contextPath}/board/${board.categoryCode}/deleteFaq/${board.boardNo}" >삭제하기</a>
+	             	<a href="javascript:history.back();" class="btn" id="prv">이전으로</a>
+	              </c:if>
 	            </div>
             </c:if>
         </div>
@@ -99,9 +113,6 @@
 				success : function(chatRoomNo){
 					
 					if(chatRoomNo > 0){
-						
-						
-						
 						var obj = {"memberNo" : boardMemberNo };
 						
 						//console.log(JSON.stringify(obj));
@@ -112,19 +123,20 @@
 					}else{
 						console.log("chatRoomNo 조회 실패")
 					}
-					
-						
 				},
 				error : function(){
 					console.log("openChatRoom 메소드 실패");
 				}
 			});
-
-    		
-    		
     	});
     	
-    
+    	$(".supportBtn").on("click", function(){
+    		swal({
+    			  title: "이미 지원된 게시글 입니다.",
+    			  icon: "error",
+    			});
+    	
+    	});
     
     
     </script>
