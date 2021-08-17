@@ -34,36 +34,15 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <h4 class="text1">*약관</h4>
+                            <h4 class="text1">*개인정보 수집 및 이용 동의</h4>
                             <!-- <p style="border: 1px solid gray;"> -->
-                            <textarea class="form-control "  id="pss"  rows="10" cols="107" style="resize: none;">
-제1조
-이 약관은 샘플 약관입니다.
-
-① 팀장은 유정언니이다.
-
-② 수빈언니는 뾰족 수빈 언니
-
-③ 디자인 잘하는 가을 언니
-
-④ 두둥!
-
-
-제2조
-이 약관은 샘플 약관입니다.
-
-① 약관 내용 1
-
-② 약관 내용 2
-   
-③ 약관 내용 3
-
-④ 약관 내용 4
-</textarea>
+                            <textarea readonly class="form-control "  id="pss"  rows="10" cols="107" style="resize: none;">
+                            <jsp:include page="termsContent.jsp"/>
+                            </textarea>
                              <form role="form" action="terms" >
                            <%--  <form role="form" method="POST" action="${contextPath}/member/terms" onsubmit="return button1_click();"> --%>
                                 <label for="terms">
-                                    <input type="checkbox" id="terms" /> 약관에 동의합니다
+                                    <input type="checkbox" id="terms" /> 개인정보 수집 및 이용에 동의합니다
                                 </label>
                             </form>
                         </div>
