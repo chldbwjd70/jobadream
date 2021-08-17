@@ -53,6 +53,11 @@
 	border:#3eafe6;
 }
 
+ .insert-label {
+    display: inline-block;
+    width: 80px;
+    line-height: 40px
+  }
 
 .oneImage {
 	width: 300px;
@@ -94,7 +99,7 @@
 }
 
 .deleteImg:hover {
-	background-color: rgba(50, 50, 50, 0.3);
+	background-color: transparent;
 }
 </style>
 </head>
@@ -250,20 +255,18 @@
 		});
 		
 		
-		// 이미지 x 버튼을 눌렀을 때의 동작
-		// 1) x버튼이 눌러진 이미지 레벨을 저장할 배열 생성
 		let deleteImages = [];
 		
-		// 2) x버튼이 클릭 되었을 때 라는 이벤트
 		$(".deleteImg").on("click", function(event){
-
-			if(   $(this).prev().attr("src")  != undefined  ){ 
+			event.stopPropagation(); // 이벤트 버블링(이벤트가 연달아 시작되는 것) 삭제
+			
+			if(   $(this).prev().attr("src")  != undefined  ){ // 이미지가 있을 경우에만 x버튼 동작을 취하라
+			
 				const index = $(this).index(".deleteImg");
-
 				deleteImages.push(index);
 				   
-				$(this).prev().removeAttr("src"); 
-	
+				$(this).prev().removeAttr("src"); // 클릭한 x버튼의 이전 요소의 속성 중 src 제거
+				
 				$("input[name='images']").eq(index).val("");
 				
 			}

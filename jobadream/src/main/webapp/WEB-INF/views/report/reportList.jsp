@@ -165,7 +165,6 @@
 					
 				</style>
 			<%---------------------- Pagination start----------------------%>
-			<%-- 페이징 처리 시 주소를 쉽게 작성할 수 있도록 필요한 변수를 미리 선언 --%>
 
 			<c:set var="pageURL" value="list" />
 
@@ -254,38 +253,25 @@
 
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<script>
-			// 검색 내용이 있을 경우 검색창에 해당 내용을 작성해두는 기능
 			(function(){
 				var searchKey = "${param.sk}"; 
-				// 파라미터 중 sk가 있을 경우   ex)  "abc"
-				// 파라미터 중 sk가 없을 경우   ex)  ""
 				var searchValue = "${param.sv}";
 				
-				// 검색창 select의 option을 반복 접근
 				$("select[name=sk] > option").each(function(index, item){
-					// index : 현재 접근중인 요소의 인덱스
-					// item : 현재 접근중인 요소
 								// content            content
 					if( $(item).val() == searchKey  ){
 						$(item).prop("selected", true);
 					}
 				});		
 				
-				// 검색어 입력창에 searcValue 값 출력
 				$("input[name=sv]").val(searchValue);
 				
 				
-				// 쿼리스트링에 카테고리가 있을 경우 체크하기
-				
-				// ** <script> 태그 내부에 EL, JSTL 사용 가능
-				// 단, 이클립스가 인식을 못함
-				// JSP에서 언어 해석 순서 : 1. EL/JSTL ,  2. HTML,  3. JS
+		
 				<c:forEach  items="${paramValues.ct}"  var="code" >
 					
-					// name 속성값이 ct인 요소들을 반복 접근
 					$.each( $("[name='ct']") ,  function(){
 						
-						// this : 현재 반복 접근한 요소
 						if( $(this).val() == "${code}"    ){
 							
 							$(this).prop("checked", true);

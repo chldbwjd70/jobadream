@@ -106,20 +106,21 @@
 											<%-- 작성자 --%>
 											<td>${notice.mem.memberId}</td>
 											<%-- 작성일 --%>
-											<td><fmt:formatDate var="createDate"
-													value="${notice.createDt}" pattern="yyyy-MM-dd" /> <fmt:formatDate
-													var="today" value="<%=new java.util.Date()%>"
-													pattern="yyyy-MM-dd" /> <c:choose>
+											<td>
+											<fmt:formatDate var="createDt" value="${notice.createDt}" pattern="yyyy-MM-dd" /> 
+											<fmt:formatDate var="today" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" />
+												 <c:choose>
 													<%-- 글 작성일이 오늘이 아닐 경우 --%>
 													<c:when test="${createDt != today}">
-													${createDate}
+													${createDt}
 												</c:when>
 
 													<%-- 글 작성일이 오늘일 경우 --%>
 													<c:otherwise>
 														<fmt:formatDate value="${notice.createDt}" pattern="HH:mm" />
 													</c:otherwise>
-												</c:choose></td>
+												</c:choose>
+												</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>
