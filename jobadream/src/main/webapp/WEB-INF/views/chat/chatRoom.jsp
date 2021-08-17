@@ -51,6 +51,8 @@
 	<jsp:include page="../common/footer.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script>
+		$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);
+	
 		let chattingSock = new SockJS("<c:url value='/chat' />");
 		
 		const memberNo = "${loginMember.memberNo}"; // 회원 번호
