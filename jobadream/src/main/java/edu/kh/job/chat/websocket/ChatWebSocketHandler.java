@@ -84,7 +84,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 		if(result > 0) {
 			// 채팅이 이루어진 시간을 만들어서 convertedObj에 추가
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss");
-			convertedObj.addProperty("creatDate", sdf.format(new Date()));
+			convertedObj.addProperty("createDate", sdf.format(new Date()));
 			
 			// 필드에 있는 sessions에는 현재 채팅방에 들어온 모든 회원의 Session이 담겨있다.
 			// -> 여기서 채팅방 번호가 일치하는 회원한테만 메세지를 전달
