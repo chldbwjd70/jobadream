@@ -316,7 +316,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 																const rating = $("#rating").val().trim();
 																const boardNo = $("#b").val();
 																const memberNo2 = $("#cc").val();
-																const memberPoint = $("#pp").val();
+																const memberPoint2 = $("#pp").val();
 													
 																if (regExp.test(rating)) {
 																	console.log(rating);
@@ -336,7 +336,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 																			"rating" : rating,
 																			"boardNo" : boardNo,
 																			"memberNo2" : memberNo2,
-																			"memberPoint" : memberPoint
+																			"memberPoint2" : memberPoint2
 																		}
 																	})
 																	

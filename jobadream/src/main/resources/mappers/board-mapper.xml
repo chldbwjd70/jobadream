@@ -48,7 +48,7 @@
 		SELECT * FROM BOARD_LIST
 		WHERE BOARD_STATUS = 'Y'
 		AND CATEGORY_CD = #{categoryCode}
-		ORDER BY BOARD_NO DESC
+		ORDER BY CREATE_DT DESC
 	</select>
 	
 	<!-- 모든 게시판 글 수 -->
@@ -62,7 +62,7 @@
 	<select id="selectAllBoardList" parameterType="Pagination" resultMap="board_rm">
 		SELECT * FROM BOARD_LIST
 		WHERE BOARD_STATUS = 'Y'
-		ORDER BY BOARD_NO DESC
+		ORDER BY CREATE_DT DESC
 	</select>
 	
 	<!-- 게시판 조회 -->
@@ -130,7 +130,7 @@
 	    SELECT * FROM(
 		    SELECT * FROM BOARD
 		    WHERE BOARD_STATUS = 'Y'
-		    ORDER BY BOARD_NO DESC)
+		    ORDER BY CREATE_DT DESC)
 	    WHERE ROWNUM BETWEEN 1 AND 5
 	</select>
 	
