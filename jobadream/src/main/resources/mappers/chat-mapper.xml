@@ -43,6 +43,7 @@
 		                        FROM CHAT_ROOM_JOIN 
 		                        WHERE MEMBER_NO = #{memberNo})
         AND A.MEMBER_NO != #{memberNo}
+        ORDER BY CHAT_ROOM_NO DESC
 	</select>
 	
 	<!-- 채팅방 개설 -->

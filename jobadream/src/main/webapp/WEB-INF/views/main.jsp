@@ -151,8 +151,8 @@
 			         
 			         var div3 = $("<div>").addClass("item-text col-md-8");
 			         var path = "${contextPath}/board/"+item.categoryCode+"/" + item.boardNo + "?cpage=${pagination.currentPage}${searchStr}";
-			         var a = $("<a>").attr("href", path).text(item.boardTitle);
-			         
+			         var fn = "titleClick("+ item.categoryCode + "," + item.boardNo + ");";
+			         var a = $("<a>").attr("id", "realTitle").attr("onClick", fn).text(item.boardTitle);
 			         var txt = item.boardPlace.split(',');
 			         var txtArray = txt[1].split(' ');
 			         
@@ -170,6 +170,23 @@
 			}
 		});
    	</script>
+  	<script>
+    	function titleClick(categoryCode, boardNo){
+    		console.log(boardNo);
+    		const addr = "${contextPath}/board/"+categoryCode+"/"+boardNo+ "?cpage=${pagination.currentPage}${searchStr}";
+    		console.log(addr);
+    		if( "${loginMember}" == ""){
+    			swal({
+					"icon" : "warning",
+					"title" : "로그인을 해주세요."
+				})
+    			$("#title").attr("href", "${contextPath}/board/${board.categoryCode}/list?cpage=${pagination.currentPage}${searchStr}");
+    		}else{
+    			location.href = addr;
+    		} 
+    		
+    	}
+    </script>
 
 </body>
 </html>
