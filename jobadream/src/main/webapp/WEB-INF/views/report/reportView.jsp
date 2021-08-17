@@ -59,15 +59,18 @@
 /* 이미지 */
 /* 버튼 */
 #reportUpdate_deleteBtn {
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 
 #reportUpdate_updateBtn {
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 
 #returnlist {
-	background-color: #4161c8;
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 </style>
 </head>

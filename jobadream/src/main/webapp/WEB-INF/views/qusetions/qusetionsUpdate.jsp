@@ -50,8 +50,9 @@
 	list-style: none;
 }
 
-.btn {
-	background-color: #4161c8;
+#qu-updateFormBtn{
+	background-color: #3eafe6;
+	border:#3eafe6;
 }
 </style>
 </head>
@@ -91,8 +92,8 @@
 				<br> <br>
 				<div class="row">
 					<div class="col-md-12 mt-4 mb-4">
-						<button type="submit" class="btn btn-primary">수정</button>
-						<a class="btn btn-primary" href="qusetionsList?cp=${param.cp}">목록으로</a>
+						<button type="submit" class="btn btn-primary" id="qu-updateFormBtn">수정</button>
+						<a class="btn btn-primary" id="qu-updateFormBtn" href="qusetionsList?cp=${param.cp}">목록으로</a>
 					</div>
 					<input type="hidden" name="cp" value="${param.cp}">
 					<input type="hidden" name="qusetionsNo" value="${qusetions.qusetionsNo}">
