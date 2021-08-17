@@ -54,20 +54,15 @@
 }
 
 
-.reportImg {
-	cursor: pointer;
-	width: 300px;
-	height: 200px;
-	border: 1px solid #ced4da;
-	position: relative;
-}
-
 .oneImage {
 	width: 300px;
 	height: 300px;
+  	cursor : pointer;
+	border : 1px solid #ced4da;
+	position : relative;
 }
 
-.reportImg> #oneImage {
+.oneImage> #oneImage {
 	max-width: 100%;
 	max-height: 100%;
 	position: absolute;
@@ -82,7 +77,7 @@
 	display: none;
 }
 
-/* 이미지 삭제 버튼  */
+
 .deleteImg {
 	position: absolute;
 	top: 5px;
@@ -91,7 +86,7 @@
 	width: 20px;
 	height: 20px;
 	text-align: center;
-	background-color: rgba(50, 50, 50, 0.2);
+	background-color: transparent;
 	border-radius: 50%;
 	line-height: 15px;
 	font-weight: bold;

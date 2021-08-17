@@ -236,15 +236,15 @@
 				//console.log(sList[i].categoryTitle);
 				//console.log(sList[i].boardPlace);
 			
-				var categoryTitle = sList[i].categoryTitle;
-				var boardPay = sList[i].boardPay;
-				var boardNo = sList[i].boardNo;
-				var categoryCode = sList[i].categoryCode;
+				const categoryTitle = sList[i].categoryTitle;
+				const boardPay = sList[i].boardPay;
+				const boardNo = sList[i].boardNo;
+				const categoryCode = sList[i].categoryCode;
 			
 				
 				var boardTitle = sList[i].boardTitle;
-				console.log("dd"+categoryCode);
-				console.log("ddd"+boardNo);
+				//console.log("dd"+categoryCode);
+				//console.log("ddd"+boardNo);
 			
 				getLocation(
 						function(latlng, categoryTitle) {
@@ -278,7 +278,6 @@
 							  var content = document.createElement('div');
 							    content.innerHTML =  boardPay;
 							    content.style.cssText ='text-align: center;';
-							    
 							    
 							    var link = document.createElement('a');
 					            link.className ="link";
