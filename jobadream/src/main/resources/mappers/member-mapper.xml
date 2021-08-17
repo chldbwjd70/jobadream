@@ -233,17 +233,16 @@
 		UPDATE PROGRESS SET
 		PROGRESS_STATUS = 'Y',
 		MEMBER_SCORE = #{memberScore}
-		WHERE BOARD_NO=
-		#{boardNo}
+		WHERE BOARD_NO= #{boardNo}
 	</update>
 
 	<!-- 포인트 차감 -->
 	<update id="updatePoint" parameterType="Member">
 		UPDATE MEMBER SET
 		MEMBER_POINT = #{memberPoint} - (SELECT BOARD_PAY FROM
-		BOARD
-		WHERE MEMBER_NO = #{memberNo}
-		AND BOARD_NO = #{boardNo})
+										BOARD
+										WHERE MEMBER_NO = #{memberNo}
+										AND BOARD_NO = #{boardNo})
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 
@@ -278,7 +277,7 @@
 	
 	<!-- 포인트 추가 -1 -->
 	<insert id="pointUpdate" parameterType="Member">
-		INSERT INTO IMPORT VALUES (SEQ_IPN.NEXTVAL, #{importMoney}, #{memberNo}, DEFAULT,DEFAULT )
+		INSERT INTO IMPORT VALUES (SEQ_IPN.NEXTVAL, #{importMoney}, #{memberNo}, DEFAULT )
 	</insert>
 	
 	<!-- 포인트 추가 -2 -->

@@ -281,10 +281,14 @@
 							    
 							    var link = document.createElement('a');
 					            link.className ="link";
-					            var text3 = document.createTextNode("지원하러가기")
-					            link.appendChild(text3);
-					            link.target="_blank";
-					            link.href = "${contextPath}/board/"+categoryCode+"/"+boardNo;
+
+					            if('${loginMember}' != ""){
+						            var text3 = document.createTextNode("지원하러가기")
+						            link.appendChild(text3);
+						            link.target="_blank";
+						            link.href = "${contextPath}/board/"+categoryCode+"/"+boardNo;
+					            }
+					            
 							    
 							    var closeBtn = document.createElement('button');
 							    closeBtn.innerHTML = 'x';

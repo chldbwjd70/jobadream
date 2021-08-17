@@ -310,12 +310,14 @@ public class MemberServiceImpl implements MemberService{
 		progress.setMemberScore(rating);
 		progress.setBoardNo(boardNo);
 		
+		// 상대 점수 내기
 		int teste =  dao.avgPoint(progress);
 		
+		// 포인트 차감
 		return dao.updatePoint(countMember, teste);
 	}
 
-	// 포인트 감소
+	// 포인트 감소 조회
 	@Override
 	public Member changPoint(int memberNo) {
 		return dao.changPoint(memberNo);

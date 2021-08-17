@@ -82,16 +82,16 @@
 							</c:if>
 							<c:set var="searchStr" value="&sk=${param.sk}${searchValue}" />
 						</c:if>
-
 						<%-- 게시글 목록 --%>
 						<tbody>
 							<c:choose>
 								<%-- 조회된 게시글 목록이 없는 경우 --%>
-								<c:when test="${empty qusetionsList}">
+								<c:when test="${empty qusetionsList || loginMember.memberNo == qusetions.memberNo}">
 									<tr>
 										<td colspan="6">게시글이 존재하지 않습니다.</td>
 									</tr>
 								</c:when>
+								
 								<%-- 조회된 게시글 목록이 있을 경우 --%>
 								<c:otherwise>
 									<c:forEach items="${qusetionsList}" var="qu">
@@ -106,20 +106,10 @@
 											<%-- 작성자 --%>
 											<td>${qu.mem.memberId}</td>
 											<%-- 작성일 --%>
-											<td><fmt:formatDate var="qusetionsDt"
-													value="${qu.qusetionsDt}" pattern="yyyy-MM-dd" /> <fmt:formatDate
-													var="today" value="<%=new java.util.Date()%>"
-													pattern="yyyy-MM-dd" /> <c:choose>
-													<%-- 글 작성일이 오늘이 아닐 경우 --%>
-													<c:when test="${qusetionsDt != today}">
-													${qusetionsDt}
-												</c:when>
-
-													<%-- 글 작성일이 오늘일 경우 --%>
-													<c:otherwise>
-														<fmt:formatDate value="${qu.qusetionsDt}" pattern="HH:mm" />
-													</c:otherwise>
-												</c:choose></td>
+											<td>
+											<%-- <fmt:formatDate var="qusetionsDt" value="${qu.qusetionsDt}" pattern="yyyy-MM-dd" />  --%>
+											${qu.qusetionsDt}
+											</td>
 										</tr>
 										</c:if>
 									</c:forEach>

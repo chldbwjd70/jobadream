@@ -301,7 +301,7 @@ public class MemberController {
 			
 		}else { // 실패
 			swalSetMessage(ra, "error", "기존 비밀번호가 일치 하지 않습니다.", null);
-			path += "information/changPwd";
+			path += "changPwd";
 			
 		}
 		return path;
