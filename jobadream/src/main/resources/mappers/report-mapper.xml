@@ -105,9 +105,9 @@
 	</select>
 
 	<!-- 전체게시글 목록조회 -->
-	<select id="selectReportList" parameterType="ReportPagination" resultMap="re_rm">
+	<select id="selectReportList" parameterType="_int" resultMap="re_rm">
 		SELECT REPORT_NO, REPORT_TITLE, REPORT_CONTENT, REPORT_DT,
-		REPORT_STATUS,MEMBER_NO,
+		REPORT_STATUS,MEMBER_NO,REPORT_REPLY_STATUS,
 		MEMBER_ID,REPORT_CATEGORY_CD,REPORT_CATEGORY_TITLE
 		FROM REPORT
 		JOIN MEMBER USING(MEMBER_NO)
@@ -121,7 +121,7 @@
 	<select id="selectSearchList" parameterType="ReportSearch"
 		resultMap="re_rm">
 		SELECT REPORT_NO, REPORT_TITLE, REPORT_CONTENT, REPORT_DT,
-		REPORT_STATUS,MEMBER_NO,
+		REPORT_STATUS,MEMBER_NO,REPORT_REPLY_STATUS
 		MEMBER_ID,REPORT_CATEGORY_CD,REPORT_CATEGORY_TITLE
 		FROM REPORT
 		JOIN MEMBER USING(MEMBER_NO)
