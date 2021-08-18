@@ -115,8 +115,7 @@
 			</div>
 			<ul class="nav nav-tabs">
 				<li class="nav-item col-md-4"><a
-					class="nav-link  text-center text1 text2" href="pointSell">포인트
-						결제</a></li>
+					class="nav-link  text-center text1 text2" href="pointSell">포인트 충전</a></li>
 				<li class="nav-item col-md-4"><a
 					class="nav-link text-center text1 text2" href="usageHistory">이용
 						내역</a></li>

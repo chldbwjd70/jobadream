@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>포인트 결제</title>
+<title>포인트 충전</title>
 <jsp:include page="../../common/header.jsp" />
 <!-- import -->
 <script type="text/javascript"
@@ -96,14 +96,13 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 			<div class="row">
 				<div class="col-md-12">
 					<br>
-					<h1 class="text1" id="title1">포인트 결제</h1>
+					<h1 class="text1" id="title1">포인트 충전</h1>
 					<br>
 				</div>
 			</div>
 			<ul class="nav nav-tabs">
 				<li class="nav-item col-md-4"><a
-					class="nav-link active text-center text1 text2" href="pointSell">포인트
-						결제</a></li>
+					class="nav-link active text-center text1 text2" href="pointSell">포인트 충전</a></li>
 				<li class="nav-item col-md-4"><a
 					class="nav-link text-center text1 text2" href="usageHistory">이용
 						내역</a></li>
@@ -123,7 +122,10 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 									aria-hidden="true">
 									<h5>x</h5>
 								</button>
-								<strong class="text2 textcolor">충전 포인트는 1000원부터 가능합니다.</strong>
+								<strong class="text2 textcolor">
+									충전 포인트는 1000원부터 가능합니다. <br>
+									충전한 포인트는 환불이 불가합니다.
+								</strong>
 							</div>
 							<br>
 							<br>
