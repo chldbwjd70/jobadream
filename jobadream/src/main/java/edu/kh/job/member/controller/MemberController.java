@@ -330,7 +330,7 @@ public class MemberController {
 			status.setComplete(); 
 			
 		}else {
-			path += "information/secession"; 
+			path += "secession"; 
 			swalSetMessage(ra, "error", "회원 탈퇴 실패", "비밀번호가 일치하지 않습니다.");
 		}
 		return path;
