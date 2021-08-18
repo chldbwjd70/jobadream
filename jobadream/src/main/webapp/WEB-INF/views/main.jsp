@@ -156,10 +156,12 @@
 			         var txt = item.boardPlace.split(',');
 			         var txtArray = txt[1].split(' ');
 			         
-			         var ptxt = txt[1] + " | 포인트 : " + item.boardPay + " | 시간 : " + item.boardTime;
+			         var ptxt1 = txt[1] ;
+			         var ptxt2 = "포인트 : " + item.boardPay + " | 시간 : " + item.boardTime
 			         
-			         var p = $("<p>").addClass("item-info").text(ptxt);
-			         div3.append(a).append(p);
+			         var p1 = $("<p>").addClass("item-info").text(ptxt1);
+			         var p2 = $("<p>").addClass("item-info").text(ptxt2);
+			         div3.append(a).append(p1).append(p2);
 			         
 			         div1.append(div2).append(div3);
 			         $(".real-list").append(div1);
