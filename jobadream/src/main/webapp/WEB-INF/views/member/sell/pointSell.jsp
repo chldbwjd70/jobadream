@@ -198,9 +198,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 						<br>
 						<div class="row">
 							<div class="col-md-10">
-								<a href="myPage">
+								<a href="myInformation">
 									<button type="button" class="btn float-left btn-lg btn-color2">
-										<label class="text3"> < 목록으로</label>
+										<label class="text3"> < 내 정보</label>
 									</button>
 								</a>
 							</div>

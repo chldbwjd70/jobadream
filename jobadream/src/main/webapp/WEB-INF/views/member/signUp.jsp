@@ -182,7 +182,7 @@
                             <div class="col-md-4">
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" id="inputCertifiedNumber" name="inputCertifiedNumber" autocomplete="off" placeholder="인증번호" required>
+                                <input type="number" class="form-control" id="inputCertifiedNumber" name="inputCertifiedNumber" autocomplete="off" placeholder="인증번호" required>
                             </div>
                             <div class="col-md-3">
                             <button type="button" id="checkBtn" name="checkBtn" class="btn btn-color2" >인증</button>

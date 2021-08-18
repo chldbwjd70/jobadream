@@ -205,7 +205,7 @@ input, select {
 							<div class="row  form-row">
 								<div class="col-md-4"></div>
 								<div class="col-md-4">
-									<input type="text" class="form-control"
+									<input type="number" class="form-control"
 										id="inputCertifiedNumber" name="inputCertifiedNumber"
 										autocomplete="off" placeholder="인증번호">
 								</div>
@@ -275,9 +275,9 @@ input, select {
 						<br>
 						<div class="row">
 							<div class="col-md-10">
-								<a href="myPage">
+								<a href="pointSell">
 									<button type="button" class="btn float-left btn-lg btn-color2">
-										<label class="text3">< 목록으로</label>
+										<label class="text3">< 결제</label>
 									</button>
 								</a>
 							</div>
