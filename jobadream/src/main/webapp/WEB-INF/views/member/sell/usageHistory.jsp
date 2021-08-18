@@ -132,8 +132,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 			</div>
 			<ul class="nav nav-tabs">
 				<li class="nav-item col-md-4"><a
-					class="nav-link text-center text1 text2" href="pointSell">포인트
-						결제</a></li>
+					class="nav-link text-center text1 text2" href="pointSell">포인트 충전</a></li>
 				<li class="nav-item col-md-4"><a
 					class="nav-link active text-center text1 text2" href="usageHistory">이용 내역</a></li>
 				<li class="nav-item col-md-4"><a
@@ -266,7 +265,10 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 																		</div>
 																		<br>
 																		<h5 class="text1 text-center">상대의 점수는?</h5>
-																		<h6 class=" text-center">0부터 9사이의 한자리 정수만 입력해주세요.</h6>
+																		<h6 class=" text-center">
+																			0부터 9사이의 한자리 정수만 입력해주세요. <br>
+																			평점 등록시 포인트가 차감됩니다.
+																		</h6>
 																		<form id="ration_form" >
 																			<div class="modal-body">
 																				<div class="row">
