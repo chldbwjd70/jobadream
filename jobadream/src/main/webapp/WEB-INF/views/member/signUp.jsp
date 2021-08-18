@@ -84,13 +84,15 @@
                                 <label class=" text1" for="pwd1"> 비밀번호 </label>
                             </div>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" id="pwd1" name="memberPw" maxlength="20" placeholder="비밀번호를 입력하세요" required>
+                                <input type="password" class="form-control" id="pwd1" name="memberPw" maxlength="20" 
+                                onkeypress="javascript:capsLock10(event);" placeholder="비밀번호를 입력하세요" required>
                             </div>
                             <div class="col-md-2">
                             </div>
     
                             <div class="col-md-7 offset-md-4">
-                                <span id="checkPwd1">&nbsp;</span>
+                                <span id="checkPwd1">&nbsp;</span> <br>
+                                <span id="caspsLockSignUp1">&nbsp;</span>
                             </div>
                         </div>
                         <div class="row">
@@ -100,15 +102,17 @@
                                 <label class=" text1"> 비밀번호 확인 </label>
                             </div>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" id="pwd2" maxlength="20" placeholder="비밀번호 확인" required>
+                                <input type="password" class="form-control" id="pwd2" maxlength="20"
+                                onkeypress="javascript:capsLock11(event);" placeholder="비밀번호 확인" required>
+                                
                             </div>
                             <div class="col-md-2">
                             </div>
                             <div class="col-md-7 offset-md-4">
-                                <span id="checkPwd2">&nbsp;</span>
+                                <span id="checkPwd2">&nbsp;</span> <br>
+                                <span id="caspsLockSignUp2">&nbsp;</span>
                             </div>
                         </div>
-                        <br>
                         
                         <!-- 이름 -->
                         <div class="row">
@@ -290,6 +294,38 @@ $("#sendPhoneNumber").click(function() {
     	})
     });
     </script>
+     <script>
+        function capsLock10(e){
+          var keyCode = 0;
+          var shiftKey=false;
+          
+          keyCode=e.keyCode;
+          shiftKey=e.shiftKey;
+          
+          if (((keyCode >= 65 && keyCode <= 90)&& !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey))
+          {
+        	$("#caspsLockSignUp1").text("CapsLock이 켜져있습니다.").css("color", "red");
+          }else{
+        	 $("#caspsLockSignUp1").html("&nbsp;"); 
+          }
+        }
+        </script>
+     <script>
+        function capsLock11(e){
+          var keyCode = 0;
+          var shiftKey=false;
+          
+          keyCode=e.keyCode;
+          shiftKey=e.shiftKey;
+          
+          if (((keyCode >= 65 && keyCode <= 90)&& !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey))
+          {
+        	$("#caspsLockSignUp2").text("CapsLock이 켜져있습니다.").css("color", "red");
+          }else{
+        	 $("#caspsLockSignUp2").html("&nbsp;"); 
+          }
+        }
+        </script>
 <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

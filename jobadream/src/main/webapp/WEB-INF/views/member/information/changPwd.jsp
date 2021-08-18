@@ -79,14 +79,15 @@
 							<br>
 							<br>
 							<br>
-							<br>
 							<div class="row">
 								<div class="col-md-2"></div>
 								<div class="col-md-2">
 									<label class=" text1 text2"> 기존 비밀번호 </label>
 								</div>
 								<div class="col-md-6">
-									<input type="password" class="form-control" id="currentPwd" name="currentPwd" placeholder="기존 비밀번호를 입력해주세요.">
+									<input type="password" class="form-control" id="currentPwd" name="currentPwd"
+									onkeypress="javascript:capsLock1(event);"  placeholder="기존 비밀번호를 입력해주세요.">
+									<span id="caspsLockPass1">&nbsp;</span>
 								</div>
 								<div class="col-md-2"></div>
 							</div>
@@ -100,7 +101,9 @@
 									<label class=" text1 text2"> 새 비밀번호 </label>
 								</div>
 								<div class="col-md-6">
-									<input type="password" class="form-control" id="newPwd1" name="newPwd1" placeholder="새 비밀번호를 입력해주세요.">
+									<input type="password" class="form-control" id="newPwd1" name="newPwd1" 
+									onkeypress="javascript:capsLock2(event);" placeholder="새 비밀번호를 입력해주세요.">
+									<span id="caspsLockPass2">&nbsp;</span>
 								</div>
 								<div class="col-md-2"></div>
 							</div>
@@ -112,11 +115,12 @@
 									<label class=" text1 text2">새 비밀번호 확인</label>
 								</div>
 								<div class="col-md-6">
-									<input type="password" class="form-control" id="newPwd2" name="newPwd2" placeholder="새 비밀번호를 입력해주세요.">
+									<input type="password" class="form-control" id="newPwd2" name="newPwd2"
+									onkeypress="javascript:capsLock3(event);" placeholder="새 비밀번호를 입력해주세요.">
+									<span id="caspsLockPass3">&nbsp;</span>
 								</div>
 								<div class="col-md-2"></div>
 							</div>
-							<br>
 							<br>
 							<br>
 							<br>
@@ -169,6 +173,54 @@
 		}
 	
 	</script>
+	 <script>
+        function capsLock1(e){
+          var keyCode = 0;
+          var shiftKey=false;
+          
+          keyCode=e.keyCode;
+          shiftKey=e.shiftKey;
+          
+          if (((keyCode >= 65 && keyCode <= 90)&& !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey))
+          {
+        	$("#caspsLockPass1").text("CapsLock이 켜져있습니다.").css("color", "red");
+          }else{
+        	 $("#caspsLockPass1").html("&nbsp;"); 
+          }
+        }
+        </script>
+	 <script>
+        function capsLock2(e){
+          var keyCode = 0;
+          var shiftKey=false;
+          
+          keyCode=e.keyCode;
+          shiftKey=e.shiftKey;
+          
+          if (((keyCode >= 65 && keyCode <= 90)&& !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey))
+          {
+        	$("#caspsLockPass2").text("CapsLock이 켜져있습니다.").css("color", "red");
+          }else{
+        	 $("#caspsLockPass2").html("&nbsp;"); 
+          }
+        }
+        </script>
+	 <script>
+        function capsLock3(e){
+          var keyCode = 0;
+          var shiftKey=false;
+          
+          keyCode=e.keyCode;
+          shiftKey=e.shiftKey;
+          
+          if (((keyCode >= 65 && keyCode <= 90)&& !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey))
+          {
+        	$("#caspsLockPass3").text("CapsLock이 켜져있습니다.").css("color", "red");
+          }else{
+        	 $("#caspsLockPass3").html("&nbsp;"); 
+          }
+        }
+        </script>
 	<jsp:include page="../../common/footer.jsp" />
 </body>
 </html>
