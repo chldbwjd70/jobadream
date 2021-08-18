@@ -86,7 +86,7 @@
 						<tbody>
 							<c:choose>
 								<%-- 조회된 게시글 목록이 없는 경우 --%>
-								<c:when test="${empty qusetionsList || loginMember.memberNo == qusetions.memberNo}">
+								<c:when test="${empty qusetionsList}">
 									<tr>
 										<td colspan="6">게시글이 존재하지 않습니다.</td>
 									</tr>
@@ -95,7 +95,7 @@
 								<%-- 조회된 게시글 목록이 있을 경우 --%>
 								<c:otherwise>
 									<c:forEach items="${qusetionsList}" var="qu">
-									<c:if test="${loginMember.memberNo == qu.memberNo }">
+									<%-- <c:if test="${loginMember.memberNo == qu.memberNo }"> --%>
 										<tr>
 											<%-- 글 번호 --%>
 											<td>${qu.qusetionsNo }</td>
@@ -111,7 +111,7 @@
 											${qu.qusetionsDt}
 											</td>
 										</tr>
-										</c:if>
+										<%-- </c:if> --%>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
@@ -147,15 +147,14 @@
 					</style>
 			<%---------------------- Pagination start----------------------%>
 			<%-- 페이징 처리 시 주소를 쉽게 작성할 수 있도록 필요한 변수를 미리 선언 --%>
-
 			<c:set var="pageURL" value="qusetionsList" />
-
+			
 			<c:set var="prev"
 				value="${pageURL}?cp=${pagination.prevPage}${searchStr}" />
 			<c:set var="next"
 				value="${pageURL}?cp=${pagination.nextPage}${searchStr}" />
 
-			<c:if test="${!empty qusetionsList && loginMember.memberNo == qusetions.memberNo}">
+			
 			<div class="my-5">
 				<ul class="pagination pg">
 
@@ -183,7 +182,7 @@
 
 							<c:otherwise>
 								<li><a class="page-link"
-									href="${pageURL}?cp=${p}${searchStr}">${p}</a></li>
+									href="${pageURL}?cp=${p}${searchStr}${mb }">${p}</a></li>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -202,7 +201,6 @@
 
 				</ul>
 			</div>
-			</c:if>
 			<%---------------------- Pagination end----------------------%>
 			<!-- 검색창 -->
 			<div class="my-5">

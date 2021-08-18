@@ -19,9 +19,9 @@ public class QusetionsServiceImpl implements QusetionsService {
 
 	// 게시글 수 조회
 	@Override
-	public Pagination getPagination(Pagination pg) {
+	public Pagination getPagination(Pagination pg, int memberNo) {
 
-		Pagination selectPg = dao.getListCount();
+		Pagination selectPg = dao.getListCount(memberNo);
 		return new Pagination(pg.getCurrentPage(), selectPg.getListCount());
 	}
 
@@ -35,8 +35,8 @@ public class QusetionsServiceImpl implements QusetionsService {
 
 	// 게시글 목록조회
 	@Override
-	public List<Qusetions> selectQusetionsList(Pagination pagination) {
-		return dao.selectQusetionList(pagination);
+	public List<Qusetions> selectQusetionsList(Pagination pagination, int memberNo) {
+		return dao.selectQusetionList(pagination,memberNo);
 	}
 
 	// 검색한 게시글 목록조회

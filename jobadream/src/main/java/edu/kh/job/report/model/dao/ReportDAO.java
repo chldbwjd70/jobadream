@@ -23,8 +23,8 @@ public class ReportDAO {
 	/** 게시글수조회
 	 * @return selectPg
 	 */
-	public Pagination getListCount() {
-		return sqlSession.selectOne("reportMapper.getListCount");
+	public Pagination getListCount(int memberNo) {
+		return sqlSession.selectOne("reportMapper.getListCount",memberNo);
 	}
 	
 	
@@ -40,11 +40,11 @@ public class ReportDAO {
 	 * @param pagination
 	 * @return
 	 */
-	public List<Report> selectReportList(Pagination pagination) {
+	public List<Report> selectReportList(Pagination pagination,int memberNo) {
 		
 		int offset = (pagination.getCurrentPage() - 1)*pagination.getLimit();
 		RowBounds rowBouns = new RowBounds(offset, pagination.getLimit());
-		return sqlSession.selectList("reportMapper.selectReportList", pagination, rowBouns);
+		return sqlSession.selectList("reportMapper.selectReportList",memberNo, rowBouns);
 	}
 	
 	/** 게시글목록조회

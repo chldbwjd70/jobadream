@@ -15,7 +15,7 @@ public interface ReportService {
 	 * @param pg
 	 * @return pagination
 	 */
-	Pagination getPagination(Pagination pg);
+	Pagination getPagination(Pagination pg, int memberNo);
 	
 	/** 게시글수조회(검색)
 	 * @param search
@@ -29,7 +29,7 @@ public interface ReportService {
 	 * @param pagination
 	 * @return pagination
 	 */
-	List<Report> getReportList(Pagination pagination);
+	List<Report> getReportList(Pagination pagination, int memberNo);
 	
 	
 	/** 목록조회 (검색)

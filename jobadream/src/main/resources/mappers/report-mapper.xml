@@ -65,6 +65,7 @@
 		FROM
 		REPORT_LIST
 		WHERE REPORT_STATUS = 'Y'
+		AND MEMBER_NO = #{memberNo}
 	</select>
 
 	<!-- 전체게시글수 조회(검색) -->
@@ -112,6 +113,7 @@
 		JOIN MEMBER USING(MEMBER_NO)
 		JOIN REPORT_CATEGORY USING(REPORT_CATEGORY_CD)
 		WHERE REPORT_STATUS = 'Y'
+		AND MEMBER_NO = #{memberNo}
 		ORDER BY REPORT_NO DESC
 	</select>
 

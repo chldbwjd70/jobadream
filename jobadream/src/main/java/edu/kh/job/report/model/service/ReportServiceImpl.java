@@ -33,9 +33,9 @@ public class ReportServiceImpl implements ReportService {
 
 	// 게시글수조회
 	@Override
-	public Pagination getPagination(Pagination pg) {
+	public Pagination getPagination(Pagination pg, int memberNo) {
 
-		Pagination selectPg = dao.getListCount();
+		Pagination selectPg = dao.getListCount(memberNo);
 		return new Pagination(pg.getCurrentPage(), selectPg.getListCount());
 	}
 
@@ -48,8 +48,8 @@ public class ReportServiceImpl implements ReportService {
 
 	// 목록조회
 	@Override
-	public List<Report> getReportList(Pagination pagination) {
-		return dao.selectReportList(pagination);
+	public List<Report> getReportList(Pagination pagination, int memberNo) {
+		return dao.selectReportList(pagination,memberNo);
 	}
 
 	// 목록조회(검색)
