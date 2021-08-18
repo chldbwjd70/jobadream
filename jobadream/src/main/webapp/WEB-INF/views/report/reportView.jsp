@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>신고하기</title>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
+/>
 <style>
 .reportUpdate-line {
 	font-family: 'Pretendard-Regular';
@@ -40,8 +45,8 @@
 
 .oneImage {
 	position: relative;
-	width: 300px;
-	height: 300px;
+	width: 600px;
+	height: 600px;
 }
 
 #oneUpImage {
@@ -109,14 +114,21 @@
 				</c:choose>
 			</c:forEach>
 
+		<div class='bigPictureWrapper'>
+			<div class='bigPicture'>
+			</div>
+		</div>
 		<div class="row">
 			<div class="form-inline mb-2">
 				<label class="input-group-addon mr-3 insert-label"></label>
 				<div class="reportUpdateImage oneImage" id="oneImageArea">
 					<!-- img0 변수가 만들어진 경우 -->
 					<c:if test="${!empty img0 }">
+					<a href="${img0}"  data-fancybox="gallery">
 						<img id="oneUpImage" src="${img0}">
+					</a>
 					</c:if>
+				
 				</div>
 			</div>
 		</div>
@@ -158,7 +170,7 @@
 		<input type="hidden" name="cp" value="${param.cp}">
 	</form>
 
-
+	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 	<script>
 		function fnRequest(addr){
 			
@@ -186,6 +198,14 @@
 				  }
 				});
 		}
+	
+		
+		lightbox.option({
+		    resizeDuration: 200,
+		    wrapAround: true,
+		    disableScrolling: false,
+		    fitImagesInViewport:false
+		})
 		
 	</script>
 </body>
