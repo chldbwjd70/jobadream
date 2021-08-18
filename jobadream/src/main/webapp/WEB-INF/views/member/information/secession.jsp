@@ -102,7 +102,9 @@
                                         <div class="col-md-3">
                                         </div>
                                         <div class="col-md-5">
-                                        <input type="password" class="form-control" id="currentPwd" name="currentPwd" placeholder="비밀번호를 입력해주세요.">
+                                        <input type="password" class="form-control" id="currentPwd" name="currentPwd" 
+                                        onkeypress="javascript:capsLock4(event);" placeholder="비밀번호를 입력해주세요.">
+                                        <span id="caspsLockSecession">&nbsp;</span>
                                         </div>
                                         <div class="col-md-4">
                                             <button class="btn btn-color2" onclick="button1_click();" >
@@ -156,6 +158,22 @@
 			}
 		}
 	</script>
+	 <script>
+        function capsLock4(e){
+          var keyCode = 0;
+          var shiftKey=false;
+          
+          keyCode=e.keyCode;
+          shiftKey=e.shiftKey;
+          
+          if (((keyCode >= 65 && keyCode <= 90)&& !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey))
+          {
+        	$("#caspsLockSecession").text("CapsLock이 켜져있습니다.").css("color", "red");
+          }else{
+        	 $("#caspsLockSecession").html("&nbsp;"); 
+          }
+        }
+        </script>
 	<jsp:include page="../../common/footer.jsp" />
 </body>
 </html>

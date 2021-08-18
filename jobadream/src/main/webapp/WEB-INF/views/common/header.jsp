@@ -182,13 +182,15 @@ textarea {
                                      </div>
                                      <div class="col-md-6 pdd">
                                          <input type="password" class="form-control " id="memberPw" name="memberPw"
-                                             maxlength="20" placeholder="비밀번호를 입력하세요" required>
+                                             maxlength="20" placeholder="비밀번호를 입력하세요"  onkeypress="javascript:capsLock(event);" required>
+                                          <span id="caspsLock">&nbsp;</span>
                                      </div>
                                      <div class="col-md-1 pdd">
                                          <button type="button" class="btn btn-outline-secondary btn-md " id="eye">show</button>
                                      </div>
                                      <div class="col-md-1">
                                      </div>
+                                    
                                  </div>
 								<br>
 								<div class="modal-footer">
@@ -351,12 +353,25 @@ textarea {
 						console.log("알림리스트 조회 실패");
 					}
 				});
-
-			
-	
 		}	
-    
     </script>
+    <script>
+        function capsLock(e){
+          var keyCode = 0;
+          var shiftKey=false;
+          
+          keyCode=e.keyCode;
+          shiftKey=e.shiftKey;
+          
+          if (((keyCode >= 65 && keyCode <= 90)&& !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey))
+          {
+        	$("#caspsLock").text("CapsLock이 켜져있습니다.").css("color", "red");
+        
+          }else{
+        	 $("#caspsLock").html("&nbsp;"); 
+          }
+        }
+        </script>
     
 </body>
 </html>
