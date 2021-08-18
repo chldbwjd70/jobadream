@@ -12,12 +12,12 @@ public interface QusetionsService {
 	 * @param pg
 	 * @return pagination
 	 */
-	Pagination getPagination(Pagination pg);
+	Pagination getPagination(Pagination pg, int memberNo);
 	
 	/** 전체게시글수(검색)
 	 * @param search
 	 * @param pg
-	 * @return pagination
+	 * @return pagination, int memberNo
 	 */
 	Pagination getPagination(Search search, Pagination pg);
 
@@ -25,7 +25,7 @@ public interface QusetionsService {
 	 * @param pagination
 	 * @return qusetionsList
 	 */
-	List<Qusetions> selectQusetionsList(Pagination pagination);
+	List<Qusetions> selectQusetionsList(Pagination pagination, int memberNo);
 	
 	/** 게시글 목록조회(검색)
 	 * @param search

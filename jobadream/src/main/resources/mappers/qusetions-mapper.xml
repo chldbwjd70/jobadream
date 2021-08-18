@@ -35,10 +35,11 @@
 	</resultMap>
 
 	<!-- 전체게시글수 조회 -->
-	<select id="getListCount" resultMap="qpg_rm">
+	<select id="getListCount" resultMap="qpg_rm" parameterType="_int">
 		SELECT COUNT(*) CNT
 		FROM QUSETIONS_LIST
 		WHERE QUSETIONS_STATUS = 'Y'
+		AND MEMBER_NO = #{memberNo}
 	</select>
 	
 	<!-- 검색 게시글수조회  -->
@@ -74,12 +75,13 @@
 
 	<!-- 전체게시글 목록조회 -->
 	<select id="selectQusetionList"
-		parameterType="QusetionsPagination" resultMap="qus_rm">
+		parameterType="_int" resultMap="qus_rm">
 		SELECT QUSETIONS_NO, QUSETIONS_TITLE, QUSETIONS_CONTENT, QUSETIONS_DT,
 		QUSETIONS_STATUS,MEMBER_NO, MEMBER_ID
 		FROM QUSETIONS
 		JOIN MEMBER USING(MEMBER_NO)
 		WHERE QUSETIONS_STATUS = 'Y'
+		AND MEMBER_NO =#{memberNo}
 		ORDER BY QUSETIONS_NO DESC
 	</select>
 	

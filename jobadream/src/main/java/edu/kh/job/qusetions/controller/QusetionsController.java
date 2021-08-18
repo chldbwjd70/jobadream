@@ -17,10 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.job.member.model.vo.Member;
 import edu.kh.job.qusetions.model.service.QusetionsService;
-import edu.kh.job.qusetions.model.service.ReplyService;
 import edu.kh.job.qusetions.model.vo.Pagination;
 import edu.kh.job.qusetions.model.vo.Qusetions;
-import edu.kh.job.qusetions.model.vo.Reply;
 import edu.kh.job.qusetions.model.vo.Search;
 
 @Controller
@@ -33,11 +31,13 @@ public class QusetionsController {
 
 	// 게시글목록조회
 	@RequestMapping(value = "/qusetions/qusetionsList", method = RequestMethod.GET)
-	public String QusetionsList(Model model, Pagination pg, /* 페이징처리 */
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Search search) {
+	public String QusetionsList(Model model, Pagination pg, /* 페이징처리 */@ModelAttribute("loginMember") Member loginMember
+			,@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Search search) {
 
 		pg.setCurrentPage(cp);
 		// System.out.println(search);
+		
+		int memberNo = loginMember.getMemberNo();
 
 		List<Qusetions> qusetionsList = null;
 		Pagination pagination = null;
@@ -45,8 +45,8 @@ public class QusetionsController {
 		if (search.getSk() == null) { // 검색 x
 
 			// pagination을 이용하여 현재 목록페이지 조회
-			pagination = service.getPagination(pg);
-			qusetionsList = service.selectQusetionsList(pagination);
+			pagination = service.getPagination(pg,memberNo);
+			qusetionsList = service.selectQusetionsList(pagination, memberNo);
 		} else { // 검색 : 검색목록조회
 			pagination = service.getPagination(search, pg);
 			qusetionsList = service.selectQusetionsList(search, pagination);

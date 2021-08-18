@@ -36,16 +36,17 @@ public class ReportController {
 	@RequestMapping("list")
 	public String reportList(Model model, Pagination pg,
 							@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
-							Search search) {
+							@ModelAttribute("loginMember") Member loginMember,Search search) {
 
 		pg.setCurrentPage(cp);
+		int memberNo = loginMember.getMemberNo();
 		
 		Pagination pagination = null;
 		List<Report> reportList = null;
 		
 		if(search.getSk() == null) {
-			pagination = service.getPagination(pg);
-			reportList = service.getReportList(pagination);
+			pagination = service.getPagination(pg,memberNo);
+			reportList = service.getReportList(pagination,memberNo);
 		}else {
 			pagination = service.getPagination(search,pg);
 			reportList = service.getReportList(search,pagination);

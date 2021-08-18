@@ -18,10 +18,11 @@ public class QusetionsDAO {
 	private SqlSessionTemplate sqlSession;
 
 	/** 게시글수 조회
+	 * @param memberNo 
 	 * @return selectPg
 	 */
-	public Pagination getListCount() {
-		return sqlSession.selectOne("qusetionsMapper.getListCount");
+	public Pagination getListCount(int memberNo) {
+		return sqlSession.selectOne("qusetionsMapper.getListCount",memberNo);
 	}
 	
 	
@@ -38,12 +39,12 @@ public class QusetionsDAO {
 	 * @param pagination
 	 * @return qusetionsList
 	 */
-	public List<Qusetions> selectQusetionList(Pagination pagination) {
+	public List<Qusetions> selectQusetionList(Pagination pagination, int memberNo) {
 		
 		// RowBounds사용
 		int offset = (pagination.getCurrentPage() - 1)*pagination.getLimit();
 		RowBounds rowBouns = new RowBounds(offset, pagination.getLimit());
-		return sqlSession.selectList("qusetionsMapper.selectQusetionList", pagination, rowBouns);
+		return sqlSession.selectList("qusetionsMapper.selectQusetionList", memberNo, rowBouns);
 	}
 	
 	/** 검색한 게시글목록조회

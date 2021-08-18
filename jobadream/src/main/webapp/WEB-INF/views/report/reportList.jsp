@@ -94,7 +94,7 @@
 						<%-- 게시글 목록 --%>
 						<tbody>
 							<c:choose>
-								<c:when test="${empty reportList || loginMember.memberNo == report.memberNo}">
+								<c:when test="${empty reportList}">
 									<tr>
 										<td colspan="6">게시글이 존재하지 않습니다.</td>
 									</tr>
@@ -102,7 +102,6 @@
 								<%-- 조회된 게시글 목록이 있을 경우 --%>
 								<c:otherwise>
 									<c:forEach items="${reportList}" var="re">
-										<c:if test="${loginMember.memberNo == re.memberNo }">
 										<tr>
 											<%-- 글 번호 --%>
 											<td>${re.reportNo }</td>
@@ -130,7 +129,6 @@
 													</c:otherwise>
 												</c:choose></td>
 										</tr>
-										</c:if>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
@@ -175,7 +173,6 @@
 
 
 			<div class="my-5">
-				<c:if test="${!empty reportList && loginMember.memberNo == report.memberNo}">
 				<ul class="pagination pg">
 
 					<%-- 현재 페이지가 10페이지 초과인 경우 --%>
@@ -221,7 +218,6 @@
 					</c:if>
 
 				</ul>
-				</c:if>
 			</div>
 			<%---------------------- Pagination end----------------------%>
 			<!-- 검색창 -->
