@@ -28,9 +28,21 @@
 }
 
 
+
+.statusCom{
+	color:red;
+	font-weight: bolder;
+}
+
+.statusIng{
+	color:blue;
+	font-weight: bolder;
+}
+
 .table {
 	text-align: center;
 }
+
 
 #report-table-btn {
 	border-radius: 4px;
@@ -71,6 +83,7 @@
 								<th>카테고리</th>
 								<th>제목</th>
 								<th>작성자</th>
+								<th>처리상태</th>
 								<th>작성일</th>
 							</tr>
 						</thead>
@@ -100,7 +113,10 @@
 									</tr>
 								</c:when>
 								<%-- 조회된 게시글 목록이 있을 경우 --%>
+								
 								<c:otherwise>
+								
+								
 									<c:forEach items="${reportList}" var="re">
 										<tr>
 											<%-- 글 번호 --%>
@@ -108,11 +124,20 @@
 											<%-- 카테고리 --%>
 											<td>${re.rcategory.reportCategoryTitle }</td>
 											<%-- 글제목 --%>
-											<td class="reportTitle"><a class="reportTitleA"
-												href="${re.reportNo}?cp=${pagination.currentPage}${searchStr}">
-													${re.reportTitle} </a></td>
+												<td class="reportTitle"><a class="reportTitleA"
+													href="${re.reportNo}?cp=${pagination.currentPage}${searchStr}">
+														${re.reportTitle} </a></td>
 											<%-- 작성자 --%>
 											<td>${re.mem.memberId}</td>
+											<%-- 상태 --%>
+											<td>
+												<c:if test="${re.reportReplyStatus eq 'Y' }">
+													<div class="statusCom">완료</div>
+												</c:if>
+												<c:if test="${re.reportReplyStatus eq 'N' }">
+													<div class="statusIng">처리중</div>
+												</c:if>
+											</td>
 											<%-- 작성일 --%>
 											<td><fmt:formatDate var="reportDt"
 													value="${re.reportDt}" pattern="yyyy-MM-dd" /> <fmt:formatDate
@@ -130,6 +155,7 @@
 												</c:choose></td>
 										</tr>
 									</c:forEach>
+									
 								</c:otherwise>
 							</c:choose>
 						</tbody>
